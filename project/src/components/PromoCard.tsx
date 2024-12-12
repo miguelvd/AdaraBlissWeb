@@ -30,7 +30,7 @@ export const PromoCard: React.FC<PromoCardProps> = ({
   const daysLeft = Math.ceil((new Date(endDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
 
   return (
-    <div className="group relative bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+    <div className="group relative bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 h-[600px]">
       {/* Imagen de fondo con overlay */}
       <div className="absolute inset-0">
         <img 
@@ -42,13 +42,13 @@ export const PromoCard: React.FC<PromoCardProps> = ({
       </div>
 
       {/* Contenido */}
-      <div className="relative p-8 h-full flex flex-col justify-between">
+      <div className="relative p-8 h-full flex flex-col">
         {/* Etiqueta de descuento */}
         <div className="absolute top-4 right-4 bg-[#F25AA3] text-white px-4 py-2 rounded-full font-bold">
           -{discount}%
         </div>
 
-        <div>
+        <div className="flex-grow">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-3 bg-[#F25AA3] rounded-2xl">
               <Icon className="w-6 h-6 text-white" />
@@ -67,7 +67,7 @@ export const PromoCard: React.FC<PromoCardProps> = ({
           </div>
         </div>
 
-        <div>
+        <div className="mt-auto">
           <div className="flex items-center gap-4 mb-4">
             <span className="text-gray-400 line-through text-lg">
               {formatPrice(originalPrice)}
