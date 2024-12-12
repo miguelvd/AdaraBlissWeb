@@ -1,7 +1,7 @@
 import React from 'react';
 import { WaveDivider } from '../components/WaveDivider';
-import { ServiceGallery } from '../components/ServiceGallery';
-import { galleries } from '../data/galleries';
+import { ServiceCard } from '../components/ServiceCard';
+import { services } from '../data/services';
 
 export const Servicios = () => {
   return (
@@ -14,15 +14,17 @@ export const Servicios = () => {
           </h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Object.entries(galleries).map(([key, gallery], index) => (
+            {services.map((service, index) => (
               <div 
-                key={key} 
+                key={service.id} 
                 className="opacity-0 translate-y-8 animate-fade-in"
                 style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'forwards' }}
               >
-                <ServiceGallery
-                  title={gallery.title}
-                  images={gallery.images}
+                <ServiceCard
+                  title={service.title}
+                  description={service.description}
+                  image={service.image}
+                  path={service.path}
                 />
               </div>
             ))}

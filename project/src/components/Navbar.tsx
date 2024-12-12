@@ -32,8 +32,12 @@ export const Navbar = () => {
     } ${isMenuOpen ? 'bg-black/95' : ''} ${location.pathname !== '/' ? 'bg-white/90 backdrop-blur-md shadow-lg' : ''}`}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="text-2xl font-bold text-[#F25AA3]">
-            Beauty Hair
+          <Link to="/" className="text-2xl font-bold">
+            <img 
+              src="/images/logo/Logo Adara.svg" 
+              alt="Adara Logo" 
+              className="h-10 md:h-12"
+            />
           </Link>
           <div className="hidden md:flex space-x-8 animate-fade-in">
             {navItems.map((item, index) => (

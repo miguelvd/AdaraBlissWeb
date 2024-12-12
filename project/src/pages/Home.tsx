@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Sparkles, Scissors, Heart, Phone, Instagram, Facebook, MapPin } from 'lucide-react';
 import { treatments } from '../data/treatments';
-import { Link } from 'react-router-dom';
 import { testimonials } from '../data/testimonials';
+import { Link } from 'react-router-dom';
 import { ParallaxLayers } from '../components/ParallaxLayers';
 import { WaveDivider } from '../components/WaveDivider';
 import { SparkleGroup } from '../components/SparkleGroup';
@@ -28,8 +28,9 @@ export const Home = () => {
       {/* Hero Section */}
       <header className="parallax h-[100svh] md:h-screen flex items-center justify-center relative" 
               style={{
-                backgroundImage: 'url(https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&q=80&w=2000)',
-                backgroundPosition: 'center 50%'
+                backgroundImage: 'url(/images/header/main-header.jpg)',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover'
               }}>
         <ParallaxLayers />
         <SparkleGroup />
