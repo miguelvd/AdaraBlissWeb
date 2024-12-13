@@ -59,27 +59,27 @@ export const Navbar = () => {
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={`md:hidden p-2 rounded-lg transition-colors z-50 ${
-              isScrolled ? 'text-[#F25AA3]' : 'text-white'
-            } hover:bg-white/10`}
+              isScrolled || location.pathname !== '/' ? 'text-gray-800' : 'text-white'
+            } hover:bg-[#F25AA3]/10`}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
         {/* Mobile Menu */}
-        <div className={`md:hidden fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-black/95 transition-all duration-300 ${
-          isMenuOpen ? 'opacity-100 visible translate-x-0' : 'opacity-0 invisible -translate-x-full'
+        <div className={`md:hidden fixed right-0 top-16 h-[calc(100vh-4rem)] w-64 bg-black/95 transition-all duration-300 ${
+          isMenuOpen ? 'opacity-100 visible translate-x-0' : 'opacity-0 invisible translate-x-full'
         } z-40`}>
-          <div className="py-6 px-4 space-y-4 h-full">
+          <div className="py-6 px-4 space-y-4 h-full text-white">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block px-4 py-3 text-base font-medium border-l-4 ${
+                className={`block px-4 py-3 text-base font-medium border-r-4 ${
                   location.pathname === item.path
-                    ? 'text-[#F25AA3] bg-white/10 border-[#F25AA3]'
-                    : 'text-white hover:text-[#F25AA3] hover:bg-white/5 border-transparent transition-colors'
+                    ? 'bg-white/10 border-[#F25AA3]'
+                    : 'hover:bg-white/5 border-transparent transition-colors'
                 }`}
               >
                 {item.label}

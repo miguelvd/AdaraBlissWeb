@@ -25,7 +25,10 @@ export default function App() {
         <Route path="/servicios/alisado-laser" element={<AlisadoLaser />} />
         <Route path="/servicios/alisado-organico" element={<AlisadoOrganico />} />
       </Routes>
-      <WhatsAppButton phoneNumber="524492175606" />
+      <WhatsAppButton 
+        phoneNumber="524492175606" 
+        hideInServices={true}
+      />
     </Router>
   );
 }

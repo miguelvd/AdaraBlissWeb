@@ -5,10 +5,6 @@ export const ParallaxLayers = () => {
     <>
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/20 parallax-layer-1" />
       <div className="absolute inset-0 bg-[#F25AA3]/10 mix-blend-overlay parallax-layer-2" />
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-white/10 to-transparent parallax-layer-3" 
-             style={{ transform: 'translate(-20%, -20%)' }} />
-      </div>
       <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent parallax-layer-4" />
     </>
   );

@@ -1,44 +1,50 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
   message?: string;
+  hideInServices?: boolean;
 }
 
 export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ 
   phoneNumber,
-  message = "¡Hola! Me gustaría agendar una cita para un alisado."
+  message = "¡Hola! Me gustaría agendar una cita para un alisado.",
+  hideInServices = false,
 }) => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   const handleClick = () => {
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
   };
 
+  // No mostrar el botón si estamos en la página de servicios y hideInServices es true
+  if (hideInServices && (currentPath.includes('/servicios') || currentPath === '/servicios')) {
+    return null;
+  }
+
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20BD5C] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300 flex items-center gap-2 group"
+      className="fixed bottom-6 right-6 z-50 hover:scale-105 transition-all duration-300 animate-float"
       aria-label="Chatear por WhatsApp"
     >
-      <svg
-        className="w-6 h-6"
+      <svg 
+        className="w-16 h-16"
+        viewBox="0 0 512 512" 
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 175.216 175.552"
       >
-        <defs>
-          <linearGradient id="a" x1="85.915" x2="86.535" y1="32.567" y2="137.092" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#57d163"/>
-            <stop offset="1" stopColor="#23b33a"/>
-          </linearGradient>
-        </defs>
-        <path fill="#fff" d="M87.608 175.552c48.384 0 87.608-39.224 87.608-87.608C175.216 39.568 135.984.336 87.608.336 39.224.336 0 39.568 0 87.944c0 48.384 39.224 87.608 87.608 87.608"/>
-        <path fill="#fff" d="M87.608 175.552c48.384 0 87.608-39.224 87.608-87.608C175.216 39.568 135.984.336 87.608.336 39.224.336 0 39.568 0 87.944c0 48.384 39.224 87.608 87.608 87.608Z"/>
-        <path fill="url(#a)" d="M87.608 163.96c42 0 76.016-34.016 76.016-76.016S129.608 11.928 87.608 11.928 11.592 45.944 11.592 87.944s34.016 76.016 76.016 76.016"/>
-        <path fill="#fff" d="M87.608 39.568C61.48 39.568 40.12 60.928 40.12 87.056c0 9.024 2.576 17.384 6.832 24.552L40.12 138.24l27.72-6.832c7.168 4.256 15.528 6.832 24.552 6.832 26.128 0 47.488-21.36 47.488-47.488 0-26.128-21.36-47.488-47.488-47.488zm0 86.824c-8.168 0-15.752-2.4-22.168-6.656l-15.528 3.856 3.856-15.528c-4.256-6.416-6.656-14-6.656-22.168 0-21.784 17.808-39.592 39.592-39.592s39.592 17.808 39.592 39.592-17.808 39.592-39.592 39.592z"/>
+        <linearGradient id="shape_3_1_" gradientUnits="userSpaceOnUse" x1="255.998" x2="255.998" y1="503.141" y2="8.866">
+          <stop offset="0" stopColor="#20b038"/>
+          <stop offset="1" stopColor="#60d66a"/>
+        </linearGradient>
+        <g id="whatsapp">
+          <path fill="url(#shape_3_1_)" d="M408.028 253.821c0 85.027-69.368 153.941-154.912 153.941-27.165 0-52.713-6.969-74.912-19.211l-85.759 27.211 27.759-82.393c-13.355-23.295-21.001-50.324-21.001-79.548 0-85.027 69.368-153.941 154.912-153.941 85.545.001 154.913 68.914 154.913 153.941"/>
+          <path fill="#fff" d="M309.712 278.547c-3.679-1.859-21.725-10.711-25.099-11.937-3.373-1.227-5.832-1.843-8.289 1.843-2.459 3.686-9.522 11.937-11.677 14.403-2.154 2.443-4.306 2.76-7.985.9-3.679-1.859-15.53-5.729-29.577-18.266-10.931-9.756-18.311-21.801-20.465-25.487-2.154-3.686-.23-5.679 1.62-7.512 1.662-1.661 3.679-4.315 5.523-6.473 1.843-2.158 2.459-3.686 3.686-6.145 1.227-2.459.614-4.602-.307-6.461-.92-1.859-8.289-19.958-11.37-27.335-2.995-7.174-6.034-6.211-8.289-6.327-2.154-.115-4.613-.139-7.072-.139s-6.458.92-9.831 4.606c-3.373 3.686-12.895 12.583-12.895 30.682s13.202 35.599 15.046 38.058c1.843 2.459 25.986 39.669 62.944 55.625 8.79 3.792 15.657 6.062 21.01 7.754 8.831 2.805 16.871 2.411 23.219 1.46 7.085-1.058 21.725-8.885 24.791-17.48 3.066-8.595 3.066-15.969 2.154-17.511-.92-1.542-3.373-2.459-7.052-4.318z"/>
+        </g>
       </svg>
-      <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-in-out whitespace-nowrap">
-        Chatea con nosotros
-      </span>
     </button>
   );
 };
