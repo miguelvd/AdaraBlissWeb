@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +8,6 @@
   font-family: 'Glitten';
   src: url('https://fonts.cdnfonts.com/css/glitten') format('woff2');
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 /* Ocultar scrollbar para Chrome, Safari y Opera */
 .scrollbar-hide::-webkit-scrollbar {

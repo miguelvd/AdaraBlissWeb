@@ -1,125 +1,59 @@
-import React, { useEffect, useRef } from 'react';
-import { Crown, Star, Clock, Shield, Sparkles } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-const powerItems = [
+const features = [
   {
     title: "Transformación Total",
-    description: "El alisado no es solo un cambio estético, es una transformación que refleja tu fuerza y determinación.",
-    image: "/images/power/transformacion..png",
-    beforeImage: "/images/power/before.png",
-    afterImage: "/images/power/after.png",
-    icon: Crown,
-    color: "#FFB6C1"
-  },
-  {
-    title: "Confianza Radiante",
-    description: "Un cabello liso y bien cuidado es sinónimo de confianza y elegancia.",
-    image: "/images/power/confianza.png",
-    icon: Star,
-    color: "#FFC0CB"
-  },
-  {
-    title: "Resultados Duraderos",
-    description: "Nuestros tratamientos garantizan resultados que perduran en el tiempo.",
-    image: "/images/power/duracion.png",
-    icon: Clock,
-    color: "#FFE4E1"
+    description: "Experimenta una transformación completa con nuestro tratamiento de alisado permanente.",
+    image: "/images/features/transformation.png"
   },
   {
     title: "Cuidado Profesional",
-    description: "Tu cabello está en manos de expertos que cuidan cada detalle.",
-    image: "/images/power/cuidado.png",
-    icon: Shield,
-    color: "#FFF0F5"
+    description: "Utilizamos productos de la más alta calidad para proteger tu cabello durante el proceso.",
+    image: "/images/features/professional.png"
+  },
+  {
+    title: "Resultados Duraderos",
+    description: "Disfruta de un cabello perfectamente liso por meses con el mantenimiento adecuado.",
+    image: "/images/features/lasting.png"
   }
 ];
 
 export const PowerSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      const elements = currentRef.querySelectorAll('.fade-in');
-      elements.forEach((el) => observer.observe(el));
-    }
-
-    return () => {
-      if (currentRef) {
-        const elements = currentRef.querySelectorAll('.fade-in');
-        elements.forEach((el) => observer.unobserve(el));
-      }
-    };
-  }, []);
-
   return (
-    <section ref={sectionRef} className="py-20 px-4 bg-gradient-to-b from-white to-pink-50/30">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl text-center mb-16 text-[#F25AA3] font-glitten fade-in">
+    <section className="py-20 bg-gradient-to-b from-pink-50 to-white relative overflow-hidden">
+      {/* Elementos decorativos orgánicos */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-pink-100/30 rounded-full filter blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-100/30 rounded-full filter blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+      
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-[#F25AA3]">
           El Poder del Alisado
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {powerItems.map((item, index) => (
-            <div
-              key={item.title}
-              className="bg-white rounded-xl shadow-lg p-6 fade-in"
-              style={{
-                animationDelay: `${index * 150}ms`,
-              }}
+
+        <div className="space-y-24">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-16`}
             >
-              <div className="flex items-start space-x-4">
-                <div
-                  className="p-3 rounded-lg"
-                  style={{ backgroundColor: item.color }}
-                >
-                  <item.icon className="w-6 h-6 text-[#F25AA3]" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </div>
-              </div>
-              <div className="mt-4 rounded-lg overflow-hidden">
+              <div className="w-full md:w-1/2">
                 <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-48 object-cover transform transition-transform duration-500 hover:scale-105"
+                  src={feature.image}
+                  alt={feature.title}
+                  className="w-full h-auto rounded-lg shadow-xl"
+                  loading="lazy"
                 />
               </div>
-              {item.beforeImage && item.afterImage && (
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-500 mb-1">Antes</p>
-                    <img
-                      src={item.beforeImage}
-                      alt="Antes"
-                      className="rounded-lg w-full h-32 object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500 mb-1">Después</p>
-                    <img
-                      src={item.afterImage}
-                      alt="Después"
-                      className="rounded-lg w-full h-32 object-cover"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
+              <div className="w-full md:w-1/2 space-y-4">
+                <h3 className="text-3xl font-semibold text-gray-800">{feature.title}</h3>
+                <p className="text-lg text-gray-600">{feature.description}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

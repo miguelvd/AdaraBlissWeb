@@ -3,10 +3,10 @@ import { Sparkles, Scissors, Heart, Phone, Instagram, Facebook, MapPin } from 'l
 import { treatments } from '../data/treatments';
 import { testimonials } from '../data/testimonials';
 import { Link } from 'react-router-dom';
-import { ParallaxLayers } from '../components/ParallaxLayers';
 import { WaveDivider } from '../components/WaveDivider';
 import { SparkleGroup } from '../components/SparkleGroup';
-import { PowerSection } from '../components/PowerSection';
+import { ContactForm } from '../components/ContactForm';
+import ParallaxHeader from '../components/ParallaxHeader';
 
 export const Home = () => {
   useEffect(() => {
@@ -24,28 +24,8 @@ export const Home = () => {
   }, []);
 
   return (
-    <>
-      {/* Hero Section */}
-      <header className="parallax h-[100svh] md:h-screen flex items-center justify-center relative" 
-              style={{
-                backgroundImage: 'url(/images/header/main-header.jpg)',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover'
-              }}>
-        <ParallaxLayers />
-        <SparkleGroup />
-        <div className="relative text-center text-white px-4 py-8">
-          <h1 className="text-5xl md:text-7xl mb-4 md:mb-6 animate-fade-in">Transforma Tu Cabello</h1>
-          <p className="text-lg md:text-2xl mb-6 md:mb-8 animate-fade-in delay-200">Descubre el poder del alisado permanente</p>
-          <a href="#contact" className="bg-[#F25AA3] hover:bg-[#d14589] text-white px-8 py-3 rounded-full transition-all animate-fade-in delay-300 hover-scale">
-            Agenda tu Cita
-          </a>
-        </div>
-      </header>
-
-      {/* Power of Straightening Section */}
-      <PowerSection />
-
+    <div className="min-h-screen">
+      <ParallaxHeader />
       {/* Benefits Section */}
       <section className="py-20 px-4 bg-white section-container">
         <WaveDivider position="top" />
@@ -119,38 +99,48 @@ export const Home = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-gray-50 section-container">
-        <WaveDivider position="top" color="#f9fafb" />
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl text-center mb-16 text-[#F25AA3] fade-in">Contáctanos</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="fade-in">
-              <form className="space-y-4">
-                <input type="text" placeholder="Nombre" className="w-full p-3 rounded-lg border" />
-                <input type="email" placeholder="Email" className="w-full p-3 rounded-lg border" />
-                <input type="tel" placeholder="Teléfono" className="w-full p-3 rounded-lg border" />
-                <textarea placeholder="Mensaje" rows={4} className="w-full p-3 rounded-lg border"></textarea>
-                <button type="submit" className="w-full bg-[#F25AA3] hover:bg-[#d14589] text-white py-3 rounded-lg transition-colors">
-                  Enviar Mensaje
-                </button>
-              </form>
-            </div>
-            <div className="space-y-6 fade-in">
-              <div className="flex items-center">
-                <Phone className="w-6 h-6 text-[#F25AA3] mr-4" />
-                <p>+1 234 567 890</p>
+      <section id="contact" className="py-20 bg-white relative">
+        <WaveDivider position="top" />
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl text-center mb-12 text-[#F25AA3] font-glitten">
+              Contáctanos
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <Phone className="w-6 h-6 text-[#F25AA3]" />
+                  <a href="tel:+524492175606" className="text-gray-600 hover:text-[#F25AA3]">
+                    +52 449 217 5606
+                  </a>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <MapPin className="w-6 h-6 text-[#F25AA3]" />
+                  <span className="text-gray-600">
+                    Aguascalientes, Ags. México
+                  </span>
+                </div>
+                <div className="flex space-x-4">
+                  <a 
+                    href="https://www.facebook.com/adarablisssalon" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#F25AA3] hover:text-[#d14589] transition-colors"
+                  >
+                    <Facebook size={24} />
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/adarablisssalon/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#F25AA3] hover:text-[#d14589] transition-colors"
+                  >
+                    <Instagram size={24} />
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center">
-                <MapPin className="w-6 h-6 text-[#F25AA3] mr-4" />
-                <p>123 Calle Principal, Ciudad</p>
-              </div>
-              <div className="flex space-x-4">
-                <a href="#" className="text-[#F25AA3] hover:text-[#d14589]">
-                  <Instagram className="w-6 h-6" />
-                </a>
-                <a href="#" className="text-[#F25AA3] hover:text-[#d14589]">
-                  <Facebook className="w-6 h-6" />
-                </a>
+              <div>
+                <ContactForm />
               </div>
             </div>
           </div>
@@ -163,6 +153,6 @@ export const Home = () => {
           <p>&copy; 2024 Beauty Hair Salon. Todos los derechos reservados.</p>
         </div>
       </footer>
-    </>
+    </div>
   );
 };

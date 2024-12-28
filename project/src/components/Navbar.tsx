@@ -26,10 +26,12 @@ export const Navbar = () => {
     { path: '/promociones', label: 'Promociones' }
   ];
 
+  const isHome = location.pathname === '/';
+
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : `bg-black/${Math.floor(bgOpacity * 100)}`
-    } ${isMenuOpen ? 'bg-black/95' : ''} ${location.pathname !== '/' ? 'bg-white/90 backdrop-blur-md shadow-lg' : ''}`}>
+    } ${isMenuOpen ? 'bg-black/95' : ''} ${!isHome ? 'bg-white/90 backdrop-blur-md shadow-lg' : ''}`}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link to="/" className="text-2xl font-bold">
@@ -45,12 +47,14 @@ export const Navbar = () => {
                 key={item.path}
                 to={item.path}
                 className={`relative py-2 transition-colors duration-300 ${
-                  isScrolled || location.pathname !== '/' ? 'text-gray-800' : 'text-white'
-                } hover:text-[#F25AA3]`}
+                  isHome && !isScrolled ? 'text-white hover:text-pink-300' : 'text-gray-800 hover:text-[#F25AA3]'
+                }`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {item.label}
-                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#F25AA3] transform scale-x-0 transition-transform duration-300 ${
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 ${
+                  isHome && !isScrolled ? 'bg-pink-300' : 'bg-[#F25AA3]'
+                } transform scale-x-0 transition-transform duration-300 ${
                   location.pathname === item.path ? 'scale-x-100' : ''
                 }`} />
               </Link>
@@ -59,8 +63,8 @@ export const Navbar = () => {
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={`md:hidden p-2 rounded-lg transition-colors z-50 ${
-              isScrolled || location.pathname !== '/' ? 'text-gray-800' : 'text-white'
-            } hover:bg-[#F25AA3]/10`}
+              isHome && !isScrolled ? 'text-white hover:bg-white/20' : 'text-gray-800 hover:bg-[#F25AA3]/10'
+            }`}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

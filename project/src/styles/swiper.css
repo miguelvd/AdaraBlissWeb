@@ -1,0 +1,67 @@
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+  background: rgba(242, 90, 163, 0.3);
+  backdrop-filter: blur(8px);
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin: 0 2rem;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(242, 90, 163, 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(242, 90, 163, 0.4);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 1.5rem !important;
+  font-weight: bold;
+}
+
+/* Animación al aparecer */
+.swiper-button-next,
+.swiper-button-prev {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: buttonFadeIn 0.3s ease forwards;
+}
+
+@keyframes buttonFadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    margin: 0 1rem;
+  }
+
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 1rem !important;
+  }
+}
+
+/* Ocultar botones por defecto del Swiper */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+}
+
+/* Estilos para los botones personalizados */
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

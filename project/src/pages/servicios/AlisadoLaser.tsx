@@ -1,10 +1,12 @@
 import React from 'react';
 import { Star, Shield, Zap } from 'lucide-react';
 import { WaveDivider } from '../../components/WaveDivider';
+import ParallaxHeader from '../../components/ParallaxHeader';
 
 export const AlisadoLaser = () => {
   return (
     <div className="pt-16">
+      <ParallaxHeader />
       <section className="min-h-screen bg-gradient-to-b from-white to-pink-50">
         <WaveDivider position="top" />
         <div className="max-w-6xl mx-auto px-4 py-20">

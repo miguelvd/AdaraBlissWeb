@@ -10,6 +10,7 @@ import { Opiniones } from './pages/Opiniones';
 import { KeratinaPremium } from './pages/servicios/KeratinaPremium';
 import { AlisadoLaser } from './pages/servicios/AlisadoLaser';
 import { AlisadoOrganico } from './pages/servicios/AlisadoOrganico';
+import './styles/swiper.css';
 
 export default function App() {
   return (
