@@ -21,18 +21,51 @@ export const Home: React.FC = () => {
       {/* Header */}
       <ParallaxHeader />
 
-      {/* Testimonios */}
-      <Section className="bg-gradient-to-b from-neutral-900 to-neutral-950">
-        <TestimonialSection />
-      </Section>
-
-      {/* Servicios */}
+      {/* Tipos de Alaciado */}
       <Section className="bg-white pt-24 md:pt-16">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-glitten text-center mb-12 text-pink-500">
             Tipos de Alaciado
           </h2>
           <ServicesSection />
+        </div>
+      </Section>
+
+      {/* Testimonios */}
+      <Section className="bg-gradient-to-b from-neutral-900 to-neutral-950">
+        <TestimonialSection />
+      </Section>
+
+      {/* Nuestros Servicios */}
+      <Section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-glitten text-center mb-12 text-pink-500">
+            Nuestros Servicios
+          </h2>
+          <div className="flex justify-center">
+            <div className="bg-black/90 backdrop-blur-sm rounded-full p-6 flex gap-8 md:gap-12">
+              <div className="flex flex-col items-center gap-2">
+                <img src="/icons/alisado.png" alt="Alisado" className="w-8 h-8" />
+                <span className="text-white text-sm">Alisado</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <img src="/icons/botox.png" alt="Botox" className="w-8 h-8" />
+                <span className="text-white text-sm">Botox</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <img src="/icons/corte.png" alt="Corte" className="w-8 h-8" />
+                <span className="text-white text-sm">Corte</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <img src="/icons/maquillaje.png" alt="Maquillaje" className="w-8 h-8" />
+                <span className="text-white text-sm">Maquillaje</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <img src="/icons/cejas.png" alt="Cejas" className="w-8 h-8" />
+                <span className="text-white text-sm">Cejas</span>
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 
