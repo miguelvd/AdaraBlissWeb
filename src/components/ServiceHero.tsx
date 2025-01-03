@@ -82,22 +82,22 @@ export const ServiceHero = () => {
       {/* Círculo rosa de fondo */}
       <motion.div
         className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-[#F25AA3]/40"
-        initial={{ width: '40vh', height: '40vh', opacity: 0.4 }}
+        initial={{ width: '60vw', height: '60vw', opacity: 0.4 }}
         animate={{
           width: selectedService ? (
-            selectedService === 'alisado' ? '130vh' :
-            selectedService === 'botox' ? '100vh' :
-            selectedService === 'corte' ? '120vh' :
-            selectedService === 'maquillaje' ? '110vh' :
-            selectedService === 'cejas' ? '50vh' : '50vh'
-          ) : '40vh',
+            selectedService === 'alisado' ? '150vw' :
+            selectedService === 'botox' ? '130vw' :
+            selectedService === 'corte' ? '140vw' :
+            selectedService === 'maquillaje' ? '130vw' :
+            selectedService === 'cejas' ? '70vw' : '60vw'
+          ) : '60vw',
           height: selectedService ? (
-            selectedService === 'alisado' ? '130vh' :
-            selectedService === 'botox' ? '100vh' :
-            selectedService === 'corte' ? '120vh' :
-            selectedService === 'maquillaje' ? '110vh' :
-            selectedService === 'cejas' ? '50vh' : '10vh'
-          ) : '40vh',
+            selectedService === 'alisado' ? '150vw' :
+            selectedService === 'botox' ? '130vw' :
+            selectedService === 'corte' ? '140vw' :
+            selectedService === 'maquillaje' ? '130vw' :
+            selectedService === 'cejas' ? '70vw' : '60vw'
+          ) : '60vw',
           opacity: selectedService ? (
             selectedService === 'alisado' ? 0.9 :
             selectedService === 'botox' ? .8 :
@@ -106,18 +106,18 @@ export const ServiceHero = () => {
             selectedService === 'cejas' ? 1 : 0.7
           ) : 0.4,
           x: selectedService ? (
-            selectedService === 'alisado' ? -200 :
-            selectedService === 'botox' ? 100 :
-            selectedService === 'corte' ? -150 :
-            selectedService === 'maquillaje' ? 50 :
-            selectedService === 'cejas' ? -10 : 0
+            selectedService === 'alisado' ? '-50vw' :
+            selectedService === 'botox' ? '20vw' :
+            selectedService === 'corte' ? '-30vw' :
+            selectedService === 'maquillaje' ? '10vw' :
+            selectedService === 'cejas' ? '-5vw' : 0
           ) : 0,
           y: selectedService ? (
-            selectedService === 'alisado' ? -100 :
-            selectedService === 'botox' ? 150 :
-            selectedService === 'corte' ? 100 :
-            selectedService === 'maquillaje' ? -150 :
-            selectedService === 'cejas' ? -50 : 0
+            selectedService === 'alisado' ? '-20vh' :
+            selectedService === 'botox' ? '30vh' :
+            selectedService === 'corte' ? '20vh' :
+            selectedService === 'maquillaje' ? '-30vh' :
+            selectedService === 'cejas' ? '-10vh' : 0
           ) : 0
         }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
