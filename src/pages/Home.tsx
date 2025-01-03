@@ -52,25 +52,26 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <h3 className="text-xl font-semibold mb-4">Ubicación</h3>
-              <p>Ciudad de México</p>
-              <p>Calle Principal #123</p>
-              <p>Colonia Centro</p>
+              <p>Aguascalientes, Aguascalientes</p>
+              <p>Petróleos mexicanos #334</p>
+              <p>Colonia Industrial</p>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-4">Horario</h3>
-              <p>Lunes a Viernes: 9:00 - 19:00</p>
-              <p>Sábado: 9:00 - 17:00</p>
-              <p>Domingo: Cerrado</p>
+              <p>Lunes a Viernes: 11:00 am - 7:00 pm</p>
+              <p>Sábado: 11:00 am - 6:00 pm</p>
+              <p>Domingo: 9:00 am - 2:00 pm</p>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-4">Contacto</h3>
-              <p>Tel: (55) 1234-5678</p>
-              <p>WhatsApp: +52 55 1234 5678</p>
-              <p>Email: info@adarabliss.com</p>
+              <p>Cel: +52 449 217 5606</p>
+              <p>WhatsApp: +52 449 217 5606</p>
+              <p>Email: soluciones@adarabliss.com
+              </p>
             </div>
           </div>
           <div className="mt-8 text-center text-neutral-400">
-            <p> 2023 Adara Bliss. Todos los derechos reservados.</p>
+            <p> 2025 Adara Bliss. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
