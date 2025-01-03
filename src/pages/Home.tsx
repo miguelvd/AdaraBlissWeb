@@ -21,6 +21,11 @@ export const Home: React.FC = () => {
       {/* Header */}
       <ParallaxHeader />
 
+      {/* Testimonios */}
+      <Section className="bg-gradient-to-b from-neutral-900 to-neutral-950">
+        <TestimonialSection />
+      </Section>
+
       {/* Servicios */}
       <Section className="bg-white pt-24 md:pt-16">
         <div className="container mx-auto px-4">
@@ -29,11 +34,6 @@ export const Home: React.FC = () => {
           </h2>
           <ServicesSection />
         </div>
-      </Section>
-
-      {/* Testimonios */}
-      <Section className="bg-gradient-to-b from-neutral-900 to-neutral-950">
-        <TestimonialSection />
       </Section>
 
       {/* Contacto */}
