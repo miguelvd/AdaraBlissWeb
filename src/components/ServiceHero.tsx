@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 const services = [
-  { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png', path: '/servicios/alisado' },
-  { id: 'botox', name: 'Botox', image: '/images/services/hero/botox-hero.png', path: '/servicios/botox' },
+  { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png', path: '/servicios/alisado-laser' },
+  { id: 'botox', name: 'Botox', image: '/images/services/hero/botox-hero.png', path: '/servicios/keratina-premium' },
   { id: 'corte', name: 'Corte', image: '/images/services/hero/corte-hero.png', path: '/servicios/corte' },
   { id: 'maquillaje', name: 'Maquillaje', image: '/images/services/hero/maquillaje-hero.png', path: '/servicios/maquillaje' },
   { id: 'cejas', name: 'Cejas', image: '/images/services/hero/cejas-hero.png', path: '/servicios/cejas' }
