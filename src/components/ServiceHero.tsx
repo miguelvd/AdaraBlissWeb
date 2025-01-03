@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const services = [
-  { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png' },
-  { id: 'botox', name: 'Botox', image: '/images/services/hero/botox-hero.png' },
-  { id: 'corte', name: 'Corte', image: '/images/services/hero/corte-hero.png' },
-  { id: 'maquillaje', name: 'Maquillaje', image: '/images/services/hero/maquillaje-hero.png' },
-  { id: 'cejas', name: 'Cejas', image: '/images/services/hero/cejas-hero.png' }
+  { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png', path: '/servicios/alisado' },
+  { id: 'botox', name: 'Botox', image: '/images/services/hero/botox-hero.png', path: '/servicios/botox' },
+  { id: 'corte', name: 'Corte', image: '/images/services/hero/corte-hero.png', path: '/servicios/corte' },
+  { id: 'maquillaje', name: 'Maquillaje', image: '/images/services/hero/maquillaje-hero.png', path: '/servicios/maquillaje' },
+  { id: 'cejas', name: 'Cejas', image: '/images/services/hero/cejas-hero.png', path: '/servicios/cejas' }
 ];
 
 export const ServiceHero = () => {
+  const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
   const handleServiceClick = (serviceId: string) => {
@@ -17,8 +19,9 @@ export const ServiceHero = () => {
   };
 
   const handleContinueClick = () => {
-    if (selectedService === 'alisado') {
-      window.location.hash = 'alisado';
+    const service = services.find(s => s.id === selectedService);
+    if (service) {
+      navigate(service.path);
     }
   };
 
