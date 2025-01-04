@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
@@ -10,42 +11,50 @@ import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 const sections = [
   {
     image: '/images/services/alisado-laser.png',
-    title: 'Alisado Láser',
-    subtitle: 'Tecnología Avanzada',
-    description: 'Transforma tu cabello con la última tecnología en alisado',
-    highlight: 'Resultados inmediatos',
-    features: ['Sin formol', 'Duración 6-8 meses', 'Brillo intenso']
+    title: 'Transformación Total',
+    subtitle: 'Cambio Radical',
+    description: 'Renueva completamente tu imagen y se la mujer que siempre quisiste ser',
+    highlight: 'Belleza integral',
+    features: ['Personalizado', 'Asesoría experta', 'Resultados garantizados']
   },
   {
     image: '/images/services/alisado-organico.png',
-    title: 'Alisado Orgánico',
-    subtitle: '100% Natural',
-    description: 'Cuida tu cabello con productos orgánicos certificados',
-    highlight: 'Libre de químicos',
-    features: ['Ingredientes naturales', 'Protección UV', 'Anti-frizz']
+    title: 'Duración Sorprendete',
+    subtitle: 'Tecnología Avanzada',
+    description: 'Disfruta de un alisado que permanece perfecto durante 6 a 8 meses',
+    highlight: 'Resultados inmediatos',
+    features: ['Luce increíble por meses', 'Reducción del tiempo en tu rutina diaria', 'resistentes a la humedad y al calor']
   },
   {
     image: '/images/services/keratina-premium.png',
-    title: 'Keratina Premium',
+    title: 'Despídete del Frizz para Siempre',
     subtitle: 'Tratamiento Exclusivo',
-    description: 'Restaura y fortalece tu cabello desde la raíz',
+    description: 'Cabello liso, suave y sin encrespamiento desde la primera sesión.',
     highlight: 'Nutrición profunda',
-    features: ['Proteínas de keratina', 'Hidratación intensa', 'Reparación total']
+    features: ['Cabello completamente manejable', 'Hidratación intensa', 'Reparación total']
   },
   {
     image: '/images/services/Transformación Total.png',
-    title: 'Transformación Total',
+    title: 'Cabello Saludable',
     subtitle: 'Cambio Radical',
-    description: 'Renueva completamente tu imagen',
+    description: 'Un alisado seguro y libre de químicos dañinos para cuidar tu salud y tu cabello.',
     highlight: 'Belleza integral',
     features: ['Personalizado', 'Asesoría experta', 'Resultados garantizados']
   }
 ];
 
-const DynamicHeader: React.FC = () => {
+export const ParallaxHeader: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const swiperRef = useRef<SwiperType>();
+
+  const handleSlideChange = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(index);
+      setActiveIndex(index);
+    }
+  };
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
@@ -57,6 +66,9 @@ const DynamicHeader: React.FC = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
         onSlideChangeTransitionStart={() => {
           setIsChanging(true);
         }}
@@ -65,13 +77,13 @@ const DynamicHeader: React.FC = () => {
         }}
         onActiveIndexChange={(swiper) => {
           setCurrentSlide(swiper.realIndex);
+          setActiveIndex(swiper.realIndex);
         }}
         loop={true}
         navigation={{
           nextEl: '.swiper-button-next-custom',
           prevEl: '.swiper-button-prev-custom',
         }}
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         className="h-full w-full"
       >
         {sections.map((section, index) => (
@@ -179,34 +191,35 @@ const DynamicHeader: React.FC = () => {
       </Swiper>
       
       {/* Botones de navegación personalizados */}
-      <div className="absolute inset-x-0 top-1/2 transform -translate-y-1/2 px-4 md:px-8 
-                    flex justify-between items-center pointer-events-none z-20">
+      <div className="absolute inset-0 pointer-events-none">
         <button className="swiper-button-prev-custom group 
-                         w-12 h-12 md:w-14 md:h-14 
-                         bg-white/10 hover:bg-white/20
-                         backdrop-blur-md rounded-full
+                         absolute left-0 top-1/2 -translate-y-1/2
+                         w-10 h-10 md:w-12 md:h-12 
+                         bg-black/20 hover:bg-black/30
+                         backdrop-blur-md rounded-r-full
                          flex items-center justify-center
                          transition-all duration-300 ease-out
-                         transform hover:scale-110
+                         transform hover:scale-110 hover:translate-x-1
                          pointer-events-auto
                          focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-black/20"
                 aria-label="Anterior slide">
-          <ChevronLeftIcon className="w-6 h-6 md:w-8 md:h-8 text-white 
+          <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-white 
                                     transition-transform duration-300 ease-out
                                     group-hover:-translate-x-0.5" />
         </button>
 
         <button className="swiper-button-next-custom group
-                         w-12 h-12 md:w-14 md:h-14
-                         bg-white/10 hover:bg-white/20
-                         backdrop-blur-md rounded-full
+                         absolute right-0 top-1/2 -translate-y-1/2
+                         w-10 h-10 md:w-12 md:h-12
+                         bg-black/20 hover:bg-black/30
+                         backdrop-blur-md rounded-l-full
                          flex items-center justify-center
                          transition-all duration-300 ease-out
-                         transform hover:scale-110
+                         transform hover:scale-110 hover:-translate-x-1
                          pointer-events-auto
                          focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-black/20"
                 aria-label="Siguiente slide">
-          <ChevronRightIcon className="w-6 h-6 md:w-8 md:h-8 text-white
+          <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-white
                                      transition-transform duration-300 ease-out
                                      group-hover:translate-x-0.5" />
         </button>
@@ -214,18 +227,19 @@ const DynamicHeader: React.FC = () => {
 
       {/* Indicadores de página */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10
-                    flex space-x-3">
+                    flex space-x-4 px-6 py-4">
         {sections.map((_, idx) => (
           <button
             key={idx}
-            className={`w-2 h-2 rounded-full transition-all duration-300 
-                       ${activeIndex === idx ? 'w-8 bg-pink-500' : 'bg-white/50'}`}
-            onClick={() => setActiveIndex(idx)}
+            onClick={() => handleSlideChange(idx)}
+            className={`h-2.5 rounded-full transition-all duration-300 ease-out
+                       ${activeIndex === idx 
+                         ? 'w-8 bg-pink-500' 
+                         : 'w-2.5 bg-white/50 hover:bg-white/70'}`}
+            aria-label={`Ir a slide ${idx + 1}`}
           />
         ))}
       </div>
     </div>
   );
 };
-
-export default DynamicHeader;

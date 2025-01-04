@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const services = [
-  { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png' },
-  { id: 'botox', name: 'Botox', image: '/images/services/hero/botox-hero.png' },
-  { id: 'corte', name: 'Corte', image: '/images/services/hero/corte-hero.png' },
-  { id: 'maquillaje', name: 'Maquillaje', image: '/images/services/hero/maquillaje-hero.png' },
-  { id: 'cejas', name: 'Cejas', image: '/images/services/hero/cejas-hero.png' }
+  { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png', path: '/servicios/alisado' },
+  { id: 'botox', name: 'Botox', image: '/images/services/hero/botox-hero.png', path: '/servicios/botox' },
+  { id: 'corte', name: 'Corte', image: '/images/services/hero/corte-hero.png', path: '/servicios/corte' },
+  { id: 'maquillaje', name: 'Maquillaje', image: '/images/services/hero/maquillaje-hero.png', path: '/servicios/maquillaje' },
+  { id: 'cejas', name: 'Cejas', image: '/images/services/hero/cejas-hero.png', path: '/servicios/cejas' }
 ];
 
 export const ServiceHero = () => {
+  const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
   const handleServiceClick = (serviceId: string) => {
     setSelectedService(prev => prev === serviceId ? null : serviceId);
+  };
+
+  const handleContinueClick = () => {
+    const service = services.find(s => s.id === selectedService);
+    if (service) {
+      navigate(service.path);
+    }
   };
 
   return (
@@ -76,22 +85,22 @@ export const ServiceHero = () => {
       {/* Círculo rosa de fondo */}
       <motion.div
         className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-[#F25AA3]/40"
-        initial={{ width: '40vh', height: '40vh', opacity: 0.4 }}
+        initial={{ width: '60vw', height: '60vw', opacity: 0.4 }}
         animate={{
           width: selectedService ? (
-            selectedService === 'alisado' ? '130vh' :
-            selectedService === 'botox' ? '100vh' :
-            selectedService === 'corte' ? '120vh' :
-            selectedService === 'maquillaje' ? '110vh' :
-            selectedService === 'cejas' ? '50vh' : '50vh'
-          ) : '40vh',
+            selectedService === 'alisado' ? '150vw' :
+            selectedService === 'botox' ? '130vw' :
+            selectedService === 'corte' ? '140vw' :
+            selectedService === 'maquillaje' ? '130vw' :
+            selectedService === 'cejas' ? '70vw' : '60vw'
+          ) : '60vw',
           height: selectedService ? (
-            selectedService === 'alisado' ? '130vh' :
-            selectedService === 'botox' ? '100vh' :
-            selectedService === 'corte' ? '120vh' :
-            selectedService === 'maquillaje' ? '110vh' :
-            selectedService === 'cejas' ? '50vh' : '10vh'
-          ) : '40vh',
+            selectedService === 'alisado' ? '150vw' :
+            selectedService === 'botox' ? '130vw' :
+            selectedService === 'corte' ? '140vw' :
+            selectedService === 'maquillaje' ? '130vw' :
+            selectedService === 'cejas' ? '70vw' : '60vw'
+          ) : '60vw',
           opacity: selectedService ? (
             selectedService === 'alisado' ? 0.9 :
             selectedService === 'botox' ? .8 :
@@ -100,18 +109,18 @@ export const ServiceHero = () => {
             selectedService === 'cejas' ? 1 : 0.7
           ) : 0.4,
           x: selectedService ? (
-            selectedService === 'alisado' ? -200 :
-            selectedService === 'botox' ? 100 :
-            selectedService === 'corte' ? -150 :
-            selectedService === 'maquillaje' ? 50 :
-            selectedService === 'cejas' ? -10 : 0
+            selectedService === 'alisado' ? '-50vw' :
+            selectedService === 'botox' ? '20vw' :
+            selectedService === 'corte' ? '-30vw' :
+            selectedService === 'maquillaje' ? '10vw' :
+            selectedService === 'cejas' ? '-5vw' : 0
           ) : 0,
           y: selectedService ? (
-            selectedService === 'alisado' ? -100 :
-            selectedService === 'botox' ? 150 :
-            selectedService === 'corte' ? 100 :
-            selectedService === 'maquillaje' ? -150 :
-            selectedService === 'cejas' ? -50 : 0
+            selectedService === 'alisado' ? '-20vh' :
+            selectedService === 'botox' ? '30vh' :
+            selectedService === 'corte' ? '20vh' :
+            selectedService === 'maquillaje' ? '-30vh' :
+            selectedService === 'cejas' ? '-10vh' : 0
           ) : 0
         }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -291,24 +300,18 @@ export const ServiceHero = () => {
         <div className="absolute w-full bottom-[20%] flex justify-center items-center">
           <motion.div 
             initial={{ scale: 0, opacity: 0 }}
-            animate={{ 
-              scale: 1, 
-              opacity: 1,
-            }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ 
               type: "spring",
               stiffness: 260,
-              damping: 20,
-              duration: 0.6 
+              damping: 20
             }}
           >
             <motion.button
               className="bg-[#F25AA3] hover:bg-[#ff69b4] text-white font-bold py-3 px-8 rounded-full shadow-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                console.log(`Navegando al servicio: ${selectedService}`);
-              }}
+              onClick={handleContinueClick}
             >
               <span className="text-lg">Continuar</span>
               <motion.span

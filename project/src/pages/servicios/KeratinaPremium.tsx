@@ -1,4 +1,7 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ParallaxHeader } from '../../components/ParallaxHeader';
 import { Crown, Star, Shield } from 'lucide-react';
 import { WaveDivider } from '../../components/WaveDivider';
 

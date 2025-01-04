@@ -10,6 +10,9 @@ import { Opiniones } from './pages/Opiniones';
 import { KeratinaPremium } from './pages/servicios/KeratinaPremium';
 import { AlisadoLaser } from './pages/servicios/AlisadoLaser';
 import { AlisadoOrganico } from './pages/servicios/AlisadoOrganico';
+import { Alisado } from './pages/servicios/Alisado';
+import { Botox } from './pages/servicios/Botox';
+import { Corte } from './pages/servicios/Corte';
 import './styles/swiper.css';
 
 export default function App() {
@@ -19,6 +22,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/servicios" element={<Servicios />} />
+        <Route path="/servicios/alisado" element={<Alisado />} />
+        <Route path="/servicios/botox" element={<Botox />} />
+        <Route path="/servicios/corte" element={<Corte />} />
         <Route path="/promociones" element={<Promociones />} />
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/opiniones" element={<Opiniones />} />
