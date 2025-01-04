@@ -11,7 +11,7 @@ interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = ({ className = '', children }) => (
-  <section className={`py-16 ${className}`}>
+  <section className={className}>
     {children}
   </section>
 );
@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
       <ParallaxHeader />
 
       {/* Nuestros Servicios */}
-      <Section className="bg-white pb-0">
+      <Section className="bg-white">
         <ServiceHero />
       </Section>
 

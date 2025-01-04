@@ -26,8 +26,9 @@ const ServiceHero = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-white overflow-hidden">
-      <h1 className="text-5xl md:text-6xl text-center pt-24 pb-8 text-[#F25AA3] font-semibold relative group">
+    <div className="relative w-full min-h-screen bg-white overflow-hidden -mt-screen">
+      {/* Título con ajustes responsivos más precisos */}
+      <h1 className="text-4xl xs:text-[2.75rem] sm:text-5xl md:text-6xl text-center pt-24 xs:pt-28 sm:pt-32 md:pt-36 pb-1 text-[#F25AA3] font-semibold relative group">
         <span className="relative z-10">
           Nuestros Servicios
         </span>
@@ -245,17 +246,13 @@ const ServiceHero = () => {
       </div>
 
       {/* Barra de servicios */}
-      <div className="absolute bottom-20 left-0 right-0 px-2 sm:bottom-15 px-4 z-10">
-        <motion.div 
-          className="max-w-4xl mx-auto relative"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+      <div className="absolute bottom-[8vh] xs:bottom-[10vh] sm:bottom-[12vh] md:bottom-[15vh] w-full z-20">
+        <div className="max-w-7xl mx-auto px-2 xs:px-4">
           {/* Barra negra de fondo */}
-          <div className="absolute inset-0 bg-black rounded-[24px] -top-4 -bottom-1"></div>
+          <div className="absolute inset-0 bg-black rounded-[20px] xs:rounded-[24px] -top-3 xs:-top-4 sm:-top-5 -bottom-2"></div>
           
-          <div className="flex justify-center items-center gap-3 sm:gap-8 overflow-x-auto pb-4 px-1 sm:px-2 scrollbar-hide relative">
+          {/* Contenedor de botones con ajustes responsivos */}
+          <div className="relative grid grid-cols-5 gap-1 xs:gap-2 sm:gap-4 py-3 xs:py-4 sm:py-5">
             {services.map((service) => {
               const isSelected = selectedService === service.id;
               const isAlisado = service.id === 'alisado';
@@ -299,7 +296,7 @@ const ServiceHero = () => {
                       }}
                     />
                   </motion.div>
-                  <span className={`text-sm sm:text-base font-medium transition-all ${
+                  <span className={`text-xs xs:text-sm sm:text-base font-medium transition-all ${
                     isSelected
                       ? 'text-[#F25AA3]'
                       : service.id === 'alisado'
@@ -383,17 +380,17 @@ const ServiceHero = () => {
               );
             })}
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Botón Continuar */}
+      {/* Botón Continuar con ajustes responsivos */}
       {selectedService && (
-        <div className="absolute w-full bottom-[20%] flex justify-center items-center">
+        <div className="absolute w-full bottom-[20vh] xs:bottom-[22vh] sm:bottom-[25vh] md:bottom-[20vh] flex justify-center items-center z-30">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="bg-[#F25AA3] hover:bg-[#ff69b4] text-white font-bold py-3 px-8 rounded-full shadow-lg"
+            className="bg-[#F25AA3] hover:bg-[#ff69b4] text-white text-sm xs:text-base font-bold py-2 xs:py-3 px-6 xs:px-8 rounded-full shadow-lg"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleContinueClick}

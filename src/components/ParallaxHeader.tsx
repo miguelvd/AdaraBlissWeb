@@ -84,16 +84,13 @@ export const ParallaxHeader: React.FC = () => {
   }
 
   return (
-    <div className="relative w-full overflow-hidden" style={{
-      height: '100vh',
-      minHeight: '500px',
-      maxHeight: '100vh'
-    }}>
+    <div className="relative h-screen">
       <Swiper
+        className="h-full"
         modules={[Autoplay, Navigation]}
-        speed={1200}
+        speed={2000}
         autoplay={{
-          delay: 7000,
+          delay: 10000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
@@ -113,14 +110,13 @@ export const ParallaxHeader: React.FC = () => {
           nextEl: '.swiper-button-next-custom',
           prevEl: '.swiper-button-prev-custom',
         }}
-        className="h-full w-full relative"
       >
         {sections.map((section) => (
           <SwiperSlide key={section.id} className="relative overflow-hidden">
             <div className="absolute inset-0">
               <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ 
+                style={{
                   backgroundImage: `url(${section.image})`,
                   backgroundPosition: '50% 30%',
                   backgroundSize: 'cover',
@@ -130,7 +126,7 @@ export const ParallaxHeader: React.FC = () => {
                   transition: 'all 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               />
-              <div 
+              <div
                 className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"
                 style={{
                   opacity: isChanging ? 0.7 : 1,
@@ -138,7 +134,7 @@ export const ParallaxHeader: React.FC = () => {
                 }}
               />
             </div>
-            
+
             <div className="relative h-full flex items-center">
               <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
                 <AnimatePresence mode="wait" initial={false}>
@@ -148,7 +144,7 @@ export const ParallaxHeader: React.FC = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
-                      transition={{ 
+                      transition={{
                         duration: 0.5,
                         exit: { duration: 0.3 }
                       }}
@@ -163,7 +159,7 @@ export const ParallaxHeader: React.FC = () => {
                       >
                         {section.subtitle}
                       </motion.p>
-                      
+
                       <motion.h1
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -179,7 +175,7 @@ export const ParallaxHeader: React.FC = () => {
                       >
                         {section.title}
                       </motion.h1>
-                      
+
                       <motion.p
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -189,7 +185,7 @@ export const ParallaxHeader: React.FC = () => {
                       >
                         {section.description}
                       </motion.p>
-                      
+
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -212,7 +208,7 @@ export const ParallaxHeader: React.FC = () => {
                           </motion.div>
                         ))}
                       </motion.div>
-                      
+
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -235,7 +231,7 @@ export const ParallaxHeader: React.FC = () => {
             </div>
           </SwiperSlide>
         ))}
-        
+
         {/* Paginación personalizada */}
         <div className="absolute bottom-20 left-0 right-0 z-50 flex justify-center gap-2">
           {sections.map((_, index) => (
@@ -243,8 +239,8 @@ export const ParallaxHeader: React.FC = () => {
               key={index}
               onClick={() => swiperRef.current?.slideTo(index)}
               className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                currentSlide === index 
-                  ? 'w-8 bg-pink-500' 
+                currentSlide === index
+                  ? 'w-8 bg-pink-500'
                   : 'bg-white/50 hover:bg-white/70'
               }`}
               aria-label={`Ir a la diapositiva ${index + 1}`}
@@ -254,7 +250,7 @@ export const ParallaxHeader: React.FC = () => {
 
         {/* Botones de navegación */}
         <div className="absolute inset-0 pointer-events-none">
-          <button 
+          <button
             className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2
                      w-10 h-10 bg-black/20 hover:bg-black/30 backdrop-blur-sm
                      rounded-full flex items-center justify-center
@@ -265,7 +261,7 @@ export const ParallaxHeader: React.FC = () => {
             <ChevronLeftIcon className="w-6 h-6 text-white" />
           </button>
 
-          <button 
+          <button
             className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2
                      w-10 h-10 bg-black/20 hover:bg-black/30 backdrop-blur-sm
                      rounded-full flex items-center justify-center
