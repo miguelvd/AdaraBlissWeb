@@ -15,21 +15,21 @@ const services: Service[] = [
   {
     title: 'Keratina Premium',
     description: 'Tratamiento profesional que elimina el frizz y alisa el cabello hasta por 6 meses.',
-    path: '/servicios/keratina-premium',
+    path: '/servicios#keratina',
     icon: Sparkles,
     color: 'from-pink-400 to-pink-600'
   },
   {
     title: 'Alisado Láser',
     description: 'Tecnología avanzada que sella la cutícula y alisa desde la primera sesión.',
-    path: '/servicios/alisado-laser',
+    path: '/servicios#laser',
     icon: Scissors,
     color: 'from-purple-400 to-purple-600'
   },
   {
     title: 'Alisado Orgánico',
     description: 'Fórmula natural que alisa y nutre tu cabello sin químicos agresivos.',
-    path: '/servicios/alisado-organico',
+    path: '/servicios#organico',
     icon: Heart,
     color: 'from-emerald-400 to-emerald-600'
   }
