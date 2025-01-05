@@ -8,10 +8,11 @@ import ServiceHero from '../components/ServiceHero';
 interface SectionProps {
   className?: string;
   children: React.ReactNode;
+  id?: string;
 }
 
-const Section: React.FC<SectionProps> = ({ className = '', children }) => (
-  <section className={className}>
+const Section: React.FC<SectionProps> = ({ className = '', children, id }) => (
+  <section className={className} id={id}>
     {children}
   </section>
 );
@@ -28,7 +29,7 @@ export const Home: React.FC = () => {
       </Section>
 
       {/* Testimonios */}
-      <Section className="bg-gradient-to-b from-neutral-900 to-neutral-950">
+      <Section id="testimonios" className="bg-gradient-to-b from-neutral-900 to-neutral-950">
         <TestimonialSection />
       </Section>
 

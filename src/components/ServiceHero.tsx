@@ -246,10 +246,14 @@ const ServiceHero = () => {
       </div>
 
       {/* Barra de servicios */}
-      <div className="absolute bottom-[8vh] xs:bottom-[10vh] sm:bottom-[12vh] md:bottom-[15vh] w-full z-20">
+      <div className="absolute w-full z-20
+        bottom-[8vh] 
+        md:bottom-[9vh] 
+        lg:bottom-[10vh]"
+      >
         <div className="max-w-7xl mx-auto px-2 xs:px-4">
           {/* Barra negra de fondo */}
-          <div className="absolute inset-0 bg-black rounded-[20px] xs:rounded-[24px] -top-3 xs:-top-4 sm:-top-5 -bottom-2"></div>
+          <div className="absolute inset-0 bg-black  xs:rounded-[24px] -top-3 xs:-top-4 sm:-top-5 -bottom-2"></div>
           
           {/* Contenedor de botones con ajustes responsivos */}
           <div className="relative grid grid-cols-5 gap-1 xs:gap-2 sm:gap-4 py-3 xs:py-4 sm:py-5">
@@ -265,15 +269,28 @@ const ServiceHero = () => {
                   className={`flex flex-col items-center min-w-[70px] sm:min-w-[90px] group transition-all relative z-10`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  animate={shouldAnimate ? {
-                    scale: [1, 1.1, 1],
-                    transition: {
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }
-                  } : {}}
                 >
+                  {/* Indicador elegante para alisado cuando no hay selección */}
+                  {!selectedService && service.id === 'alisado' && (
+                    <motion.div
+                      className="absolute -inset-2"
+                      initial={{ opacity: 0 }}
+                      animate={{
+                        opacity: [0.3, 0.6, 0.3],
+                        scale: [0.7, 1, 0.7],
+                        y: [0, -3, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        times: [0, 0.5, 1]
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#FFFFFFFF]/30 via-[#FFFFFFFF]/60 to-[#FFFFFFFF]/30 rounded-lg blur-md" />
+                    </motion.div>
+                  )}
+
                   <motion.div 
                     className={`flex items-center justify-center mb-1 sm:mb-2 transition-all`}
                     animate={shouldAnimate ? {
@@ -281,7 +298,8 @@ const ServiceHero = () => {
                       transition: {
                         duration: 2,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
+                        times: [0, 0.5, 1]
                       }
                     } : {}}
                   >
@@ -292,18 +310,17 @@ const ServiceHero = () => {
                       style={{
                         filter: isSelected 
                           ? 'brightness(0) saturate(100%) invert(55%) sepia(82%) saturate(4402%) hue-rotate(308deg) brightness(100%) contrast(101%)'
-                          : 'brightness(0) invert(1)'
+                          : 'brightness(0) invert(1)',
+                        transition: 'filter 0.3s ease'
                       }}
                     />
                   </motion.div>
                   <span className={`text-xs xs:text-sm sm:text-base font-medium transition-all ${
                     isSelected
-                      ? 'text-[#F25AA3]'
-                      : service.id === 'alisado'
-                        ? 'relative text-transparent'
-                        : 'text-white/80 group-hover:text-white'
+                      ? 'relative text-transparent'
+                      : 'text-white/80 group-hover:text-white'
                   }`}>
-                    {service.id === 'alisado' ? (
+                    {isSelected ? (
                       <div className="relative">
                         {/* Texto base con contorno */}
                         <span
@@ -341,32 +358,6 @@ const ServiceHero = () => {
                             filter: 'blur(3px) brightness(1.5)',
                             mixBlendMode: 'soft-light',
                             WebkitTextStroke: '0.5px rgba(242, 90, 163, 0.5)',
-                          }}
-                        >
-                          {service.name}
-                        </motion.span>
-                        
-                        {/* Destello adicional */}
-                        <motion.span
-                          className="absolute inset-0"
-                          initial={{ opacity: 0 }}
-                          animate={{
-                            opacity: [0, 0.8, 0],
-                            scale: [0.9, 1.1, 0.9],
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 1
-                          }}
-                          style={{
-                            background: 'radial-gradient(circle, #F25AA3 0%, transparent 70%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                            filter: 'blur(2px)',
-                            mixBlendMode: 'overlay',
                           }}
                         >
                           {service.name}

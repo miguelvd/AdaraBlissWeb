@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { MessageCircle } from 'lucide-react';
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -15,6 +16,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   const location = useLocation();
   const currentPath = location.pathname;
   const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
+  const [isVisible, setIsVisible] = useState(false);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -23,6 +25,23 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const testimoniosSection = document.getElementById('testimonios');
+      if (testimoniosSection) {
+        const rect = testimoniosSection.getBoundingClientRect();
+        const isTestimoniosVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
+        setIsVisible(isTestimoniosVisible);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    // Llamar a handleScroll inicialmente
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleClick = () => {
@@ -34,6 +53,8 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   if (isMobile && hideInServices && (currentPath.includes('/servicios') || currentPath === '/servicios')) {
     return null;
   }
+
+  if (!isVisible) return null;
 
   return (
     <button
