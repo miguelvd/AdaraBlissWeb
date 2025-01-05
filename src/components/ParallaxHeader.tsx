@@ -11,7 +11,7 @@ const sections = [
   {
     id: 1,
     image: encodeURI('/images/banners/Transformacion total.png'),
-    title: 'Transformación Total',
+    title: 'Cambio Radical',
     subtitle: 'Cambio Radical',
     description: 'Renueva completamente tu imagen y se la mujer que siempre quisiste ser',
     highlight: 'Belleza integral',
@@ -88,9 +88,9 @@ export const ParallaxHeader: React.FC = () => {
       <Swiper
         className="h-full"
         modules={[Autoplay, Navigation]}
-        speed={2000}
+        speed={1200}
         autoplay={{
-          delay: 10000,
+          delay: 8000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
@@ -121,16 +121,16 @@ export const ParallaxHeader: React.FC = () => {
                   backgroundPosition: '50% 30%',
                   backgroundSize: 'cover',
                   backgroundRepeat: 'no-repeat',
-                  transform: `scale(${isChanging ? 1.1 : 1.02})`,
-                  opacity: isChanging ? 0.8 : 1,
-                  transition: 'all 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: `scale(${isChanging ? 1.03 : 1})`,
+                  opacity: isChanging ? 0.95 : 1,
+                  transition: 'all 800ms cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               />
               <div
                 className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"
                 style={{
-                  opacity: isChanging ? 0.7 : 1,
-                  transition: 'opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  opacity: isChanging ? 0.85 : 1,
+                  transition: 'opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               />
             </div>
@@ -141,30 +141,25 @@ export const ParallaxHeader: React.FC = () => {
                   {currentSlide === sections.indexOf(section) && (
                     <motion.div
                       key={section.id}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 40 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
+                      exit={{ opacity: 0, y: -40 }}
                       transition={{
-                        duration: 0.5,
-                        exit: { duration: 0.3 }
+                        duration: 0.7,
+                        ease: [0.22, 1, 0.36, 1],
+                        exit: { duration: 0.5 }
                       }}
                       className="max-w-3xl space-y-6 px-2 sm:px-4"
                     >
-                      <motion.p
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-pink-400 font-medium tracking-wide text-base sm:text-lg"
-                      >
-                        {section.subtitle}
-                      </motion.p>
-
                       <motion.h1
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20 }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
+                        initial={{ opacity: 0, scale: 0.9, filter: "blur(12px)" }}
+                        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, scale: 1.1, filter: "blur(12px)" }}
+                        transition={{ 
+                          delay: 0.3,
+                          duration: 0.7,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
                         className="text-5xl xs:text-6xl sm:text-7xl lg:text-8xl font-glitten text-white leading-[1.1] tracking-wide break-words"
                         style={{
                           textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
@@ -177,31 +172,44 @@ export const ParallaxHeader: React.FC = () => {
                       </motion.h1>
 
                       <motion.p
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
+                        initial={{ opacity: 0, x: -30, filter: "blur(6px)" }}
+                        animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, x: 30, filter: "blur(6px)" }}
+                        transition={{ 
+                          delay: 0.4,
+                          duration: 0.6,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
                         className="text-lg sm:text-xl text-gray-200"
                       >
                         {section.description}
                       </motion.p>
 
                       <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ delay: 0.5, duration: 0.5 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ 
+                          delay: 0.5,
+                          duration: 0.6,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
                         className="flex flex-wrap gap-4 mt-8"
                       >
                         {section.features.map((feature, idx) => (
                           <motion.div
                             key={idx}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            transition={{ delay: 0.6 + idx * 0.1, duration: 0.3 }}
+                            initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                            transition={{
+                              delay: 0.6 + idx * 0.1,
+                              duration: 0.5,
+                              ease: [0.22, 1, 0.36, 1]
+                            }}
                             className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full
-                                     flex items-center space-x-2 text-white"
+                                     flex items-center space-x-2 text-white hover:bg-white/20 
+                                     transform hover:scale-105 transition-all duration-300"
                           >
                             <ChevronRightIcon className="h-4 w-4 text-pink-400" />
                             <span>{feature}</span>

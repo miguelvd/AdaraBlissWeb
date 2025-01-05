@@ -14,14 +14,24 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
 }) => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleClick = () => {
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
   };
 
-  // No mostrar el botón si estamos en la página de servicios y hideInServices es true
-  if (hideInServices && (currentPath.includes('/servicios') || currentPath === '/servicios')) {
+  // No mostrar el botón si estamos en la página de servicios, hideInServices es true y estamos en móvil
+  if (isMobile && hideInServices && (currentPath.includes('/servicios') || currentPath === '/servicios')) {
     return null;
   }
 

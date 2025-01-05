@@ -6,10 +6,13 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true, // Escucha en todas las interfaces de red
-    port: 3001,
-    strictPort: false,
-    open: true
+    host: '0.0.0.0', // Cambiado a '0.0.0.0' para mejor compatibilidad
+    port: 3000,
+    strictPort: true,
+    open: true,
+    watch: {
+      usePolling: true
+    }
   },
   resolve: {
     alias: {
