@@ -68,13 +68,12 @@ const FAQ = () => {
           answer: "Aceptamos diversos métodos de pago:\n\n" +
                  "• Efectivo\n" +
                  "• Tarjetas de débito y crédito\n" +
-                 "• Transferencias bancarias\n" +
-                 "• Pagos móviles"
+                 "• Transferencias bancarias"
         },
         {
           question: "¿Necesito agendar cita?",
           answer: "Sí, recomendamos agendar cita para garantizar la disponibilidad y un mejor servicio. " +
-                 "Puedes agendar por WhatsApp, teléfono o directamente en el salón."
+                 "Puedes agendar fácilmente a través de nuestro WhatsApp."
         },
         {
           question: "¿Realizan servicios a domicilio?",
@@ -84,6 +83,17 @@ const FAQ = () => {
         {
           question: "¿Tienen wifi gratuito?",
           answer: "Sí, contamos con wifi gratuito de alta velocidad para que puedas mantenerte conectado durante tu visita."
+        },
+        {
+          question: "¿Me puedo teñir el cabello después del alisado?",
+          answer: "Recomendamos teñir tu cabello 2 días después del alisado. Si lo tiñes antes " +
+                 "puede que no dure tanto tu tinte. Si decides teñirlo antes de tu alisado " +
+                 "no correrías ningún riesgo."
+        },
+        {
+          question: "¿Puedo decolorar mi cabello después del alisado?",
+          answer: "Sí es posible decolorar tu cabello, pero recomendamos hacerlo antes del alisado " +
+                 "para obtener mejores resultados."
         },
         {
           question: "¿Cuál es la diferencia entre Botox Capilar y las Keratinas?",
@@ -104,7 +114,10 @@ const FAQ = () => {
         },
         {
           question: "¿Requieren anticipo para agendar?",
-          answer: "Para servicios de alisado y tratamientos especiales, solicitamos un anticipo del 30%. " +
+          answer: "Se requiere un anticipo de $150 pesos en los siguientes casos:\n\n" +
+                 "• Promociones\n" +
+                 "• Días festivos\n" +
+                 "• Domingos\n\n" +
                  "Este monto se descuenta del total del servicio. Es importante confirmar tu cita un día " +
                  "antes, de lo contrario quedará cancelada y se perderá el anticipo."
         },
@@ -112,6 +125,14 @@ const FAQ = () => {
           question: "¿Puedo cancelar o reprogramar mi cita?",
           answer: "Sí, puedes cancelar o reprogramar tu cita con al menos 48 horas de anticipación sin cargo alguno. " +
                  "Para cancelaciones con menos tiempo, podría aplicarse un cargo por cancelación tardía."
+        },
+        {
+          question: "¿Qué cuidados requiere después del tratamiento?",
+          answer: "Para mantener los resultados recomendamos:\n\n" +
+                 "• Usar shampoo sin sulfatos\n" +
+                 "• Aplicar productos hidratantes\n" +
+                 "• Usar protector térmico\n\n" +
+                 "Al agendar tu cita te explicamos todos los cuidados a detalle."
         }
       ]
     },
@@ -132,14 +153,15 @@ const FAQ = () => {
                  "liso y manejable durante este período."
         },
         {
-          question: "¿Cuánto dura el procedimiento?",
-          answer: "El procedimiento del Alisado Láser toma de 2 a 3 horas dependiendo del largo del cabello. " +
+          question: "¿Cuánto tarda el servicio?",
+          answer: "El procedimiento del Alisado Láser toma 3 horas. " +
                  "Recomendamos reservar este tiempo para garantizar los mejores resultados."
         },
         {
           question: "¿Tiene garantía?",
-          answer: "Sí, el Alisado Láser cuenta con una garantía de 15 días. Durante este período, " +
-                 "evaluaremos y atenderemos cualquier inquietud sobre los resultados del tratamiento."
+          answer: "Sí, la garantía consiste en una sesión adicional sin costo. Tienes 15 días para " +
+                 "solicitarla si no estás satisfecha con los resultados del Alisado Láser, y así " +
+                 "asegurar que obtengas los resultados deseados."
         },
         {
           question: "¿Cómo funciona la tecnología láser?",
@@ -150,10 +172,9 @@ const FAQ = () => {
         {
           question: "¿Qué cuidados debo tener después?",
           answer: "Los cuidados principales son:\n\n" +
-                 "• No lavar el cabello por 48 horas\n" +
-                 "• Usar productos específicos recomendados\n" +
-                 "• Evitar atar el cabello por 72 horas\n" +
-                 "• No usar herramientas de calor la primera semana"
+                 "• Recomendamos lavar el cabello en 24 horas\n" +
+                 "• Usar productos profesionales recomendados\n" +
+                 "• No sujetar el cabello por 24 horas"
         },
         {
           question: "¿En qué se diferencia de otros alisados?",
@@ -174,11 +195,10 @@ const FAQ = () => {
         {
           question: "¿Qué beneficios principales ofrece la Keratina Japonesa?",
           answer: "La Keratina Japonesa ofrece múltiples beneficios:\n\n" +
-                 "• Brillo excepcional: Sella las cutículas capilares para reflejar la luz con más intensidad\n" +
-                 "• Suavidad incomparable: Restaura la fibra capilar con keratina\n" +
                  "• Control total del frizz: Efectivo en cualquier clima (humedad, calor, frío y lluvia)\n" +
-                 "• Fortalecimiento: Mejora la estructura del cabello devolviendo aminoácidos perdidos\n" +
-                 "• Control de volumen: Reduce el exceso de volumen al alisar la fibra capilar"
+                 "• Reducción del volumen excesivo\n" +
+                 "• Cabello más manejable\n" +
+                 "• Aspecto natural y saludable"
         },
         {
           question: "¿Qué porcentaje de alisado se logra?",
@@ -189,49 +209,29 @@ const FAQ = () => {
         {
           question: "¿Cómo actúa la Keratina sobre el cabello?",
           answer: "La Keratina actúa de manera integral:\n\n" +
-                 "• Sella las cutículas capilares\n" +
-                 "• Restaura la fibra capilar desde el interior\n" +
                  "• Aporta aminoácidos esenciales\n" +
                  "• Alisa la fibra reduciendo el volumen excesivo"
         },
         {
           question: "¿Es efectiva contra el frizz?",
-          answer: "Sí, la Keratina Japonesa ofrece un control Anti-Frizz total, eliminando los " +
-                 "cabellos rebeldes sin importar las condiciones climáticas, ya sea en ambientes " +
-                 "húmedos, calurosos, fríos o lluviosos."
+          answer: "Sí, la Keratina Japonesa ofrece un control Anti-Frizz total, eliminando los cabellos rebeldes sin importar las condiciones climáticas, ya sea en ambientes húmedos, calurosos, fríos o lluviosos."
         },
         {
-          question: "¿Me puedo teñir el cabello después del tratamiento?",
-          answer: "Sí, puedes teñir tu cabello antes o después del tratamiento de Keratina Japonesa. " +
-                 "Si decides teñir después, recomendamos esperar 15 días para que la keratina se fije " +
-                 "completamente. Si prefieres teñir antes, espera 3 días antes de aplicar la keratina."
+          question: "¿Qué tipo de cabello puede tratarse?",
+          answer: "Es ideal para todo tipo de cabello, especialmente:\n\n" +
+                 "• Cabello maltratado por químicos\n" +
+                 "• Cabello decolorado\n" +
+                 "• Cabello fino o delicado\n" +
+                 "• Cabello rizado o con frizz\n" +
+                 "• Cabello sensible a tratamientos químicos"
         },
         {
-          question: "¿Puedo decolorar mi cabello después de la keratina?",
-          answer: "Para la decoloración, recomendamos:\n\n" +
-                 "• Si es después: Esperar 3 semanas post-keratina\n" +
-                 "• En ambos casos, usar tratamientos fortalecedores para proteger el cabello"
-        },
-        {
-          question: "¿Qué hace diferente a esta Keratina Japonesa?",
-          answer: "La Keratina Japonesa se distingue por:\n\n" +
-                 "• Sellado profesional de cutículas\n" +
-                 "• Restauración profunda con aminoácidos\n" +
-                 "• Control de volumen inteligente\n" +
-                 "• Resultados visibles inmediatos\n" +
-                 "• Efecto anti-frizz en todo clima"
-        },
-        {
-          question: "¿El tratamiento fortalece el cabello?",
-          answer: "Sí, uno de los beneficios principales es el fortalecimiento del cabello, ya que " +
-                 "mejora la estructura capilar devolviendo los aminoácidos perdidos, lo que resulta " +
-                 "en un cabello más fuerte y saludable."
-        },
-        {
-          question: "¿Cómo mantiene el brillo el cabello?",
-          answer: "El brillo se logra gracias al sellado profesional de las cutículas capilares, " +
-                 "que permite que el cabello refleje la luz con mayor intensidad. Este efecto se " +
-                 "mantiene porque la keratina queda sellada en la fibra capilar."
+          question: "¿Qué cuidados requiere después del tratamiento?",
+          answer: "Para mantener los resultados recomendamos:\n\n" +
+                 "• Usar shampoo sin sulfatos\n" +
+                 "• Aplicar productos hidratantes\n" +
+                 "• Usar protector térmico\n" +
+                 "• Realizar mantenimientos periódicos cada 3-5 meses"
         }
       ]
     },
@@ -242,7 +242,7 @@ const FAQ = () => {
       items: [
         {
           question: "¿Qué es la Keratina Orgánica sin formol?",
-          answer: "Es un tratamiento 100% libre de formol que alisa tu cabello en un 80%. " +
+          answer: "Es un tratamiento libre de formol que alisa tu cabello hasta un 70%. " +
                  "Es completamente seguro y está especialmente formulado para nutrir el cabello dañado " +
                  "mientras lo alisa, brindando resultados naturales y saludables."
         },
@@ -261,24 +261,6 @@ const FAQ = () => {
                  "• No irrita el cuero cabelludo ni las vías respiratorias"
         },
         {
-          question: "¿Qué resultados inmediatos ofrece?",
-          answer: "Desde la primera aplicación notarás:\n\n" +
-                 "• Brillo excepcional\n" +
-                 "• Suavidad inmediata\n" +
-                 "• Reducción del frizz\n" +
-                 "• Cabello más manejable\n" +
-                 "• Aspecto natural y saludable"
-        },
-        {
-          question: "¿Cómo nutre el cabello dañado?",
-          answer: "El tratamiento está enriquecido con ingredientes naturales que:\n\n" +
-                 "• Reparan las fibras capilares dañadas\n" +
-                 "• Aportan proteínas y nutrientes esenciales\n" +
-                 "• Sellan las cutículas\n" +
-                 "• Previenen el daño futuro\n" +
-                 "• Restauran la salud del cabello"
-        },
-        {
           question: "¿Qué tipo de cabello puede tratarse?",
           answer: "Es ideal para todo tipo de cabello, especialmente:\n\n" +
                  "• Cabello maltratado por químicos\n" +
@@ -286,15 +268,6 @@ const FAQ = () => {
                  "• Cabello fino o delicado\n" +
                  "• Cabello rizado o con frizz\n" +
                  "• Cabello sensible a tratamientos químicos"
-        },
-        {
-          question: "¿Qué cuidados requiere después del tratamiento?",
-          answer: "Para mantener los resultados recomendamos:\n\n" +
-                 "• Usar shampoo sin sulfatos\n" +
-                 "• Aplicar productos hidratantes\n" +
-                 "• Evitar el exceso de calor\n" +
-                 "• Usar protector térmico\n" +
-                 "• Realizar mantenimientos periódicos cada 3-5 meses"
         }
       ]
     },
@@ -319,8 +292,6 @@ const FAQ = () => {
           answer: "El tratamiento ofrece múltiples beneficios:\n\n" +
                  "• Nutre el cabello dañado en un 95%\n" +
                  "• Elimina el cabello crespo y esponjado\n" +
-                 "• Recupera el brillo natural\n" +
-                 "• Aporta suavidad excepcional\n" +
                  "• Previene el frizz"
         },
         {
@@ -346,16 +317,6 @@ const FAQ = () => {
                  "• Es un tratamiento puramente reconstructor\n" +
                  "• Ideal para quien quiere mantener su forma natural\n" +
                  "• Se puede combinar con keratina para mejores resultados"
-        },
-        {
-          question: "¿Qué resultados puedo esperar después del tratamiento?",
-          answer: "Después del tratamiento notarás:\n\n" +
-                 "• Cabello visiblemente más saludable y nutrido\n" +
-                 "• Eliminación del aspecto esponjado\n" +
-                 "• Mayor brillo y suavidad natural\n" +
-                 "• Reducción significativa del frizz\n" +
-                 "• Cabello más fácil de peinar manteniendo su forma natural\n" +
-                 "• Mejora en la textura y elasticidad del cabello"
         },
         {
           question: "¿Qué cuidados requiere después del tratamiento?",
@@ -455,8 +416,7 @@ const FAQ = () => {
           answer: "Aceptamos diversos métodos de pago:\n\n" +
                  "• Efectivo\n" +
                  "• Tarjetas de débito y crédito\n" +
-                 "• Transferencias bancarias\n" +
-                 "• Pagos móviles"
+                 "• Transferencias bancarias"
         },
         {
           question: "¿Ofrecen descuentos para clientes frecuentes?",
@@ -499,14 +459,6 @@ const FAQ = () => {
                  "• Usa solo shampoo para el lavado\n" +
                  "• El cabello debe estar seco\n" +
                  "• Si no puedes venir con el cabello así preparado, podemos lavarlo en el salón"
-        },
-        {
-          question: "¿Qué cuidados requiere después del tratamiento?",
-          answer: "Para mantener los resultados es indispensable:\n\n" +
-                 "• Usar shampoo sin sal PROFESIONAL que te dispone el salón\n" +
-                 "• Aplicar mascarilla hidratante (no importa la marca)\n" +
-                 "• No sujetar, no mojar ni marcar el cabello durante 1 día\n" +
-                 "• Lavar el cabello únicamente al tiempo que terminaron el trabajo"
         },
         {
           question: "¿Qué productos recomiendan usar después del tratamiento?",

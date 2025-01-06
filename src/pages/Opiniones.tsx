@@ -50,6 +50,19 @@ export const Opiniones = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Prevenir el envío si no estamos en el último paso
+    if (currentStep !== totalSteps) {
+      return;
+    }
+
+    // Verificar que todos los campos requeridos estén completos
+    const allFieldsValid = [1, 2, 3, 4, 6].every(step => isStepValid(step));
+    if (!allFieldsValid) {
+      alert('Por favor completa todos los campos requeridos antes de enviar.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -123,8 +136,7 @@ export const Opiniones = () => {
     'Alisado Orgánico',
     'Botox Capilar',
     'Extensión de Pestañas',
-    'Diseño de Cejas',
-    'Manicure & Pedicure'
+    'Diseño de Cejas'
   ];
 
   return (
@@ -163,7 +175,11 @@ export const Opiniones = () => {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form 
+                  onSubmit={handleSubmit} 
+                  className="space-y-8"
+                  autoComplete="off" // Prevenir autocompletado
+                >
                   {/* Step 1: Nombre */}
                   <div className={`transition-all duration-500 ${currentStep === 1 ? 'opacity-100' : 'opacity-0 hidden'}`}>
                     <label className="block text-lg font-medium text-gray-700 mb-2">
@@ -263,20 +279,18 @@ export const Opiniones = () => {
                     <div className="flex justify-between mt-8">
                       <button
                         onClick={() => setCurrentStep(prev => prev - 1)}
-                        className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                        className="px-6 py-2 text-[#F25AA3] border border-[#F25AA3] rounded-lg hover:bg-pink-50 transition-all"
                       >
                         Anterior
                       </button>
                       <button
-                        onClick={handleSubmit}
-                        disabled={isSubmitting || formData.rating === 0}
-                        className={`px-6 py-2 ${
-                          isSubmitting || formData.rating === 0
-                            ? 'bg-gray-400 cursor-not-allowed'
-                            : 'bg-pink-600 hover:bg-pink-700'
-                        } text-white rounded-lg transition-colors`}
+                        type="submit"
+                        disabled={isSubmitting || !isStepValid(currentStep)}
+                        className={`px-6 py-2 text-white bg-[#F25AA3] rounded-lg hover:bg-[#D14A93] transition-all ${
+                          (isSubmitting || !isStepValid(currentStep)) ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                       >
-                        {isSubmitting ? 'Enviando...' : 'Enviar opinión'}
+                        {isSubmitting ? 'Enviando...' : 'Enviar Opinión'}
                       </button>
                     </div>
                   </div>
@@ -297,11 +311,13 @@ export const Opiniones = () => {
                     {currentStep < totalSteps ? (
                       <button
                         type="button"
-                        onClick={() => setCurrentStep(Math.min(totalSteps, currentStep + 1))}
-                        className={`px-6 py-2 rounded-full transition-colors ${
-                          isStepValid(currentStep)
-                            ? 'bg-[#F25AA3] text-white hover:bg-black'
-                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        onClick={() => {
+                          if (isStepValid(currentStep)) {
+                            setCurrentStep(prev => prev + 1);
+                          }
+                        }}
+                        className={`px-6 py-2 text-white bg-[#F25AA3] rounded-lg hover:bg-[#D14A93] transition-all ${
+                          !isStepValid(currentStep) ? 'opacity-50 cursor-not-allowed' : ''
                         }`}
                         disabled={!isStepValid(currentStep)}
                       >
