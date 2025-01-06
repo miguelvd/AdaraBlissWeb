@@ -16,15 +16,28 @@ export const Navbar = () => {
       const opacity = Math.min((window.scrollY / 100), 0.95);
       setBgOpacity(opacity);
     };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const moreMenu = document.querySelector('.more-menu-container');
+      if (moreMenu && !moreMenu.contains(event.target as Node)) {
+        setIsMoreMenuOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   const navItems = [
     { path: '/', label: 'Inicio' },
-    { path: '/opiniones', label: 'Tu Opinión' },
     { path: '/galeria', label: 'Galería' },
-    { path: '/promociones', label: 'Promociones' }
+    { path: '/promociones', label: 'Promociones' },
+    { path: '/opiniones', label: 'Tu Opinión' }
   ];
 
   const moreItems = [
@@ -56,6 +69,10 @@ export const Navbar = () => {
               <Link
                 key={item.path}
                 to={item.path}
+                onClick={() => {
+                  setIsMoreMenuOpen(false);
+                  setIsMenuOpen(false);
+                }}
                 className={`relative py-2 transition-colors duration-300 ${
                   isHome && !isScrolled ? 'text-white hover:text-pink-300' : 'text-gray-800 hover:text-[#F25AA3]'
                 }`}
@@ -70,7 +87,7 @@ export const Navbar = () => {
               </Link>
             ))}
             {/* Menú Más - Escritorio */}
-            <div className="relative">
+            <div className="relative more-menu-container">
               <button
                 onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
                 className={`flex items-center gap-1 py-2 transition-colors duration-300 ${
@@ -81,7 +98,7 @@ export const Navbar = () => {
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isMoreMenuOpen ? 'rotate-180' : ''}`} />
               </button>
               {/* Submenú Más */}
-              <div className={`absolute top-full right-0 w-64 bg-white shadow-lg rounded-lg py-2 transition-all duration-300 ${
+              <div className={`absolute top-full right-0 w-64 bg-white shadow-lg rounded-lg py-2 transition-all duration-300 z-[60] ${
                 isMoreMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
                 {moreItems.map((item) => (

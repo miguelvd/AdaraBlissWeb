@@ -9,7 +9,7 @@ interface Treatment {
 
 export const treatments: Treatment[] = [
   {
-    title: 'Keratina Premium',
+    title: 'Keratina Japonesa',
     description: 'Tratamiento profesional que elimina el frizz y alisa el cabello hasta por 6 meses.',
     icon: Sparkles,
     path: '/servicios/keratina-premium'

@@ -40,7 +40,7 @@ const AvisoLegal = () => {
             </p>
             <ul className="list-disc pl-6 text-gray-600 mb-4">
               <li>Alisado Láser</li>
-              <li>Keratina Premium</li>
+              <li>Keratina Japonesa</li>
               <li>Alisado Orgánico</li>
               <li>Botox Capilar</li>
               <li>Corte de Cabello</li>

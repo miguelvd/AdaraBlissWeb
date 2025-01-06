@@ -168,12 +168,12 @@ const FAQ = () => {
     },
     {
       id: "tratamiento-keratina-premium",
-      title: "Tratamiento de Keratina Premium",
-      description: "Descubre los beneficios de nuestro tratamiento de keratina",
+      title: "Tratamiento de Keratina Japonesa",
+      description: "Conoce todos los detalles de nuestro tratamiento estrella",
       items: [
         {
-          question: "¿Qué beneficios principales ofrece la Keratina Premium?",
-          answer: "La Keratina Premium ofrece múltiples beneficios:\n\n" +
+          question: "¿Qué beneficios principales ofrece la Keratina Japonesa?",
+          answer: "La Keratina Japonesa ofrece múltiples beneficios:\n\n" +
                  "• Brillo excepcional: Sella las cutículas capilares para reflejar la luz con más intensidad\n" +
                  "• Suavidad incomparable: Restaura la fibra capilar con keratina\n" +
                  "• Control total del frizz: Efectivo en cualquier clima (humedad, calor, frío y lluvia)\n" +
@@ -181,8 +181,8 @@ const FAQ = () => {
                  "• Control de volumen: Reduce el exceso de volumen al alisar la fibra capilar"
         },
         {
-          question: "¿Qué porcentaje de alisado se logra con la Keratina?",
-          answer: "Con la Keratina Premium se logra un 80% promedio de alaciado, siendo efectiva " +
+          question: "¿Qué porcentaje de alisado se logra?",
+          answer: "Con la Keratina Japonesa se logra un 80% promedio de alaciado, siendo efectiva " +
                  "tanto en cabellos vaporosos como en cabellos rizados. El resultado final dependerá " +
                  "del tipo de cabello inicial."
         },
@@ -196,26 +196,25 @@ const FAQ = () => {
         },
         {
           question: "¿Es efectiva contra el frizz?",
-          answer: "Sí, la Keratina Premium ofrece un control Anti-Frizz total, eliminando los " +
+          answer: "Sí, la Keratina Japonesa ofrece un control Anti-Frizz total, eliminando los " +
                  "cabellos rebeldes sin importar las condiciones climáticas, ya sea en ambientes " +
                  "húmedos, calurosos, fríos o lluviosos."
         },
         {
-          question: "¿Me puedo teñir el cabello antes o después del tratamiento?",
-          answer: "Sí, puedes teñir tu cabello antes o después del tratamiento de Keratina Premium. " +
+          question: "¿Me puedo teñir el cabello después del tratamiento?",
+          answer: "Sí, puedes teñir tu cabello antes o después del tratamiento de Keratina Japonesa. " +
                  "Si decides teñir después, recomendamos esperar 15 días para que la keratina se fije " +
                  "completamente. Si prefieres teñir antes, espera 3 días antes de aplicar la keratina."
         },
         {
-          question: "¿Puedo decolorar mi cabello antes o después de la keratina?",
+          question: "¿Puedo decolorar mi cabello después de la keratina?",
           answer: "Para la decoloración, recomendamos:\n\n" +
-                 "• Si es antes: Esperar 1 semana antes de aplicar la keratina para que el cabello se recupere\n" +
-                 "• Si es después: Esperar al menos 3 semanas post-keratina\n" +
+                 "• Si es después: Esperar 3 semanas post-keratina\n" +
                  "• En ambos casos, usar tratamientos fortalecedores para proteger el cabello"
         },
         {
-          question: "¿Qué hace diferente a esta Keratina Premium?",
-          answer: "La Keratina Premium se distingue por:\n\n" +
+          question: "¿Qué hace diferente a esta Keratina Japonesa?",
+          answer: "La Keratina Japonesa se distingue por:\n\n" +
                  "• Sellado profesional de cutículas\n" +
                  "• Restauración profunda con aminoácidos\n" +
                  "• Control de volumen inteligente\n" +
@@ -404,7 +403,7 @@ const FAQ = () => {
           question: "¿Qué tratamientos capilares intensivos ofrecen?",
           answer: "Nuestros tratamientos intensivos incluyen:\n\n" +
                  "• Botox Capilar (restauración al 95%)\n" +
-                 "• Keratina Premium (nutrición y alisado)\n" +
+                 "• Keratina Japonesa (nutrición y alisado)\n" +
                  "• Keratina Orgánica (sin formol)\n" +
                  "Cada tratamiento está diseñado para diferentes necesidades y tipos de cabello. " +
                  "Realizamos un diagnóstico previo para recomendarte el más adecuado para tu caso."

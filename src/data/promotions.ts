@@ -3,7 +3,7 @@ import { Sparkles, Scissors, Heart, Star } from 'lucide-react';
 export const promotions = [
   {
     id: 'promo-keratina',
-    title: 'Keratina Premium',
+    title: 'Keratina Japonesa',
     description: 'Transforma tu cabello con nuestro tratamiento estrella',
     originalPrice: 2500,
     discountPrice: 1800,

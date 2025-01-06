@@ -13,61 +13,61 @@ interface GalleryCategory {
 }
 
 export const galleries: Record<string, GalleryCategory> = {
-  keratinaPremium: {
-    id: 'keratina-premium',
-    title: 'Keratina Premium',
-    description: 'Transformación y brillo para tu cabello',
-    coverImage: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.15 PM.jpeg',
+  keratinaJaponesa: {
+    id: 'keratina-japonesa',
+    title: 'Keratina Japonesa',
+    description: 'Transformaciones con nuestro tratamiento estrella',
+    coverImage: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.15 PM.jpeg',
     images: [
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.15 PM.jpeg',
-        alt: 'Keratina Premium - Resultado 1',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.15 PM.jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.15 PM.jpeg',
+        alt: 'Keratina Japonesa - Resultado 1',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.15 PM.jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM (1).jpeg',
-        alt: 'Keratina Premium - Resultado 2',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM (1).jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM (1).jpeg',
+        alt: 'Keratina Japonesa - Resultado 2',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM (1).jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM (2).jpeg',
-        alt: 'Keratina Premium - Resultado 3',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM (2).jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM (2).jpeg',
+        alt: 'Keratina Japonesa - Resultado 3',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM (2).jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM (3).jpeg',
-        alt: 'Keratina Premium - Resultado 4',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM (3).jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM (3).jpeg',
+        alt: 'Keratina Japonesa - Resultado 4',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM (3).jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM.jpeg',
-        alt: 'Keratina Premium - Resultado 5',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.16 PM.jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM.jpeg',
+        alt: 'Keratina Japonesa - Resultado 5',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.16 PM.jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (1).jpeg',
-        alt: 'Keratina Premium - Resultado 6',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (1).jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (1).jpeg',
+        alt: 'Keratina Japonesa - Resultado 6',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (1).jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (2).jpeg',
-        alt: 'Keratina Premium - Resultado 7',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (2).jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (2).jpeg',
+        alt: 'Keratina Japonesa - Resultado 7',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (2).jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (3).jpeg',
-        alt: 'Keratina Premium - Resultado 8',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (3).jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (3).jpeg',
+        alt: 'Keratina Japonesa - Resultado 8',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (3).jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (4).jpeg',
-        alt: 'Keratina Premium - Resultado 9',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM (4).jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (4).jpeg',
+        alt: 'Keratina Japonesa - Resultado 9',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM (4).jpeg'
       },
       {
-        url: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM.jpeg',
-        alt: 'Keratina Premium - Resultado 10',
-        thumbnail: '/images/gallery/Keratina premium/WhatsApp Image 2025-01-03 at 10.19.17 PM.jpeg'
+        url: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM.jpeg',
+        alt: 'Keratina Japonesa - Resultado 10',
+        thumbnail: '/images/gallery/Keratina Japonesa/WhatsApp Image 2025-01-03 at 10.19.17 PM.jpeg'
       }
     ]
   },

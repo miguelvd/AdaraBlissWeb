@@ -12,13 +12,13 @@ export const KeratinaPremium = () => {
         <WaveDivider position="top" />
         <div className="max-w-6xl mx-auto px-4 py-20">
           <h1 className="text-5xl md:text-7xl text-center mb-8 text-[#F25AA3] font-glitten">
-            Keratina Premium
+            Keratina Japonesa
           </h1>
           
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
               <p className="text-xl text-gray-700 leading-relaxed">
-                Nuestro tratamiento de keratina premium es la solución definitiva para un cabello perfectamente liso y manejable. 
+                Nuestro tratamiento de keratina japonesa es la solución definitiva para un cabello perfectamente liso y manejable. 
                 Con una duración de hasta 6 meses, este tratamiento elimina el frizz y transforma tu cabello.
               </p>
               <div className="space-y-4">
@@ -40,7 +40,7 @@ export const KeratinaPremium = () => {
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&q=80&w=800"
-                alt="Keratina Premium"
+                alt="Keratina Japonesa"
                 className="rounded-2xl shadow-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#F25AA3]/20 to-transparent rounded-2xl" />

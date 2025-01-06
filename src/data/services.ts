@@ -11,7 +11,7 @@ interface Service {
 export const services: Service[] = [
   {
     id: 'keratina-premium',
-    title: 'Alisado con Keratina Premium',
+    title: 'Alisado con Keratina Japonesa',
     description: 'Tratamiento profesional que elimina el frizz y alisa el cabello hasta por 6 meses. Nutre, repara y da brillo intenso a tu cabello.',
     image: '/images/services/keratina-premium.png',
     path: '/servicios/keratina-premium'
