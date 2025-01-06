@@ -1,17 +1,40 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { galleries } from '../data/galleries';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const Galeria = () => {
-  const [selectedCategory, setSelectedCategory] = useState<keyof typeof galleries>('keratinaPremium');
+  const [selectedCategory, setSelectedCategory] = useState<keyof typeof galleries>('keratinaJaponesa');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const categoriesList = Object.entries(galleries);
+  const [isSticky, setIsSticky] = useState(false);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      const threshold = 100;
+      setIsSticky(offset > threshold);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleImageClick = (imageUrl: string, index: number) => {
     setSelectedImage(imageUrl);
     setCurrentImageIndex(index);
+  };
+
+  const handleCategoryChange = (category: keyof typeof galleries) => {
+    setSelectedCategory(category);
+    const headerHeight = 80; // Altura deseada
+    const offset = galleryRef.current?.offsetTop || 0;
+    
+    window.scrollTo({
+      top: offset - headerHeight,
+      behavior: 'smooth'
+    });
   };
 
   const handleNextImage = (e: React.MouseEvent) => {
@@ -35,9 +58,9 @@ export const Galeria = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-pink-50/30">
+    <div className="min-h-screen bg-gradient-to-b from-white to-pink-50/30" ref={galleryRef}>
       {/* Header con título */}
-      <div className="pt-20 md:pt-28 pb-4 md:pb-8 bg-gradient-to-b from-white to-pink-50/30">
+      <div className="pt-20 md:pt-28 pb-4 md:pb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,26 +76,29 @@ export const Galeria = () => {
         </motion.div>
       </div>
 
-      {/* Categorías fijas en móvil */}
-      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg shadow-sm md:relative md:shadow-none md:bg-transparent">
-        <div className="container mx-auto">
-          <div className="flex overflow-x-auto gap-3 py-3 md:py-6 scrollbar-hide snap-x snap-mandatory px-4 md:flex-wrap md:justify-center">
-            {Object.entries(galleries).map(([key, gallery]) => (
-              <button
-                key={key}
-                onClick={() => setSelectedCategory(key as keyof typeof galleries)}
-                className={`flex-none snap-start px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${
-                  selectedCategory === key
-                    ? 'bg-[#F25AA3] text-white shadow-lg scale-105 shadow-pink-200'
-                    : 'bg-pink-50 text-[#F25AA3] hover:bg-pink-100'
-                }`}
-              >
-                {gallery.title}
-              </button>
-            ))}
+      {/* Barra de categorías sticky */}
+      <div className={`gallery-categories ${isSticky ? 'is-sticky' : ''}`}>
+        <div className="scrollable-container">
+          <div className="container mx-auto">
+            <div className="flex gap-3 py-2 px-4 md:flex-wrap md:justify-center">
+              {Object.entries(galleries).map(([key, gallery]) => (
+                <button
+                  key={key}
+                  onClick={() => handleCategoryChange(key as keyof typeof galleries)}
+                  className={`flex-none snap-start px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+                    selectedCategory === key
+                      ? 'bg-[#F25AA3] text-white shadow-lg scale-105 shadow-pink-200'
+                      : 'bg-pink-50 text-[#F25AA3] hover:bg-pink-100'
+                  }`}
+                >
+                  {gallery.title}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+      <div className="gallery-categories-spacer"></div>
 
       {/* Grid de imágenes con animación */}
       <div className="container mx-auto px-4 py-8">

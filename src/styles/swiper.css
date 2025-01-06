@@ -106,7 +106,7 @@
 
 .swiper-pagination-bullet-active {
   width: 2rem !important;
-  background: #ec4899 !important; /* pink-500 */
+  background: 99zz !important; /* pink-500 */
 }
 
 @media (max-width: 768px) {

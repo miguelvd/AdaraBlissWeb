@@ -3,9 +3,13 @@ import FAQCategory from '../../components/FAQCategory';
 import '../../styles/FAQ.css';
 
 const FAQ = () => {
-  const [openCategoryIndex, setOpenCategoryIndex] = useState<number>(0);
+  const [openCategoryIndex, setOpenCategoryIndex] = useState<number>(-1);
   const categoryRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const scrollToCategory = (index: number) => {
     if (categoryRefs.current[index]) {
@@ -20,31 +24,18 @@ const FAQ = () => {
   };
 
   const handleCategoryClick = (index: number) => {
-    // Si ya está abierta, solo hacemos scroll
+    // Si la categoría ya está abierta, la cerramos
     if (openCategoryIndex === index) {
-      scrollToCategory(index);
-    } else {
-      // Si está cerrada, la abrimos y esperamos a que se expanda
-      setOpenCategoryIndex(index);
-    }
-  };
-
-  // Este efecto se ejecuta cuando cambia openCategoryIndex
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
+      setOpenCategoryIndex(-1);
       return;
     }
     
-    // Esperamos a que la animación de expansión termine
-    const timer = setTimeout(() => {
-      if (openCategoryIndex !== -1) {
-        scrollToCategory(openCategoryIndex);
-      }
-    }, 300); // Ajusta este tiempo según la duración de tu animación
-
-    return () => clearTimeout(timer);
-  }, [openCategoryIndex]);
+    // Si es una categoría diferente, la abrimos y hacemos scroll
+    setOpenCategoryIndex(index);
+    setTimeout(() => {
+      scrollToCategory(index);
+    }, 300);
+  };
 
   // Efecto para manejar el hash inicial
   useEffect(() => {
@@ -63,13 +54,6 @@ const FAQ = () => {
       title: "Información General",
       description: "Conoce más sobre nuestro salón y servicios",
       items: [
-        {
-          question: "¿Qué métodos de pago aceptan?",
-          answer: "Aceptamos diversos métodos de pago:\n\n" +
-                 "• Efectivo\n" +
-                 "• Tarjetas de débito y crédito\n" +
-                 "• Transferencias bancarias"
-        },
         {
           question: "¿Necesito agendar cita?",
           answer: "Sí, recomendamos agendar cita para garantizar la disponibilidad y un mejor servicio. " +
@@ -96,6 +80,94 @@ const FAQ = () => {
                  "para obtener mejores resultados."
         },
         {
+          question: "¿El tratamiento resiste actividades acuáticas y ambientes húmedos?",
+          answer: "Sí, nuestro tratamiento está especialmente formulado para resistir:\n\n" +
+                 "• Agua de mar y alberca\n" +
+                 "• Ambientes húmedos y calurosos\n" +
+                 "• Vapores y altas temperaturas\n\n" +
+                 "Para mantener resultados óptimos, recomendamos utilizar el kit de mantenimiento " +
+                 "que te proporcionamos, el cual ayudará a prolongar la duración y belleza de tu alisado."
+        },
+        {
+          question: "¿Se requiere algún acondicionador o mascarilla específica?",
+          answer: "No, la marca de acondicionador o mascarilla que decidas usar no afectará el resultado " +
+                 "de tu alisado. Puedes utilizar los productos de tu preferencia para el cuidado de tu cabello."
+        },
+        {
+          question: "¿Puedo seguir usando crema para peinar, aceites o silika?",
+          answer: "Sí, puedes seguir usando los productos de styling que prefieras para el cuidado y peinado de tu cabello."
+        },
+        {
+          question: "¿El alisado afecta a la caída del cabello?",
+          answer: "No, el alisado no afecta a la caída del cabello. De hecho, puede ayudar a detenerla ya que:\n\n" +
+                 "• Sella la cutícula del cabello, protegiéndolo de daños externos\n" +
+                 "• Fortalece la fibra capilar con proteínas y nutrientes\n" +
+                 "• Reduce la necesidad de usar calor excesivo al peinar\n" +
+                 "• Disminuye la manipulación diaria del cabello\n\n" +
+                 "Todo esto contribuye a mantener un cabello más saludable y resistente, lo que puede ayudar a prevenir la caída causada por daño mecánico o debilitamiento."
+        },
+        {
+          question: "¿El alisado daña el cabello?",
+          answer: "No, nuestros tratamientos están diseñados para mejorar la salud del cabello:\n\n" +
+                 "• Contienen proteínas y nutrientes que reparan y fortalecen\n" +
+                 "• Sellan la cutícula protegiendo de daños ambientales\n" +
+                 "• Reducen la necesidad de usar planchas diariamente\n" +
+                 "• Incluyen tratamientos hidratantes y regeneradores\n\n" +
+                 "Al contrario de dañar, el alisado puede mejorar significativamente la condición de tu cabello, " +
+                 "dejándolo más suave, brillante y manejable."
+        },
+        {
+          question: "¿Qué puedo hacer si el alisado irritó mi cuero cabelludo?",
+          answer: "La irritación puede ocurrir por varias razones:\n\n" +
+                 "• Sensibilidad natural de tu cuero cabelludo\n" +
+                 "• Haberte rascado o lastimado antes del tratamiento\n" +
+                 "• Exposición reciente al sol\n" +
+                 "• Tintes o decoloraciones recientes\n\n" +
+                 "Si experimentas irritación, recomendamos:\n\n" +
+                 "• Aplicar aloe vera puro en el cuero cabelludo\n" +
+                 "• Usar shampoo neutro sin sulfatos\n" +
+                 "• Evitar agua muy caliente\n" +
+                 "• No rascar ni frotar el área\n\n" +
+                 "Si la irritación persiste, contáctanos para una valoración personalizada. " +
+                 "Para tu próximo tratamiento, podemos usar productos específicos para cuero cabelludo sensible."
+        },
+        {
+          question: "¿Qué pasa si el tratamiento de alisado no queda tan lacio como esperaba?",
+          answer: "Los resultados del alisado pueden variar según varios factores de tu cabello:\n\n" +
+                 "• Estructura del cabello (grosor y tipo de ondulación)\n" +
+                 "• Nivel de porosidad\n" +
+                 "• Tratamientos químicos previos\n" +
+                 "• Estado general del cabello\n\n" +
+                 "Por esto ofrecemos diferentes opciones:\n\n" +
+                 "Alisado Láser (Premium):\n" +
+                 "• Incluye garantía de satisfacción\n" +
+                 "• Si no quedas satisfecha, realizamos otra sesión sin costo adicional\n\n" +
+                 "Keratina Japonesa y Orgánica:\n" +
+                 "• En caso de requerir un retratamiento, se aplica un costo del 40% del valor total\n" +
+                 "• Esto cubre los productos y el tiempo del servicio"
+        },
+        {
+          question: "¿Cuál es el mejor tratamiento de alisado para mi cabello?",
+          answer: "Ofrecemos tres niveles de tratamientos, cada uno con beneficios específicos:\n\n" +
+                 "1. Alisado Láser (Premium):\n" +
+                 "• Máximo nivel de alisado (100%)\n" +
+                 "• Mayor duración (4-8 meses)\n" +
+                 "• Incluye garantía de satisfacción\n" +
+                 "• Tecnología de luz azul exclusiva\n\n" +
+                 "2. Keratina Japonesa:\n" +
+                 "• Alisado efectivo (80%)\n" +
+                 "• Duración de 4-6 meses\n" +
+                 "• Excelente control del frizz\n\n" +
+                 "3. Keratina Orgánica:\n" +
+                 "• Alisado suave (70%)\n" +
+                 "• Duración de 3-5 meses\n" +
+                 "• Ideal para personas sensibles\n" +
+                 "• Sin formol\n\n" +
+                 "Recomendamos el Alisado Láser para resultados óptimos y mayor duración. " +
+                 "En tu consulta personalizada, evaluaremos tu tipo de cabello para recomendarte " +
+                 "el tratamiento más adecuado."
+        },
+        {
           question: "¿Cuál es la diferencia entre Botox Capilar y las Keratinas?",
           answer: "Cada tratamiento tiene un propósito diferente:\n\n" +
                  "Botox Capilar:\n" +
@@ -111,20 +183,6 @@ const FAQ = () => {
                  "• Ideales para reducir volumen\n" +
                  "• Enfoque en alisado y control de frizz\n\n" +
                  "La elección dependerá de tu objetivo: si buscas alisar, elige Keratina; si buscas nutrir y reparar manteniendo tu tipo de cabello, elige Botox."
-        },
-        {
-          question: "¿Requieren anticipo para agendar?",
-          answer: "Se requiere un anticipo de $150 pesos en los siguientes casos:\n\n" +
-                 "• Promociones\n" +
-                 "• Días festivos\n" +
-                 "• Domingos\n\n" +
-                 "Este monto se descuenta del total del servicio. Es importante confirmar tu cita un día " +
-                 "antes, de lo contrario quedará cancelada y se perderá el anticipo."
-        },
-        {
-          question: "¿Puedo cancelar o reprogramar mi cita?",
-          answer: "Sí, puedes cancelar o reprogramar tu cita con al menos 48 horas de anticipación sin cargo alguno. " +
-                 "Para cancelaciones con menos tiempo, podría aplicarse un cargo por cancelación tardía."
         },
         {
           question: "¿Qué cuidados requiere después del tratamiento?",
@@ -231,14 +289,20 @@ const FAQ = () => {
                  "• Usar shampoo sin sulfatos\n" +
                  "• Aplicar productos hidratantes\n" +
                  "• Usar protector térmico\n" +
-                 "• Realizar mantenimientos periódicos cada 3-5 meses"
+                 "• Realizar mantenimientos periódicos cada 4-6 meses"
+        },
+        {
+          question: "¿Cuánto tiempo dura el efecto del tratamiento?",
+          answer: "El tratamiento tiene una duración de 4 a 6 meses, manteniendo tu cabello " +
+                 "liso, brillante y suave durante todo este período. La duración exacta " +
+                 "dependerá del tipo de cabello y los cuidados posteriores."
         }
       ]
     },
     {
       id: "keratina-organica",
       title: "Keratina Orgánica",
-      description: "Descubre nuestro tratamiento sin formol, seguro y efectivo",
+      description: "Descubre nuestro tratamiento sin formol, seguro y efectivo para personas sensibles",
       items: [
         {
           question: "¿Qué es la Keratina Orgánica sin formol?",
@@ -257,7 +321,7 @@ const FAQ = () => {
           answer: "Sí, al ser un tratamiento sin formol, es completamente seguro para:\n\n" +
                  "• Mujeres embarazadas\n" +
                  "• Niñas desde los 9 años\n" +
-                 "• Personas con sensibilidad química\n" +
+                 "• Personas con sensibilidad\n" +
                  "• No irrita el cuero cabelludo ni las vías respiratorias"
         },
         {
@@ -344,105 +408,11 @@ const FAQ = () => {
                  "• Plan de cuidado posterior"
         },
         {
-          question: "¿Qué incluye el servicio de peinado y styling?",
-          answer: "Nuestros servicios de peinado incluyen:\n\n" +
-                 "• Lavado profesional\n" +
-                 "• Secado y brushing\n" +
-                 "• Planchado o rizados\n" +
-                 "• Peinados para eventos\n" +
-                 "• Tratamiento de brillo\n" +
-                 "Adaptamos el styling a tu tipo de cabello y ocasión."
-        },
-        {
-          question: "¿Ofrecen tratamientos para cabello maltratado?",
-          answer: "Sí, contamos con varios tratamientos para restaurar el cabello maltratado:\n\n" +
-                 "• Botox capilar (restauración al 95%)\n" +
-                 "• Mascarillas reconstructoras\n" +
-                 "• Tratamientos para puntas abiertas"
-        },
-        {
-          question: "¿Qué tratamientos capilares intensivos ofrecen?",
-          answer: "Nuestros tratamientos intensivos incluyen:\n\n" +
-                 "• Botox Capilar (restauración al 95%)\n" +
-                 "• Keratina Japonesa (nutrición y alisado)\n" +
-                 "• Keratina Orgánica (sin formol)\n" +
-                 "Cada tratamiento está diseñado para diferentes necesidades y tipos de cabello. " +
-                 "Realizamos un diagnóstico previo para recomendarte el más adecuado para tu caso."
-        },
-        {
-          question: "¿Cómo mantengo los resultados de mi tratamiento?",
-          answer: "Para mantener los resultados óptimos recomendamos:\n\n" +
-                 "• Usar los productos profesionales recomendados\n" +
-                 "• Seguir el calendario de mantenimiento sugerido\n" +
-                 "• Evitar productos con sulfatos y parabenos\n" +
-                 "• Proteger el cabello del calor y el sol\n" +
-                 "• Programar retoques según el tipo de tratamiento"
-        },
-        {
           question: "¿Qué servicios de corte ofrecen?",
-          answer: "Realizamos todo tipo de cortes:\n\n" +
-                 "• Cortes en capas\n" +
-                 "• Cortes bob y pixie\n" +
-                 "• Degradados y desfilados\n" +
+          answer: "Ofrecemos los siguientes servicios de corte:\n\n" +
+                 "• Despuntes de cabello\n" +
                  "• Flequillos\n" +
-                 "• Cortes para cabello rizado\n" +
-                 "Incluimos diagnóstico y asesoría personalizada."
-        },
-        {
-          question: "¿Tienen servicios express para eventos?",
-          answer: "Sí, ofrecemos servicios express que incluyen:\n\n" +
-                 "• Lavado y peinado rápido\n" +
-                 "• Planchado express\n" +
-                 "• Ondas y rizos\n" +
-                 "• Peinados para eventos\n" +
-                 "• Maquillaje express\n" +
-                 "Ideal para eventos de último momento."
-        }
-      ]
-    },
-    {
-      id: "ofertas-y-pagos",
-      title: "Ofertas y Pagos",
-      description: "Descuentos, paquetes especiales y formas de pago",
-      items: [
-        {
-          question: "¿Tienen promociones frecuentes?",
-          answer: "Sí, regularmente ofrecemos promociones especiales en nuestros servicios. " +
-                 "Te recomendamos seguirnos en redes sociales o consultar directamente " +
-                 "para conocer las promociones vigentes."
-        },
-        {
-          question: "¿Qué métodos de pago aceptan?",
-          answer: "Aceptamos diversos métodos de pago:\n\n" +
-                 "• Efectivo\n" +
-                 "• Tarjetas de débito y crédito\n" +
-                 "• Transferencias bancarias"
-        },
-        {
-          question: "¿Ofrecen descuentos para clientes frecuentes?",
-          answer: "Sí, contamos con un programa de lealtad donde acumulas puntos por cada servicio " +
-                 "que puedes canjear por descuentos."
-        },
-        {
-          question: "¿Manejan paquetes de servicios?",
-          answer: "Sí, tenemos paquetes especiales que combinan diferentes servicios con descuentos " +
-                 "atractivos. Consulta nuestros paquetes actuales."
-        },
-        {
-          question: "¿Tienen meses sin intereses?",
-          answer: "Sí, manejamos 3, 6 y hasta 12 meses sin intereses en tratamientos seleccionados " +
-                 "con tarjetas participantes."
-        },
-        {
-          question: "¿Requieren anticipo para agendar?",
-          answer: "Para servicios de alisado y tratamientos especiales, solicitamos un anticipo del 30%. " +
-                 "Este monto se descuenta del total del servicio. Es importante confirmar tu cita un día " +
-                 "antes, de lo contrario quedará cancelada y se perderá el anticipo."
-        },
-        {
-          question: "¿Las promociones son acumulables?",
-          answer: "Por lo general, las promociones no son acumulables con otras ofertas o descuentos, " +
-                 "salvo que se especifique lo contrario."
+                 "• Corte recto"
         }
       ]
     },
@@ -457,7 +427,6 @@ const FAQ = () => {
                  "• Ven con el cabello limpio, sin acondicionador, aceites, gel u otros productos\n" +
                  "• Puedes lavar tu cabello un día antes o el mismo día de la cita\n" +
                  "• Usa solo shampoo para el lavado\n" +
-                 "• El cabello debe estar seco\n" +
                  "• Si no puedes venir con el cabello así preparado, podemos lavarlo en el salón"
         },
         {

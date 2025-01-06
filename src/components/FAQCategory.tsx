@@ -63,7 +63,7 @@ const FAQCategory: React.FC<FAQCategoryProps> = ({
                 className="w-full px-5 py-4 text-left flex items-center justify-between gap-4"
                 onClick={() => toggleQuestion(index)}
               >
-                <span className="text-gray-800 font-medium flex-1">
+                <span className="text-gray-800 font-medium flex-1 faq-question">
                   {item.question}
                 </span>
                 <div className={`w-6 h-6 flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
@@ -77,13 +77,11 @@ const FAQCategory: React.FC<FAQCategoryProps> = ({
                 </div>
               </button>
               <div
-                className={`transition-all duration-200 ease-in-out ${
-                  openQuestionIndex === index
-                    ? 'max-h-[500px] opacity-100'
-                    : 'max-h-0 opacity-0'
-                } overflow-hidden`}
+                className={`transition-all duration-200 ease-in-out faq-answer-container ${
+                  openQuestionIndex === index ? 'block' : 'hidden'
+                }`}
               >
-                <div className="px-5 pb-4 text-gray-600">
+                <div className="px-5 pb-4 text-gray-600 faq-answer">
                   {Array.isArray(item.answer) ? (
                     <ul className="list-disc pl-5 space-y-1">
                       {item.answer.map((line, i) => (
@@ -91,7 +89,11 @@ const FAQCategory: React.FC<FAQCategoryProps> = ({
                       ))}
                     </ul>
                   ) : (
-                    <p className="whitespace-pre-line">{item.answer}</p>
+                    item.answer.split('\n').map((line, i) => (
+                      <p key={i} className="mb-2">
+                        {line}
+                      </p>
+                    ))
                   )}
                 </div>
               </div>

@@ -156,12 +156,12 @@ export const galleries: Record<string, GalleryCategory> = {
     id: 'botox',
     title: 'Botox Capilar',
     description: 'Rejuvenece y revitaliza tu cabello',
-    coverImage: '/images/gallery/Botox/0afc5079-9063-4e79-be31-176c5c632d3b.jpg',
+    coverImage: '/images/gallery/Botox/d39c75f6-8042-4f68-a5ac-1ed9b1f32aec.jpg',
     images: [
       {
-        url: '/images/gallery/Botox/0afc5079-9063-4e79-be31-176c5c632d3b.jpg',
+        url: '/images/gallery/Botox/d39c75f6-8042-4f68-a5ac-1ed9b1f32aec.jpg',
         alt: 'Botox Capilar - Resultado 1',
-        thumbnail: '/images/gallery/Botox/0afc5079-9063-4e79-be31-176c5c632d3b.jpg'
+        thumbnail: '/images/gallery/Botox/d39c75f6-8042-4f68-a5ac-1ed9b1f32aec.jpg'
       },
       {
         url: '/images/gallery/Botox/243fd7bd-956a-4844-9004-0a71288f1fd9.jpg',
@@ -174,9 +174,9 @@ export const galleries: Record<string, GalleryCategory> = {
         thumbnail: '/images/gallery/Botox/5f68f613-d15e-4ff4-9e08-6fcac747a20a.jpg'
       },
       {
-        url: '/images/gallery/Botox/d39c75f6-8042-4f68-a5ac-1ed9b1f32aec.jpg',
+        url: '/images/gallery/Botox/0afc5079-9063-4e79-be31-176c5c632d3b.jpg',
         alt: 'Botox Capilar - Resultado 4',
-        thumbnail: '/images/gallery/Botox/d39c75f6-8042-4f68-a5ac-1ed9b1f32aec.jpg'
+        thumbnail: '/images/gallery/Botox/0afc5079-9063-4e79-be31-176c5c632d3b.jpg'
       }
     ]
   },
