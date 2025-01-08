@@ -8,7 +8,7 @@ import { Promociones } from './pages/Promociones';
 import { Home } from './pages/Home';
 import { Galeria } from './pages/Galeria';
 import { Opiniones } from './pages/Opiniones';
-import { KeratinaPremium } from './pages/servicios/KeratinaPremium';
+import { KeratinaJaponesa } from './pages/servicios/KeratinaJaponesa';
 import { AlisadoLaser } from './pages/servicios/AlisadoLaser';
 import { AlisadoOrganico } from './pages/servicios/AlisadoOrganico';
 import { Alisado } from './pages/servicios/Alisado';
@@ -22,6 +22,7 @@ import TerminosCondiciones from './pages/legal/TerminosCondiciones';
 import PoliticaCookies from './pages/legal/PoliticaCookies';
 import AvisoLegal from './pages/legal/AvisoLegal';
 import FAQ from './pages/legal/FAQ';
+import ScrollToTop from './components/ScrollToTop';
 import './styles/swiper.css';
 
 export default function App() {
@@ -29,7 +30,8 @@ export default function App() {
   
   return (
     <Router>
-      <div className="app-container">
+      <ScrollToTop />
+      <div className="flex flex-col min-h-screen">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -42,7 +44,7 @@ export default function App() {
           <Route path="/promociones" element={<Promociones />} />
           <Route path="/galeria" element={<Galeria />} />
           <Route path="/opiniones" element={<Opiniones />} />
-          <Route path="/servicios/keratina-premium" element={<KeratinaPremium />} />
+          <Route path="/servicios/keratina-japonesa" element={<KeratinaJaponesa />} />
           <Route path="/servicios/alisado-laser" element={<AlisadoLaser />} />
           <Route path="/servicios/alisado-organico" element={<AlisadoOrganico />} />
           

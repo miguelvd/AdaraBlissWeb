@@ -11,6 +11,36 @@ export const Galeria = () => {
   const galleryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Scroll to top on mount
+    window.scrollTo(0, 0);
+
+    // Add beforeunload event listener
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
       const threshold = 100;
@@ -28,13 +58,6 @@ export const Galeria = () => {
 
   const handleCategoryChange = (category: keyof typeof galleries) => {
     setSelectedCategory(category);
-    const headerHeight = 80; // Altura deseada
-    const offset = galleryRef.current?.offsetTop || 0;
-    
-    window.scrollTo({
-      top: offset - headerHeight,
-      behavior: 'smooth'
-    });
   };
 
   const handleNextImage = (e: React.MouseEvent) => {

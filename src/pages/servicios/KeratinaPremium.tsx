@@ -7,11 +7,11 @@ import { WaveDivider } from '../../components/WaveDivider';
 
 export const KeratinaPremium = () => {
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white pt-20">
       <section className="min-h-screen bg-gradient-to-b from-white to-pink-50">
         <WaveDivider position="top" />
-        <div className="max-w-6xl mx-auto px-4 py-20">
-          <h1 className="text-5xl md:text-7xl text-center mb-8 text-[#F25AA3] font-glitten">
+        <div className="max-w-6xl mx-auto px-4 py-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-[#F25AA3] font-glitten">
             Keratina Japonesa
           </h1>
           

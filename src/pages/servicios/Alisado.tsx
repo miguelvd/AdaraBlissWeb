@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Scissors, Heart } from 'lucide-react';
+import { Sparkles, Zap, Leaf } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const serviciosAlaciado = [
   {
-    title: 'Keratina Premium',
+    title: 'Keratina Japonesa',
     description: 'Tratamiento profesional que elimina el frizz y alisa el cabello hasta por 6 meses.',
-    path: '/servicios/keratina-premium',
+    path: '/servicios/keratina-japonesa',
     icon: Sparkles,
     color: 'from-pink-400 to-pink-600'
   },
@@ -15,14 +15,14 @@ const serviciosAlaciado = [
     title: 'Alisado Láser',
     description: 'Tecnología avanzada que sella la cutícula y alisa desde la primera sesión.',
     path: '/servicios/alisado-laser',
-    icon: Scissors,
+    icon: Zap,
     color: 'from-purple-400 to-purple-600'
   },
   {
     title: 'Alisado Orgánico',
     description: 'Fórmula natural que alisa y nutre tu cabello sin químicos agresivos.',
     path: '/servicios/alisado-organico',
-    icon: Heart,
+    icon: Leaf,
     color: 'from-emerald-400 to-emerald-600'
   }
 ];

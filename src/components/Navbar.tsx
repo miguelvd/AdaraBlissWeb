@@ -41,12 +41,12 @@ export const Navbar = () => {
   ];
 
   const moreItems = [
+    { path: '/faq', label: 'Preguntas frecuentes (FAQ)' },
     { path: '/derechos', label: 'Aviso de derechos reservados' },
     { path: '/privacidad', label: 'Política de privacidad' },
     { path: '/terminos', label: 'Términos y condiciones' },
     { path: '/cookies', label: 'Política de cookies' },
-    { path: '/legal', label: 'Aviso legal' },
-    { path: '/faq', label: 'Preguntas frecuentes (FAQ)' }
+    { path: '/legal', label: 'Aviso legal' }
   ];
 
   const isHome = location.pathname === '/';
@@ -72,6 +72,7 @@ export const Navbar = () => {
                 onClick={() => {
                   setIsMoreMenuOpen(false);
                   setIsMenuOpen(false);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className={`relative py-2 transition-colors duration-300 ${
                   isHome && !isScrolled ? 'text-white hover:text-pink-300' : 'text-gray-800 hover:text-[#F25AA3]'
@@ -99,13 +100,16 @@ export const Navbar = () => {
               </button>
               {/* Submenú Más */}
               <div className={`absolute top-full right-0 w-64 bg-white shadow-lg rounded-lg py-2 transition-all duration-300 z-[60] ${
-                isMoreMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                isMoreMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
               }`}>
                 {moreItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
-                    onClick={() => setIsMoreMenuOpen(false)}
+                    onClick={() => {
+                      setIsMoreMenuOpen(false);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#F25AA3] transition-colors"
                   >
                     {item.label}
@@ -133,7 +137,10 @@ export const Navbar = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 className={`block px-4 py-3 text-base font-medium border-r-4 ${
                   location.pathname === item.path
                     ? 'bg-white/10 border-[#F25AA3]'
@@ -160,6 +167,7 @@ export const Navbar = () => {
                     onClick={() => {
                       setIsMobileMoreMenuOpen(false);
                       setIsMenuOpen(false);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                     className="block px-8 py-2 text-sm text-gray-300 hover:bg-white/5 transition-colors"
                   >
