@@ -38,65 +38,45 @@ export const AlisadoOrganico = () => {
           Alisado Orgánico
         </motion.h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+          <div>
+            <img
+              src="/images/services/Alisado Organico.png"
+              alt="Alisado Orgánico"
+              className="rounded-lg shadow-xl w-full h-auto"
+            />
+          </div>
+
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="space-y-6"
           >
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
-              Descubre nuestro revolucionario tratamiento de alisado orgánico, 
-              una solución 100% natural que alisa y nutre tu cabello sin utilizar 
-              químicos agresivos. Formulado con ingredientes botánicos de la más 
-              alta calidad, este tratamiento no solo alisa tu cabello, sino que 
-              también lo fortalece y revitaliza desde la raíz hasta las puntas.
+            <h2 className="text-2xl font-semibold mb-6">
+              Alisado Natural y Saludable
+            </h2>
+            <p className="text-gray-600 mb-8">
+              Nuestro alisado orgánico utiliza ingredientes naturales que respetan
+              la salud de tu cabello. Este tratamiento no solo alisa, sino que también
+              nutre y fortalece tu cabello de manera natural, sin químicos agresivos.
             </p>
 
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {beneficios.map((beneficio, index) => (
                 <motion.div
-                  key={index}
+                  key={beneficio.titulo}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="bg-white rounded-2xl shadow-lg p-6 transform transition-transform hover:scale-105"
+                  transition={{ delay: 0.2 + index * 0.1 }}
+                  className="bg-white p-6 rounded-lg shadow-md"
                 >
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      {beneficio.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-glitten text-gray-800 mb-2">
-                        {beneficio.titulo}
-                      </h3>
-                      <p className="text-gray-600">
-                        {beneficio.descripcion}
-                      </p>
-                    </div>
+                  <div className="mb-4">
+                    {beneficio.icon}
                   </div>
+                  <h3 className="font-semibold mb-2">{beneficio.titulo}</h3>
+                  <p className="text-gray-600 text-sm">{beneficio.descripcion}</p>
                 </motion.div>
               ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="relative"
-          >
-            {/* Elementos decorativos */}
-            <div className="absolute -right-20 -top-20 w-64 h-64 bg-green-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
-            <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-emerald-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
-            
-            {/* Imagen principal */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-              <img
-                src="/images/services/alisado-organico.jpg"
-                alt="Alisado Orgánico"
-                className="w-full h-full object-cover rounded-3xl"
-              />
             </div>
           </motion.div>
         </div>

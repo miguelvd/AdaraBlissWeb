@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const services = [
   { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png', path: '/servicios/alisado' },
@@ -15,7 +15,7 @@ const ServiceHero = () => {
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
   const handleServiceClick = (serviceId: string) => {
-    setSelectedService(prev => prev === serviceId ? null : serviceId);
+    setSelectedService((prev: string | null) => prev === serviceId ? null : serviceId);
   };
 
   const handleContinueClick = () => {

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AvisoLegal = () => {
   return (
     <div className="min-h-screen bg-white pt-20">

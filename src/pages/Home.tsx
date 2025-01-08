@@ -1,6 +1,5 @@
 import React from 'react';
 import { ParallaxHeader } from '../components/ParallaxHeader';
-import { ServicesSection } from '../components/ServicesSection';
 import { TestimonialSection } from '../components/TestimonialSection';
 import { ContactForm } from '../components/ContactForm';
 import ServiceHero from '../components/ServiceHero';

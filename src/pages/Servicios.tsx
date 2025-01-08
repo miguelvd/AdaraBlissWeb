@@ -1,4 +1,3 @@
-import React from 'react';
 import ServiceHero from '../components/ServiceHero';
 
 export const Servicios = () => {
@@ -7,4 +6,4 @@ export const Servicios = () => {
       <ServiceHero />
     </div>
   );
-};
+};  

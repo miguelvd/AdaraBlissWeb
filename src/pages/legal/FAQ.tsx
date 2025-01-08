@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FAQCategory from '../../components/FAQCategory';
 import '../../styles/FAQ.css';
 
 const FAQ = () => {
   const [openCategoryIndex, setOpenCategoryIndex] = useState<number>(-1);
   const categoryRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const isInitialMount = useRef(true);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    if (faqRef.current) {
+      faqRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   }, []);
 
   const scrollToCategory = (index: number) => {
