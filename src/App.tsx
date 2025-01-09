@@ -23,6 +23,7 @@ import PoliticaCookies from './pages/legal/PoliticaCookies';
 import AvisoLegal from './pages/legal/AvisoLegal';
 import FAQ from './pages/legal/FAQ';
 import ScrollToTop from './components/ScrollToTop';
+import { Panel } from './pages/Panel';
 import './styles/swiper.css';
 
 export default function App() {
@@ -47,13 +48,14 @@ export default function App() {
           <Route path="/servicios/keratina-japonesa" element={<KeratinaJaponesa />} />
           <Route path="/servicios/alisado-laser" element={<AlisadoLaser />} />
           <Route path="/servicios/alisado-organico" element={<AlisadoOrganico />} />
+          <Route path="/panel/*" element={<Panel />} />
           
-          {/* Rutas para páginas legales */}
-          <Route path="/derechos" element={<DerechosReservados />} />
-          <Route path="/privacidad" element={<PoliticaPrivacidad />} />
-          <Route path="/terminos" element={<TerminosCondiciones />} />
-          <Route path="/cookies" element={<PoliticaCookies />} />
-          <Route path="/legal" element={<AvisoLegal />} />
+          {/* Rutas legales */}
+          <Route path="/derechos-reservados" element={<DerechosReservados />} />
+          <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
+          <Route path="/terminos-condiciones" element={<TerminosCondiciones />} />
+          <Route path="/politica-cookies" element={<PoliticaCookies />} />
+          <Route path="/aviso-legal" element={<AvisoLegal />} />
           <Route path="/faq" element={<FAQ />} />
         </Routes>
         <WhatsAppButton 

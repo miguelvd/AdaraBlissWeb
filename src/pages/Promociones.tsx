@@ -1,6 +1,6 @@
 import React from 'react';
 import { WaveDivider } from '../components/WaveDivider';
-import { PromoCard } from '../components/PromoCard';
+import PromoCard from '../components/PromoCard';
 import { promotions } from '../data/promotions';
 import { SparkleGroup } from '../components/SparkleGroup';
 
