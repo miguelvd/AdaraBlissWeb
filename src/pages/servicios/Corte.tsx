@@ -86,7 +86,7 @@ const Corte = () => {
       </div>
 
       {/* Sección de Información */}
-      <div id="info" className="relative py-16 overflow-hidden">
+      <div id="info" className="relative py-16 pt-32 overflow-hidden">
         {/* Elementos decorativos de fondo */}
         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-pink-100/30 to-transparent" />
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-pink-100/30 to-transparent" />
@@ -99,7 +99,7 @@ const Corte = () => {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center mb-20"
           >
-            <h2 className="text-3xl md:text-4xl font-glitten text-pink-900 mb-6">
+            <h2 className="text-6xl md:text-7xl font-glitten text-[#F25AA3] mb-6">
               El Arte del Corte
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">

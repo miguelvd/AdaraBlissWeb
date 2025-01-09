@@ -23,6 +23,7 @@ import PoliticaCookies from './pages/legal/PoliticaCookies';
 import AvisoLegal from './pages/legal/AvisoLegal';
 import FAQ from './pages/legal/FAQ';
 import ScrollToTop from './components/ScrollToTop';
+import { Panel } from './pages/Panel';
 import './styles/swiper.css';
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/servicios/keratina-japonesa" element={<KeratinaJaponesa />} />
           <Route path="/servicios/alisado-laser" element={<AlisadoLaser />} />
           <Route path="/servicios/alisado-organico" element={<AlisadoOrganico />} />
+          <Route path="/panel/*" element={<Panel />} />
           
           {/* Rutas para páginas legales */}
           <Route path="/derechos" element={<DerechosReservados />} />

@@ -225,8 +225,28 @@ const KeratinaJaponesa = () => {
         </motion.div>
       </section>
 
+      {/* Banner de Agenda tu Cita */}
+      <section className="relative py-24 overflow-hidden bg-gradient-to-r from-pink-500 to-pink-700">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+            ¿Lista para transformar tu cabello?
+          </h2>
+          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+            Agenda tu cita hoy y descubre la experiencia de la keratina japonesa
+          </p>
+          <a
+            href="https://wa.me/+524492175606"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-white text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Agenda tu Cita
+          </a>
+        </div>
+      </section>
+
       {/* WhatsApp Button */}
-      <WhatsAppButton phoneNumber="+525555555555" />
+      <WhatsAppButton phoneNumber="+524492175606" />
     </div>
   );
 }
