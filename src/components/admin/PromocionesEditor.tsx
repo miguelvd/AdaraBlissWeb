@@ -253,20 +253,11 @@ export const PromocionesEditor = () => {
   }>({ type: null, message: '' });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    loadPromotions();
-  }, []);
-
   const loadPromotions = async () => {
     try {
       setLoading(true);
       const data = await getPromotions();
-      const sortedPromos = data.sort((a, b) => {
-        if (isPromoActive(a) && !isPromoActive(b)) return -1;
-        if (!isPromoActive(a) && isPromoActive(b)) return 1;
-        return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
-      });
-      setPromos(sortedPromos);
+      setPromos(data);
     } catch (error) {
       setStatus({
         type: 'error',
@@ -277,20 +268,14 @@ export const PromocionesEditor = () => {
     }
   };
 
-  const handleEdit = (promo: Promotion) => {
-    setSelectedPromo(promo);
-  };
-
-  const handleDelete = async (promoId: string) => {
-    if (!confirm('¿Estás seguro de que deseas eliminar esta promoción?')) return;
-
+  const handleDelete = async (id: string) => {
     try {
       setLoading(true);
-      await deletePromotion(promoId);
-      setPromos(promos.filter(p => p.id !== promoId));
+      await deletePromotion(id);
+      await loadPromotions();
       setStatus({
         type: 'success',
-        message: 'Promoción eliminada correctamente'
+        message: 'Promoción eliminada exitosamente'
       });
     } catch (error) {
       setStatus({
@@ -299,19 +284,55 @@ export const PromocionesEditor = () => {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setStatus({ type: null, message: '' }), 3000);
     }
+  };
+
+  const handleSubmit = async (promo: Promotion) => {
+    try {
+      setLoading(true);
+      if (promo.id) {
+        await updatePromotion(promo);
+      } else {
+        await createPromotion(promo);
+      }
+      await loadPromotions();
+      setSelectedPromo(null);
+      setStatus({
+        type: 'success',
+        message: 'Promoción guardada exitosamente'
+      });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: 'Error al guardar la promoción'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    // Ajustar la fecha a la zona horaria de México
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    const options: Intl.DateTimeFormatOptions = {
+      timeZone: 'America/Mexico_City',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    };
+    return date.toLocaleDateString('es-MX', options);
   };
 
   const handleAddNew = () => {
     const now = new Date();
     const thirtyDaysFromNow = new Date(now);
     thirtyDaysFromNow.setDate(now.getDate() + 30);
-
+    
     const newPromo: Promotion = {
       id: `promo-${Date.now()}`,
-      title: 'Nueva Promoción',
-      description: 'Descripción de la promoción',
+      title: '',
+      description: '',
       originalPrice: 0,
       discountPrice: 0,
       discount: 0,
@@ -319,151 +340,131 @@ export const PromocionesEditor = () => {
       image: '',
       startDate: now.toISOString().split('T')[0],
       endDate: thirtyDaysFromNow.toISOString().split('T')[0],
-      showPrices: true,
+      showPrices: false,
       isActive: true
     };
     setSelectedPromo(newPromo);
   };
 
-  const handleSubmit = async (promo: Promotion) => {
-    try {
-      setLoading(true);
-      const isNewPromo = promo.id.startsWith('promo-');
-      
-      if (isNewPromo) {
-        // Si es una nueva promoción, generamos un ID único
-        const newPromo = {
-          ...promo,
-          id: `promo_${Date.now()}`
-        };
-        await createPromotion(newPromo);
-      } else {
-        // Si es una promoción existente, actualizamos
-        await updatePromotion(promo);
-      }
-      
-      await loadPromotions();
-      setStatus({
-        type: 'success',
-        message: `Promoción ${isNewPromo ? 'creada' : 'actualizada'} correctamente`
-      });
-      setSelectedPromo(null);
-    } catch (error) {
-      setStatus({
-        type: 'error',
-        message: 'Error al guardar los cambios'
-      });
-    } finally {
-      setLoading(false);
-      setTimeout(() => setStatus({ type: null, message: '' }), 3000);
-    }
-  };
-
-  const isPromoActive = (promo: Promotion): boolean => {
+  const isPromoActive = (promo: Promotion) => {
     const now = new Date();
-    const start = new Date(promo.startDate + 'T00:00:00-06:00');
-    const end = new Date(promo.endDate + 'T23:59:59-06:00');
+    const start = new Date(promo.startDate);
+    const end = new Date(promo.endDate);
+    
+    // Ajustar las fechas al inicio y fin del día en la zona horaria local
+    start.setHours(0, 0, 0, 0);
+    end.setHours(23, 59, 59, 999);
+    
     return start <= now && now <= end && promo.isActive;
   };
 
+  useEffect(() => {
+    loadPromotions();
+  }, []);
+
   return (
-    <div className="p-6">
+    <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-[#F25AA3]">Editor de Promociones</h2>
+        <h1 className="text-2xl font-bold">Promociones</h1>
         <button
-          onClick={handleAddNew}
-          className="px-4 py-2 bg-[#F25AA3] text-white rounded-lg hover:bg-pink-600 flex items-center gap-2"
+          onClick={() => setSelectedPromo(null)}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
           disabled={loading}
         >
-          <Plus className="w-5 h-5" />
-          Nueva Promoción
+          {loading ? 'Cargando...' : 'Nueva Promoción'}
         </button>
       </div>
-      
+
       {status.type && (
-        <div className={`fixed top-4 right-4 px-4 py-3 rounded flex items-center gap-2 shadow-lg ${
-          status.type === 'success' 
-            ? 'bg-green-100 border border-green-400 text-green-700'
-            : 'bg-red-100 border border-red-400 text-red-700'
+        <div className={`mb-4 p-4 rounded-lg ${
+          status.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
         }`}>
-          {status.type === 'success' ? (
-            <CheckCircle className="w-5 h-5" />
-          ) : (
-            <AlertCircle className="w-5 h-5" />
-          )}
-          {status.message}
+          <div className="flex items-center">
+            {status.type === 'success' ? (
+              <CheckCircle className="w-5 h-5 mr-2" />
+            ) : (
+              <AlertCircle className="w-5 h-5 mr-2" />
+            )}
+            {status.message}
+          </div>
         </div>
       )}
 
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#F25AA3]"></div>
-        </div>
-      ) : !selectedPromo ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {promos.map(promo => {
-            const isActive = isPromoActive(promo);
-            return (
-              <div key={promo.id} className={`bg-white rounded-lg shadow-md p-6 ${
-                !isActive ? 'opacity-60' : ''
-              }`}>
-                <div className="relative w-full h-40 mb-4 bg-gray-100 rounded-lg overflow-hidden">
-                  <img
-                    src={promo.image}
-                    alt={promo.title}
-                    className="w-full h-full object-cover"
-                  />
-                  {!isActive ? (
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white">
-                      <div className="text-center">
-                        <Clock className="w-8 h-8 mx-auto mb-2" />
-                        <span className="text-sm">
-                          {new Date(promo.startDate) > new Date() 
-                            ? 'Próximamente'
-                            : 'Finalizada'}
-                        </span>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="absolute top-2 right-2 bg-green-500 text-white px-3 py-1 rounded-full text-sm flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+      <div className="grid grid-cols-1 gap-6">
+        {promos.map((promo) => (
+          <div
+            key={promo.id}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+          >
+            <div className="p-6 flex items-start justify-between gap-6">
+              {/* Imagen de la promoción */}
+              <div className="w-48 h-48 flex-shrink-0">
+                <img
+                  src={promo.image || '/placeholder-image.jpg'}
+                  alt={promo.title}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+
+              {/* Información de la promoción */}
+              <div className="flex-grow">
+                <div className="flex items-center gap-2 mb-2">
+                  <h2 className="text-xl font-semibold text-gray-900">{promo.title}</h2>
+                  {isPromoActive(promo) ? (
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                       Activa
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      Inactiva
+                    </span>
+                  )}
+                </div>
+                <p className="text-gray-600 mb-4">{promo.description}</p>
+                <div className="flex items-center gap-6 text-sm text-gray-500">
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-1" />
+                    <span>Inicio: {formatDate(promo.startDate)}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-1" />
+                    <span>Fin: {formatDate(promo.endDate)}</span>
+                  </div>
+                  {promo.showPrices && (
+                    <div className="flex items-center gap-2">
+                      <span className="line-through">${promo.originalPrice}</span>
+                      <span className="font-medium text-[#F25AA3]">${promo.discountPrice}</span>
                     </div>
                   )}
                 </div>
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold">{promo.title}</h3>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => handleDelete(promo.id)}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-full"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4">{promo.description}</p>
-                <div className="text-sm text-gray-500 space-y-1 mb-4">
-                  <div>Inicio: {new Date(promo.startDate).toLocaleDateString('es-MX')}</div>
-                  <div>Fin: {new Date(promo.endDate).toLocaleDateString('es-MX')}</div>
-                </div>
+              </div>
+
+              {/* Acciones */}
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => handleEdit(promo)}
-                  className="w-full px-4 py-2 bg-[#F25AA3] text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
-                  disabled={loading}
+                  onClick={() => setSelectedPromo(promo)}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
                 >
                   Editar
                 </button>
+                <button
+                  onClick={() => handleDelete(promo.id)}
+                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
               </div>
-            );
-          })}
-        </div>
-      ) : (
-        <Editor 
-          selectedPromo={selectedPromo} 
-          setSelectedPromo={setSelectedPromo} 
-          onSave={handleSubmit} 
-          onCancel={() => setSelectedPromo(null)} 
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {selectedPromo && (
+        <Editor
+          selectedPromo={selectedPromo}
+          setSelectedPromo={setSelectedPromo}
+          onSave={handleSubmit}
+          onCancel={() => setSelectedPromo(null)}
         />
       )}
     </div>

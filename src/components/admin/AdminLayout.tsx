@@ -97,6 +97,13 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
               <Settings className="mr-3 h-5 w-5" />
               Configuración
             </Link>
+            <button
+              onClick={() => setShowLogoutConfirm(true)}
+              className="flex items-center w-full px-4 py-2 mt-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md transition-colors"
+            >
+              <LogOut className="mr-3 h-5 w-5" />
+              Cerrar Sesión
+            </button>
           </nav>
         </div>
 

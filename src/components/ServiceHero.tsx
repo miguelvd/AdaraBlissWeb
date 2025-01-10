@@ -248,8 +248,8 @@ const ServiceHero = () => {
       {/* Barra de servicios */}
       <div className="absolute w-full z-20
         bottom-[8vh] xs:bottom-0 
-        md:bottom-0 
-        lg:bottom-0"
+        md:bottom-[5vh] 
+        lg:bottom-[8vh]"
       >
         <div className="max-w-7xl mx-auto px-2 xs:px-4">
           {/* Barra negra de fondo */}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -9,6 +9,8 @@ export const Navbar = () => {
   const [isMobileMoreMenuOpen, setIsMobileMoreMenuOpen] = useState(false);
   const location = useLocation();
   const [bgOpacity, setBgOpacity] = useState(0);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,20 +20,33 @@ export const Navbar = () => {
     };
 
     const handleClickOutside = (event: MouseEvent) => {
+      // Cerrar menú "Más" de escritorio
       const moreMenu = document.querySelector('.more-menu-container');
       if (moreMenu && !moreMenu.contains(event.target as Node)) {
         setIsMoreMenuOpen(false);
       }
+
+      // Cerrar menú móvil cuando se hace clic fuera
+      if (
+        isMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        mobileMenuButtonRef.current &&
+        !mobileMenuButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
+        setIsMobileMoreMenuOpen(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [isMenuOpen]);
 
   const navItems = [
     { path: '/', label: 'Inicio' },
@@ -64,6 +79,8 @@ export const Navbar = () => {
               className="h-10 md:h-12"
             />
           </Link>
+
+          {/* Menú de escritorio */}
           <div className="hidden md:flex space-x-8 animate-fade-in">
             {navItems.map((item, index) => (
               <Link
@@ -87,6 +104,7 @@ export const Navbar = () => {
                 }`} />
               </Link>
             ))}
+
             {/* Menú Más - Escritorio */}
             <div className="relative more-menu-container">
               <button
@@ -98,86 +116,97 @@ export const Navbar = () => {
                 Más
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isMoreMenuOpen ? 'rotate-180' : ''}`} />
               </button>
-              {/* Submenú Más */}
-              <div className={`absolute top-full right-0 w-64 bg-white shadow-lg rounded-lg py-2 transition-all duration-300 z-[60] ${
-                isMoreMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
-              }`}>
-                {moreItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => {
-                      setIsMoreMenuOpen(false);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#F25AA3] transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+
+              {/* Submenú Más - Escritorio */}
+              {isMoreMenuOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 animate-fade-in-down">
+                  {moreItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => {
+                        setIsMoreMenuOpen(false);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="block px-4 py-2 text-gray-800 hover:bg-pink-50 hover:text-[#F25AA3] transition-colors duration-200"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-          <button 
+
+          {/* Botón de menú móvil */}
+          <button
+            ref={mobileMenuButtonRef}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden p-2 rounded-lg transition-colors z-50 ${
-              isHome && !isScrolled ? 'text-white hover:bg-white/20' : 'text-gray-800 hover:bg-[#F25AA3]/10'
-            }`}
-            aria-label="Toggle menu"
+            className="md:hidden p-2"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? (
+              <X className={isHome && !isScrolled ? 'text-white' : 'text-gray-800'} />
+            ) : (
+              <Menu className={isHome && !isScrolled ? 'text-white' : 'text-gray-800'} />
+            )}
           </button>
         </div>
-        {/* Mobile Menu */}
-        <div className={`md:hidden fixed right-0 top-16 h-[calc(100vh-4rem)] w-64 bg-black/95 transition-all duration-300 ${
-          isMenuOpen ? 'opacity-100 visible translate-x-0' : 'opacity-0 invisible translate-x-full'
-        } z-40`}>
-          <div className="py-6 px-4 space-y-4 h-full text-white overflow-y-auto">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className={`block px-4 py-3 text-base font-medium border-r-4 ${
-                  location.pathname === item.path
-                    ? 'bg-white/10 border-[#F25AA3]'
-                    : 'hover:bg-white/5 border-transparent transition-colors'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-            {/* Menú Más - Móvil */}
-            <div>
-              <button
-                onClick={() => setIsMobileMoreMenuOpen(!isMobileMoreMenuOpen)}
-                className="flex items-center justify-between w-full px-4 py-3 text-base font-medium border-r-4 border-transparent hover:bg-white/5"
-              >
-                <span>Más</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isMobileMoreMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
-              <div className={`space-y-1 transition-all duration-300 ${isMobileMoreMenuOpen ? 'max-h-96' : 'max-h-0 overflow-hidden'}`}>
-                {moreItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => {
-                      setIsMobileMoreMenuOpen(false);
-                      setIsMenuOpen(false);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="block px-8 py-2 text-sm text-gray-300 hover:bg-white/5 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+
+        {/* Menú móvil */}
+        {isMenuOpen && (
+          <div
+            ref={mobileMenuRef}
+            className="md:hidden absolute top-16 left-0 w-full bg-white/95 backdrop-blur-md shadow-lg animate-fade-in-down"
+          >
+            <div className="px-4 py-6 space-y-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setIsMobileMoreMenuOpen(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="block py-2 text-gray-800 hover:text-[#F25AA3] transition-colors duration-200"
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+              {/* Menú Más - Móvil */}
+              <div>
+                <button
+                  onClick={() => setIsMobileMoreMenuOpen(!isMobileMoreMenuOpen)}
+                  className="flex items-center justify-between w-full py-2 text-gray-800"
+                >
+                  <span>Más</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isMobileMoreMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Submenú Más - Móvil */}
+                {isMobileMoreMenuOpen && (
+                  <div className="pl-4 space-y-2 animate-fade-in-down">
+                    {moreItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          setIsMobileMoreMenuOpen(false);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="block py-2 text-gray-600 hover:text-[#F25AA3] transition-colors duration-200"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );
