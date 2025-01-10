@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperType } from 'swiper';
+import type SwiperCore from 'swiper';
 import { Autoplay, Navigation } from 'swiper/modules';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 
 const sections = [
   {
@@ -50,7 +50,19 @@ export const ParallaxHeader: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const swiperRef = useRef<SwiperType | null>(null);
+  const swiperRef = useRef<SwiperCore>();
+
+  const handlePrevSlide = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slidePrev();
+    }
+  };
+
+  const handleNextSlide = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
+  };
 
   useEffect(() => {
     const loadImages = async () => {
@@ -84,202 +96,177 @@ export const ParallaxHeader: React.FC = () => {
   }
 
   return (
-    <div className="relative h-screen">
+    <div className="relative w-full h-screen">
+      {/* Flechas de navegación */}
+      <button 
+        onClick={handlePrevSlide}
+        className="hidden md:flex absolute left-4 z-20 top-1/2 -translate-y-1/2
+                   w-12 h-12 items-center justify-center
+                   bg-white/10 backdrop-blur-sm rounded-full
+                   border border-white/20
+                   transition-all duration-300
+                   hover:bg-white/20 hover:scale-110
+                   group"
+        aria-label="Anterior"
+      >
+        <ChevronLeft className="w-6 h-6 text-white transition-transform group-hover:-translate-x-0.5" />
+      </button>
+      
+      <button 
+        onClick={handleNextSlide}
+        className="hidden md:flex absolute right-4 z-20 top-1/2 -translate-y-1/2
+                   w-12 h-12 items-center justify-center
+                   bg-white/10 backdrop-blur-sm rounded-full
+                   border border-white/20
+                   transition-all duration-300
+                   hover:bg-white/20 hover:scale-110
+                   group"
+        aria-label="Siguiente"
+      >
+        <ChevronRight className="w-6 h-6 text-white transition-transform group-hover:translate-x-0.5" />
+      </button>
+
       <Swiper
-        className="h-full"
-        modules={[Autoplay, Navigation]}
-        speed={1200}
-        autoplay={{
-          delay: 8000,
-          disableOnInteraction: false,
-        }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        onSlideChangeTransitionStart={() => {
-          setIsChanging(true);
+        modules={[Autoplay, Navigation]}
+        className="h-full"
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
         }}
-        onSlideChangeTransitionEnd={() => {
-          setIsChanging(false);
+        loop={true}
+        speed={1200}
+        onSlideChange={() => {
+          setIsChanging(true);
+          setTimeout(() => setIsChanging(false), 500);
         }}
         onActiveIndexChange={(swiper) => {
           setCurrentSlide(swiper.realIndex);
         }}
-        loop={true}
-        navigation={{
-          nextEl: '.swiper-button-next-custom',
-          prevEl: '.swiper-button-prev-custom',
-        }}
       >
-        {sections.map((section) => (
-          <SwiperSlide key={section.id} className="relative overflow-hidden">
-            <div className="absolute inset-0">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(${section.image})`,
-                  backgroundPosition: '50% 30%',
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  transform: `scale(${isChanging ? 1.03 : 1})`,
-                  opacity: isChanging ? 0.95 : 1,
-                  transition: 'all 800ms cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"
-                style={{
-                  opacity: isChanging ? 0.85 : 1,
-                  transition: 'opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
-              />
-            </div>
-
-            <div className="relative h-full flex items-center">
-              <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-                <AnimatePresence mode="wait" initial={false}>
-                  {currentSlide === sections.indexOf(section) && (
-                    <motion.div
-                      key={section.id}
-                      initial={{ opacity: 0, y: 40 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -40 }}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.22, 1, 0.36, 1],
-                        exit: { duration: 0.5 }
-                      }}
-                      className="max-w-3xl space-y-6 px-2 sm:px-4"
-                    >
-                      <motion.h1
-                        initial={{ opacity: 0, scale: 0.9, filter: "blur(12px)" }}
-                        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, scale: 1.1, filter: "blur(12px)" }}
-                        transition={{ 
-                          delay: 0.3,
+        {sections.map((section, index) => (
+          <SwiperSlide key={index}>
+            <div className="relative h-full">
+              <div className="absolute inset-0">
+                <img
+                  src={section.image}
+                  alt={section.title}
+                  className="w-full h-full object-cover"
+                  onLoad={() => console.log('Imagen cargada')}
+                />
+                <div className="absolute inset-0 bg-black/40" />
+              </div>
+              <div className="relative h-full flex items-center">
+                <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+                  <AnimatePresence mode="wait" initial={false}>
+                    {currentSlide === index && (
+                      <motion.div
+                        key={section.id}
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -40 }}
+                        transition={{
                           duration: 0.7,
-                          ease: [0.22, 1, 0.36, 1]
+                          ease: [0.22, 1, 0.36, 1],
+                          exit: { duration: 0.5 }
                         }}
-                        className="text-5xl xs:text-6xl sm:text-7xl lg:text-8xl font-glitten text-white leading-[1.1] tracking-wide break-words"
-                        style={{
-                          textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                          wordBreak: 'break-word',
-                          overflowWrap: 'break-word',
-                          hyphens: 'auto'
-                        }}
+                        className="max-w-3xl space-y-6 px-2 sm:px-4"
                       >
-                        {section.title}
-                      </motion.h1>
+                        <motion.h1
+                          initial={{ opacity: 0, scale: 0.9, filter: "blur(12px)" }}
+                          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                          exit={{ opacity: 0, scale: 1.1, filter: "blur(12px)" }}
+                          transition={{ 
+                            delay: 0.3,
+                            duration: 0.7,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                          className="text-5xl xs:text-6xl sm:text-7xl lg:text-8xl font-glitten text-white leading-[1.1] tracking-wide break-words"
+                          style={{
+                            textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                            wordBreak: 'break-word',
+                            overflowWrap: 'break-word',
+                            hyphens: 'auto'
+                          }}
+                        >
+                          {section.title}
+                        </motion.h1>
 
-                      <motion.p
-                        initial={{ opacity: 0, x: -30, filter: "blur(6px)" }}
-                        animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, x: 30, filter: "blur(6px)" }}
-                        transition={{ 
-                          delay: 0.4,
-                          duration: 0.6,
-                          ease: [0.22, 1, 0.36, 1]
-                        }}
-                        className="text-lg sm:text-xl text-gray-200"
-                      >
-                        {section.description}
-                      </motion.p>
+                        <motion.p
+                          initial={{ opacity: 0, x: -30, filter: "blur(6px)" }}
+                          animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                          exit={{ opacity: 0, x: 30, filter: "blur(6px)" }}
+                          transition={{ 
+                            delay: 0.4,
+                            duration: 0.6,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                          className="text-lg sm:text-xl text-gray-200"
+                        >
+                          {section.description}
+                        </motion.p>
 
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        transition={{ 
-                          delay: 0.5,
-                          duration: 0.6,
-                          ease: [0.22, 1, 0.36, 1]
-                        }}
-                        className="flex flex-wrap gap-4 mt-8"
-                      >
-                        {section.features.map((feature, idx) => (
-                          <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
-                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
-                            transition={{
-                              delay: 0.6 + idx * 0.1,
-                              duration: 0.5,
-                              ease: [0.22, 1, 0.36, 1]
-                            }}
-                            className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full
-                                     flex items-center space-x-2 text-white hover:bg-white/20 
-                                     transform hover:scale-105 transition-all duration-300"
-                          >
-                            <ChevronRightIcon className="h-4 w-4 text-pink-400" />
-                            <span>{feature}</span>
-                          </motion.div>
-                        ))}
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 20 }}
+                          transition={{ 
+                            delay: 0.5,
+                            duration: 0.6,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                          className="flex flex-wrap gap-4 mt-8"
+                        >
+                          {section.features.map((feature, idx) => (
+                            <motion.div
+                              key={idx}
+                              initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                              exit={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                              transition={{
+                                delay: 0.6 + idx * 0.1,
+                                duration: 0.5,
+                                ease: [0.22, 1, 0.36, 1]
+                              }}
+                              className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full
+                                       flex items-center space-x-2 text-white hover:bg-white/20 
+                                       transform hover:scale-105 transition-all duration-300"
+                            >
+                              <ChevronRight className="h-4 w-4 text-pink-400" />
+                              <span>{feature}</span>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ delay: 0.8, duration: 0.5 }}
+                          className="pt-8"
+                        >
+                          <a 
+                            href="https://wa.me/524492175606?text=¡Hola! Me interesa obtener más información sobre el servicio de alisado. ¿Podrían proporcionarme detalles sobre precios y disponibilidad? Gracias."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block bg-gradient-to-r from-pink-500 to-pink-600 
+                                     hover:from-pink-600 hover:to-pink-700
+                                     text-white px-8 py-3 rounded-full
+                                     transform transition hover:scale-105
+                                     shadow-lg hover:shadow-pink-500/30">
+                            Reserva tu cita
+                          </a>
+                        </motion.div>
                       </motion.div>
-
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ delay: 0.8, duration: 0.5 }}
-                        className="pt-8"
-                      >
-                        <button className="bg-gradient-to-r from-pink-500 to-pink-600 
-                                         hover:from-pink-600 hover:to-pink-700
-                                         text-white px-8 py-3 rounded-full
-                                         transform transition hover:scale-105
-                                         shadow-lg hover:shadow-pink-500/30">
-                          Reserva tu cita
-                        </button>
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </div>
           </SwiperSlide>
         ))}
-
-        {/* Paginación personalizada */}
-        <div className="absolute bottom-20 left-0 right-0 z-50 flex justify-center gap-2">
-          {sections.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => swiperRef.current?.slideTo(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                currentSlide === index
-                  ? 'w-8 bg-pink-500'
-                  : 'bg-white/50 hover:bg-white/70'
-              }`}
-              aria-label={`Ir a la diapositiva ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Botones de navegación */}
-        <div className="absolute inset-0 pointer-events-none">
-          <button
-            className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2
-                     w-10 h-10 bg-black/20 hover:bg-black/30 backdrop-blur-sm
-                     rounded-full flex items-center justify-center
-                     transition-all duration-300 pointer-events-auto
-                     focus:outline-none focus:ring-2 focus:ring-pink-500"
-            aria-label="Anterior"
-          >
-            <ChevronLeftIcon className="w-6 h-6 text-white" />
-          </button>
-
-          <button
-            className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2
-                     w-10 h-10 bg-black/20 hover:bg-black/30 backdrop-blur-sm
-                     rounded-full flex items-center justify-center
-                     transition-all duration-300 pointer-events-auto
-                     focus:outline-none focus:ring-2 focus:ring-pink-500"
-            aria-label="Siguiente"
-          >
-            <ChevronRightIcon className="w-6 h-6 text-white" />
-          </button>
-        </div>
       </Swiper>
 
       <style>{`

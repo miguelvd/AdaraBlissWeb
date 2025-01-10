@@ -376,7 +376,7 @@ const ServiceHero = () => {
 
       {/* Botón Continuar con ajustes responsivos */}
       {selectedService && (
-        <div className="absolute w-full bottom-[30vh] xs:bottom-[22vh] sm:bottom-[25vh] md:bottom-[20vh] mac:bottom-[35vh] flex justify-center items-center z-30">
+        <div className="absolute w-full bottom-[30vh] xs:bottom-[22vh] sm:bottom-[25vh] md:bottom-[28vh] lg:bottom-[32vh] mac:bottom-[35vh] flex justify-center items-center z-30">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

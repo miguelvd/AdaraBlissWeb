@@ -88,7 +88,7 @@ const PromoCard: React.FC<PromoCardProps> = ({
       <div className="relative z-10 p-6 md:p-8 flex flex-col h-full justify-between min-h-[450px] md:min-h-[500px]">
         <div className="space-y-6">
           {/* Título y descripción */}
-          <div>
+          <div className="pt-8 md:pt-0">
             <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">{title}</h3>
             <p className="text-gray-300 text-base md:text-lg leading-relaxed">{description}</p>
           </div>
