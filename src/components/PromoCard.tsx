@@ -46,9 +46,9 @@ const PromoCard: React.FC<PromoCardProps> = ({
   };
 
   return (
-    <div className="group relative bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+    <div className="group relative bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 [transform-style:preserve-3d]">
       {/* Imagen de fondo con overlay */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 rounded-3xl overflow-hidden">
         <img 
           src={image} 
           alt={title}
