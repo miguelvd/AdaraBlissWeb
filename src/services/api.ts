@@ -1,88 +1,72 @@
 import type { Promotion } from '../types/promotion';
 
-// Función auxiliar para obtener el storage key según el ambiente
-const getStorageKey = () => {
-  return process.env.NODE_ENV === 'development' ? 'localPromotions' : 'promotions';
-};
+const API_URL = 'https://adarabliss.com/api';
 
 // Función para obtener todas las promociones
 export const getPromotions = async (): Promise<Promotion[]> => {
-  if (process.env.NODE_ENV === 'development') {
-    // En desarrollo, usar localStorage
-    const storageKey = getStorageKey();
-    const storedPromos = localStorage.getItem(storageKey);
-    return storedPromos ? JSON.parse(storedPromos) : [];
-  } else {
-    // En producción, hacer la llamada al API
-    try {
-      const response = await fetch('/api/promotions');
-      if (!response.ok) throw new Error('Error al obtener promociones');
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching promotions:', error);
-      return [];
+  try {
+    const response = await fetch(`${API_URL}/promotions.php`);
+    if (!response.ok) {
+      throw new Error('Error al obtener promociones');
     }
+    const { data } = await response.json();
+    return data.map((promo: any) => ({
+      ...promo,
+      // Asegurarnos de que los tipos sean correctos
+      id: String(promo.id),
+      originalPrice: Number(promo.originalPrice),
+      discountPrice: Number(promo.discountPrice),
+      discount: String(promo.discount),
+      showPrices: Boolean(promo.showPrices),
+      icon: promo.icon || 'Sparkles'
+    }));
+  } catch (error) {
+    console.error('Error fetching promotions:', error);
+    throw error;
   }
 };
 
 // Función para actualizar una promoción existente
 export const updatePromotion = async (promotion: Promotion): Promise<void> => {
-  if (process.env.NODE_ENV === 'development') {
-    const storageKey = getStorageKey();
-    const promos = await getPromotions();
-    const index = promos.findIndex(p => p.id === promotion.id);
-    
-    if (index === -1) {
-      throw new Error('Promoción no encontrada');
-    }
-    
-    // Actualizamos la promoción existente manteniendo su ID
-    promos[index] = promotion;
-    localStorage.setItem(storageKey, JSON.stringify(promos));
-  } else {
-    const response = await fetch(`/api/promotions/${promotion.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(promotion)
-    });
-    if (!response.ok) throw new Error('Error al actualizar promoción');
+  const response = await fetch(`${API_URL}/promotions.php`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(promotion),
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al actualizar la promoción');
   }
 };
 
 // Función para crear una nueva promoción
 export const createPromotion = async (promotion: Promotion): Promise<void> => {
-  if (process.env.NODE_ENV === 'development') {
-    const storageKey = getStorageKey();
-    const promos = await getPromotions();
-    
-    // Nos aseguramos de que el ID sea único
-    if (promos.some(p => p.id === promotion.id)) {
-      throw new Error('Ya existe una promoción con este ID');
-    }
-    
-    promos.push(promotion);
-    localStorage.setItem(storageKey, JSON.stringify(promos));
-  } else {
-    const response = await fetch('/api/promotions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(promotion)
-    });
-    if (!response.ok) throw new Error('Error al crear promoción');
+  const response = await fetch(`${API_URL}/promotions.php`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(promotion),
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al crear la promoción');
   }
 };
 
 // Función para eliminar una promoción
 export const deletePromotion = async (promotionId: string): Promise<void> => {
-  if (process.env.NODE_ENV === 'development') {
-    const storageKey = getStorageKey();
-    const promos = await getPromotions();
-    const filteredPromos = promos.filter(p => p.id !== promotionId);
-    localStorage.setItem(storageKey, JSON.stringify(filteredPromos));
-  } else {
-    const response = await fetch(`/api/promotions/${promotionId}`, {
-      method: 'DELETE'
-    });
-    if (!response.ok) throw new Error('Error al eliminar promoción');
+  const response = await fetch(`${API_URL}/promotions.php`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: promotionId }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al eliminar la promoción');
   }
 };

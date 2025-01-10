@@ -1,47 +1,35 @@
 <?php
 require_once __DIR__ . '/config/config.php';
 
-// Asegurar que la respuesta siempre sea JSON
+// Habilitar CORS para todos los endpoints
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 header('Content-Type: application/json');
+
+// Si es una solicitud OPTIONS, terminar aquí
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 // Manejo de errores personalizado
 function handleError($errno, $errstr, $errfile, $errline) {
+    error_log("Error: [$errno] $errstr in $errfile on line $errline");
     http_response_code(500);
     echo json_encode(['error' => 'Error interno del servidor']);
     exit;
 }
 set_error_handler('handleError');
 
-// Validación de seguridad básica
-function validateRequest() {
-    $allowedOrigins = explode(',', $_ENV['ALLOWED_ORIGINS']);
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-    
-    if (in_array($origin, $allowedOrigins)) {
-        header("Access-Control-Allow-Origin: $origin");
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-        header("Access-Control-Allow-Headers: Content-Type");
-    } else {
-        http_response_code(403);
-        echo json_encode(['error' => 'Acceso no autorizado']);
-        exit;
-    }
-}
-
-// Manejar preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    validateRequest();
-    exit;
-}
-
 // Obtener todas las promociones
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    validateRequest();
     try {
         $stmt = $conn->query('SELECT * FROM promotions ORDER BY created_at DESC');
         $promotions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode(['data' => $promotions]);
     } catch (PDOException $e) {
+        error_log("Error de base de datos: " . $e->getMessage());
         http_response_code(500);
         echo json_encode(['error' => 'Error al obtener las promociones: ' . $e->getMessage()]);
     }
@@ -49,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // Crear una nueva promoción
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    validateRequest();
     try {
         $data = json_decode(file_get_contents('php://input'), true);
         
@@ -93,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception('Error al crear la promoción');
         }
     } catch (Exception $e) {
+        error_log("Error al crear la promoción: " . $e->getMessage());
         http_response_code(500);
         echo json_encode(['error' => 'Error al crear la promoción: ' . $e->getMessage()]);
     }
@@ -100,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Actualizar una promoción
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    validateRequest();
     try {
         $data = json_decode(file_get_contents('php://input'), true);
         
@@ -143,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             throw new Exception('Error al actualizar la promoción');
         }
     } catch (Exception $e) {
+        error_log("Error al actualizar la promoción: " . $e->getMessage());
         http_response_code(500);
         echo json_encode(['error' => 'Error al actualizar la promoción']);
     }
@@ -150,7 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
 // Eliminar una promoción
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    validateRequest();
     try {
         $data = json_decode(file_get_contents('php://input'), true);
         
@@ -169,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             throw new Exception('Error al eliminar la promoción');
         }
     } catch (Exception $e) {
+        error_log("Error al eliminar la promoción: " . $e->getMessage());
         http_response_code(500);
         echo json_encode(['error' => 'Error al eliminar la promoción']);
     }
