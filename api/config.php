@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 // Cargar variables de entorno
 $envFile = __DIR__ . '/../.env';
 if (file_exists($envFile)) {
@@ -17,6 +18,13 @@ require_once __DIR__ . '/RateLimiter.php';
 // Configuración de CORS
 $allowedOriginsStr = getenv('ALLOWED_ORIGINS') ?: 'http://localhost:3000';
 $allowedOrigins = explode(',', $allowedOriginsStr);
+=======
+// Permitir CORS según el entorno
+$allowedOrigins = [
+    'http://localhost:3000',
+    'https://adarabliss.com'
+];
+>>>>>>> 5ebded82630c63792283071ccfb60ba370800e6d
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
@@ -25,6 +33,7 @@ if (in_array($origin, $allowedOrigins)) {
 }
 
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+<<<<<<< HEAD
 header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 header('Content-Type: application/json');
 
@@ -48,6 +57,16 @@ $host = getenv('DB_HOST') ?: 'localhost';
 $db   = getenv('DB_NAME') ?: '';
 $user = getenv('DB_USER') ?: '';
 $pass = getenv('DB_PASS') ?: '';
+=======
+header('Access-Control-Allow-Headers: Content-Type');
+header('Content-Type: application/json');
+
+// Credenciales de producción para Hostinger
+$host = 'localhost'; // Este es el host interno de MySQL en Hostinger
+$db   = 'u123456789_adara'; // Tu base de datos en Hostinger
+$user = 'u123456789_admin'; // Tu usuario en Hostinger
+$pass = 'TuContraseña123!'; // Tu contraseña en Hostinger
+>>>>>>> 5ebded82630c63792283071ccfb60ba370800e6d
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -58,6 +77,7 @@ $options = [
 ];
 
 try {
+<<<<<<< HEAD
     // Verificar que todas las variables necesarias estén configuradas
     if (empty($db) || empty($user)) {
         throw new Exception('Database configuration is incomplete');
@@ -109,5 +129,12 @@ try {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
     }
+=======
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (\PDOException $e) {
+    // En producción, no mostrar el mensaje de error detallado
+    http_response_code(500);
+    echo json_encode(['error' => 'Error de conexión a la base de datos']);
+>>>>>>> 5ebded82630c63792283071ccfb60ba370800e6d
     exit;
 }
