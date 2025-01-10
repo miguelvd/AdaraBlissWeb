@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/config/config.php';
 
 class RateLimiter {
     private $storageDir;
@@ -7,8 +8,8 @@ class RateLimiter {
 
     public function __construct($storageDir = null) {
         $this->storageDir = $storageDir ?: __DIR__ . '/logs/rate_limits';
-        $this->requestsPerMinute = getenv('RATE_LIMIT_PER_MINUTE') ?: 60;
-        $this->requestsPerHour = getenv('RATE_LIMIT_PER_HOUR') ?: 1000;
+        $this->requestsPerMinute = $_ENV['RATE_LIMIT_PER_MINUTE'] ?? 60;
+        $this->requestsPerHour = $_ENV['RATE_LIMIT_PER_HOUR'] ?? 1000;
         
         if (!file_exists($this->storageDir)) {
             mkdir($this->storageDir, 0755, true);
