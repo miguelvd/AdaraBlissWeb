@@ -183,54 +183,99 @@ export const galleries: Record<string, GalleryCategory> = {
   corte: {
     id: 'corte',
     title: 'Cortes',
-    description: 'Estilo y personalidad en cada corte',
-    coverImage: '/images/services/corte.png',
+    description: 'Cortes personalizados que realzan tu belleza natural',
+    coverImage: '/images/gallery/Corte/WhatsApp Image 2025-01-03 at 11.04.59 PM.jpeg',
     images: [
       {
-        url: '/images/gallery/corte/after.png',
-        alt: 'Corte Resultado 1',
-        thumbnail: '/images/gallery/corte/after-thumb.png'
+        url: '/images/gallery/Corte/WhatsApp Image 2025-01-03 at 11.04.59 PM.jpeg',
+        alt: 'Corte - Resultado 1',
+        thumbnail: '/images/gallery/Corte/WhatsApp Image 2025-01-03 at 11.04.59 PM.jpeg'
       },
       {
-        url: '/images/gallery/corte/before.png',
-        alt: 'Corte Resultado 2',
-        thumbnail: '/images/gallery/corte/before-thumb.png'
+        url: '/images/gallery/Corte/WhatsApp Image 2025-01-03 at 11.04.59 PM (1).jpeg',
+        alt: 'Corte - Resultado 2',
+        thumbnail: '/images/gallery/Corte/WhatsApp Image 2025-01-03 at 11.04.59 PM (1).jpeg'
+      },
+      {
+        url: '/images/gallery/Corte/WhatsApp Image 2025-01-03 at 11.06.11 PM.jpeg',
+        alt: 'Corte - Resultado 3',
+        thumbnail: '/images/gallery/Corte/WhatsApp Image 2025-01-03 at 11.06.11 PM.jpeg'
       }
     ]
   },
   maquillaje: {
     id: 'maquillaje',
     title: 'Maquillaje',
-    description: 'Arte que realza tu belleza natural',
-    coverImage: '/images/services/maquillaje.png',
+    description: 'Looks perfectos para cada ocasión',
+    coverImage: '/images/gallery/Maquillaje/05db9587-2273-4975-9ac9-012f57206ab1.jpg',
     images: [
       {
-        url: '/images/gallery/maquillaje/after.png',
-        alt: 'Maquillaje Resultado 1',
-        thumbnail: '/images/gallery/maquillaje/after-thumb.png'
+        url: '/images/gallery/Maquillaje/05db9587-2273-4975-9ac9-012f57206ab1.jpg',
+        alt: 'Maquillaje - Resultado 1',
+        thumbnail: '/images/gallery/Maquillaje/05db9587-2273-4975-9ac9-012f57206ab1.jpg'
       },
       {
-        url: '/images/gallery/maquillaje/before.png',
-        alt: 'Maquillaje Resultado 2',
-        thumbnail: '/images/gallery/maquillaje/before-thumb.png'
+        url: '/images/gallery/Maquillaje/0a47ba9f-78f5-46ea-b971-032a7958d04c.jpg',
+        alt: 'Maquillaje - Resultado 2',
+        thumbnail: '/images/gallery/Maquillaje/0a47ba9f-78f5-46ea-b971-032a7958d04c.jpg'
+      },
+      {
+        url: '/images/gallery/Maquillaje/2485fe58-82c4-444b-938e-ffad29324273.jpg',
+        alt: 'Maquillaje - Resultado 3',
+        thumbnail: '/images/gallery/Maquillaje/2485fe58-82c4-444b-938e-ffad29324273.jpg'
+      },
+      {
+        url: '/images/gallery/Maquillaje/62e4d31a-eb7f-467f-b977-b15bc3746154.jpg',
+        alt: 'Maquillaje - Resultado 4',
+        thumbnail: '/images/gallery/Maquillaje/62e4d31a-eb7f-467f-b977-b15bc3746154.jpg'
+      },
+      {
+        url: '/images/gallery/Maquillaje/7718b1ed-4c94-4922-b2bc-e680b2bc1fe6.jpg',
+        alt: 'Maquillaje - Resultado 5',
+        thumbnail: '/images/gallery/Maquillaje/7718b1ed-4c94-4922-b2bc-e680b2bc1fe6.jpg'
+      },
+      {
+        url: '/images/gallery/Maquillaje/7c5c8884-e820-48bd-a580-1979434df75f.jpg',
+        alt: 'Maquillaje - Resultado 6',
+        thumbnail: '/images/gallery/Maquillaje/7c5c8884-e820-48bd-a580-1979434df75f.jpg'
+      },
+      {
+        url: '/images/gallery/Maquillaje/97a719a5-2d90-4f93-a720-fccc6d1a2b7d.jpg',
+        alt: 'Maquillaje - Resultado 7',
+        thumbnail: '/images/gallery/Maquillaje/97a719a5-2d90-4f93-a720-fccc6d1a2b7d.jpg'
+      },
+      {
+        url: '/images/gallery/Maquillaje/a0da67d5-8be7-45e9-a178-e9e0320d3d09.jpg',
+        alt: 'Maquillaje - Resultado 8',
+        thumbnail: '/images/gallery/Maquillaje/a0da67d5-8be7-45e9-a178-e9e0320d3d09.jpg'
       }
     ]
   },
   cejas: {
     id: 'cejas',
-    title: 'Diseño de Cejas',
-    description: 'Precisión y arte para tu mirada',
-    coverImage: '/images/services/cejas.png',
+    title: 'Cejas',
+    description: 'Diseño y perfilado de cejas',
+    coverImage: '/images/gallery/Cejas/1.jpg',
     images: [
       {
-        url: '/images/gallery/cejas/after.png',
-        alt: 'Diseño de Cejas Resultado 1',
-        thumbnail: '/images/gallery/cejas/after-thumb.png'
+        url: '/images/gallery/Cejas/1.jpg',
+        alt: 'Cejas - Resultado 1',
+        thumbnail: '/images/gallery/Cejas/1.jpg'
       },
       {
-        url: '/images/gallery/cejas/before.png',
-        alt: 'Diseño de Cejas Resultado 2',
-        thumbnail: '/images/gallery/cejas/before-thumb.png'
+        url: '/images/gallery/Cejas/2.jpg',
+        alt: 'Cejas - Resultado 2',
+        thumbnail: '/images/gallery/Cejas/2.jpg'
+      },
+      {
+        url: '/images/gallery/Cejas/3.jpg',
+        alt: 'Cejas - Resultado 3',
+        thumbnail: '/images/gallery/Cejas/3.jpg'
+      },
+      {
+        url: '/images/gallery/Cejas/4.jpg',
+        alt: 'Cejas - Resultado 4',
+        thumbnail: '/images/gallery/Cejas/4.jpg'
       }
     ]
   }
