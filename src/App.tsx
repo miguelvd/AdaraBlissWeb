@@ -51,7 +51,6 @@ export default function App() {
           <Route path="/panel/*" element={<Panel />} />
           
           {/* Rutas legales */}
-<<<<<<< HEAD
           <Route path="/derechos" element={<DerechosReservados />} />
           <Route path="/derechos-reservados" element={<DerechosReservados />} />
           <Route path="/privacidad" element={<PoliticaPrivacidad />} />
@@ -61,12 +60,6 @@ export default function App() {
           <Route path="/cookies" element={<PoliticaCookies />} />
           <Route path="/politica-cookies" element={<PoliticaCookies />} />
           <Route path="/legal" element={<AvisoLegal />} />
-=======
-          <Route path="/derechos-reservados" element={<DerechosReservados />} />
-          <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
-          <Route path="/terminos-condiciones" element={<TerminosCondiciones />} />
-          <Route path="/politica-cookies" element={<PoliticaCookies />} />
->>>>>>> 5ebded82630c63792283071ccfb60ba370800e6d
           <Route path="/aviso-legal" element={<AvisoLegal />} />
           <Route path="/faq" element={<FAQ />} />
         </Routes>
