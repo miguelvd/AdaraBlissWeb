@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Rutas principales
+Allow: /servicios
+Allow: /promociones
+Allow: /galeria
+Allow: /opiniones
+
+# Rutas legales
+Allow: /privacidad
+Allow: /terminos
+Allow: /cookies
+Allow: /legal
+
+# No indexar panel de administración
+Disallow: /panel/*
+
+Sitemap: https://adarabliss.com/sitemap.xml
