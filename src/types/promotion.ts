@@ -9,4 +9,5 @@ export interface Promotion {
   startDate: string;
   endDate: string;
   isActive: boolean;
+  card_format?: 'rectangular' | 'square';
 }

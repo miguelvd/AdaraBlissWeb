@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ImageUploader } from './ImageUploader';
 import PromoCard from '../PromoCard';
 import type { Promotion } from '../../types/promotion';
-import { getPromotions, updatePromotion, createPromotion, deletePromotion, uploadImage } from '../../services/api';
-import { CheckCircle, AlertCircle, Plus, Trash2, Clock } from 'lucide-react';
+import { getPromotions, updatePromotion, createPromotion, deletePromotion } from '../../services/api';
+import { CheckCircle, Plus, Trash2, Clock } from 'lucide-react';
 
 const DEFAULT_IMAGE = '/public/images/default-promo.jpg';
 
@@ -125,16 +124,19 @@ const Editor: React.FC<EditorProps> = ({
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Descuento
+              Texto del Descuento
             </label>
             <input
               type="text"
               value={selectedPromo.discount}
               onChange={(e) => updatePromo({ discount: e.target.value })}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#F25AA3] focus:ring-[#F25AA3]"
-              placeholder="Ej: 20% OFF, 2x1, etc."
+              placeholder="Ej: 20% OFF, 2x1, GRATIS"
               required
             />
+            <p className="mt-1 text-sm text-gray-500">
+              Este texto se mostrará exactamente como lo escribas en la tarjeta de promoción
+            </p>
           </div>
 
           <div>
@@ -197,7 +199,6 @@ const Editor: React.FC<EditorProps> = ({
           <PromoCard
             {...selectedPromo}
             icon="Sparkles"
-            discountLabel="DESCUENTO"
           />
         </div>
       </div>
@@ -256,10 +257,10 @@ const PromocionesEditor: React.FC = () => {
       image: DEFAULT_IMAGE,
       startDate: new Date().toISOString().split('T')[0],
       endDate: new Date().toISOString().split('T')[0],
-      originalPrice: 0,
-      discountPrice: 0,
-      showPrices: false,
-      discount: ''
+      discount: 'Ver promoción',
+      icon: 'Sparkles',
+      isActive: true,
+      card_format: 'rectangular'
     });
   };
 

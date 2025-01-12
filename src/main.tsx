@@ -1,6 +1,7 @@
 import React from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx';
 import './index.css';
 
@@ -18,7 +19,9 @@ if (!rootElement) {
     
     root.render(
       <StrictMode>
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </StrictMode>
     );
     console.warn('Renderizado completado');

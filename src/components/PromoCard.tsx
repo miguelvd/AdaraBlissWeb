@@ -3,7 +3,7 @@ import { Sparkles, Heart, Star, Calendar } from 'lucide-react';
 import OptimizedImage from './OptimizedImage';
 import { formatDate } from '../utils/dateUtils';
 
-const WHATSAPP_NUMBER = '522223915914';
+const WHATSAPP_NUMBER = '524492175606';
 const DEFAULT_IMAGE = '/images/gallery/Maquillaje/97a719a5-2d90-4f93-a720-fccc6d1a2b7d.jpg';
 
 interface PromoCardProps {
@@ -14,6 +14,8 @@ interface PromoCardProps {
   image: string;
   startDate: string;
   endDate: string;
+  discount: string;
+  discountLabel?: string;
   onImageError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
@@ -25,6 +27,8 @@ const PromoCard: React.FC<PromoCardProps> = ({
   image,
   startDate,
   endDate,
+  discount,
+  discountLabel,
   onImageError
 }) => {
   useEffect(() => {
@@ -32,7 +36,7 @@ const PromoCard: React.FC<PromoCardProps> = ({
   }, [id, title, image]);
 
   const getWhatsAppMessage = () => {
-    const message = `¡Hola! Vi en tu página web la promoción de ${title} y me interesa agendar una cita. ¿Podrías darme más información?`;
+    const message = `¡Hola! Me interesa la promoción "${title}" que vi en la página web. ¿Podrías darme más información para agendar una cita?`;
     return encodeURIComponent(message);
   };
 
@@ -77,7 +81,7 @@ const PromoCard: React.FC<PromoCardProps> = ({
           <div className="inline-flex items-center gap-2 bg-white/90 text-pink-600 px-4 py-2 rounded-full shadow-lg transform group-hover:scale-105 transition-all duration-300">
             <IconComponent className="w-5 h-5" />
             <span className="font-bold text-sm">
-              Ver promoción
+              {discount || 'Ver promoción'}
             </span>
           </div>
         </div>
