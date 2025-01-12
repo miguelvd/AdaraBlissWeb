@@ -2,6 +2,25 @@ import type { Promotion } from '../types/promotion';
 
 const API_URL = 'https://adarabliss.com/api';
 
+// Función para subir una imagen
+export const uploadImage = async (file: File): Promise<string> => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await fetch(`${API_URL}/upload_image.php`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Error al subir la imagen');
+  }
+
+  const data = await response.json();
+  return `https://adarabliss.com${data.url}`;
+};
+
 // Función para obtener todas las promociones
 export const getPromotions = async (): Promise<Promotion[]> => {
   try {

@@ -1,26 +1,12 @@
 import { useState, useEffect } from 'react';
 import { getPromotions } from '../services/api';
-
-interface Promocion {
-  id: string;
-  title: string;
-  description: string;
-  originalPrice: number;
-  discountPrice: number;
-  discount: string;
-  discountLabel?: string;
-  icon: 'Sparkles' | 'Star' | 'Heart';
-  image: string;
-  startDate: string;
-  endDate: string;
-  showPrices: boolean;
-}
+import type { Promotion } from '../types/promotion';
 
 // Datos temporales mientras se implementa el backend
-const promocionesData: Promocion[] = [];
+const promocionesData: Promotion[] = [];
 
 export const usePromociones = () => {
-  const [promociones, setPromociones] = useState<Promocion[]>([]);
+  const [promociones, setPromociones] = useState<Promotion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

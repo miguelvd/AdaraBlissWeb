@@ -1,19 +1,26 @@
 User-agent: *
 Allow: /
 
-# Rutas principales
+# Sitemap
+Sitemap: https://adarabliss.com/sitemap.xml
+
+# Directories
+Allow: /images/
+Allow: /assets/
+Allow: /static/
+
+# Files
+Disallow: /.env
+Disallow: /api/
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /config/
+Disallow: /src/
+
+# Clean URLs
 Allow: /servicios
 Allow: /promociones
-Allow: /galeria
-Allow: /opiniones
-
-# Rutas legales
-Allow: /privacidad
-Allow: /terminos
-Allow: /cookies
-Allow: /legal
-
-# No indexar panel de administración
-Disallow: /panel/*
-
-Sitemap: https://adarabliss.com/sitemap.xml
+Allow: /nosotros
+Allow: /contacto
+Allow: /legal/politica-privacidad
+Allow: /legal/terminos-condiciones

@@ -1,14 +1,13 @@
 <?php
-<<<<<<< HEAD
-// Cargar variables de entorno
+// Cargar variables de entorno desde .env
 $envFile = __DIR__ . '/../.env';
 if (file_exists($envFile)) {
     $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
-        if (strpos($line, '#') === 0) continue;
-        list($name, $value) = explode('=', $line, 2);
-        $_ENV[trim($name)] = trim($value);
-        putenv(sprintf('%s=%s', trim($name), trim($value)));
+        if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
+            list($key, $value) = explode('=', $line, 2);
+            $_ENV[trim($key)] = trim($value);
+        }
     }
 }
 
@@ -16,16 +15,7 @@ if (file_exists($envFile)) {
 require_once __DIR__ . '/RateLimiter.php';
 
 // Configuración de CORS
-$allowedOriginsStr = getenv('ALLOWED_ORIGINS') ?: 'http://localhost:3000';
-$allowedOrigins = explode(',', $allowedOriginsStr);
-=======
-// Permitir CORS según el entorno
-$allowedOrigins = [
-    'http://localhost:3000',
-    'https://adarabliss.com'
-];
->>>>>>> 5ebded82630c63792283071ccfb60ba370800e6d
-
+$allowedOrigins = ['http://localhost:3000', 'https://adarabliss.com'];
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
 if (in_array($origin, $allowedOrigins)) {
@@ -33,7 +23,6 @@ if (in_array($origin, $allowedOrigins)) {
 }
 
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-<<<<<<< HEAD
 header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 header('Content-Type: application/json');
 
@@ -53,88 +42,31 @@ if (!$rateLimiter->isAllowed($clientIP)) {
 }
 
 // Configuración de la base de datos
-$host = getenv('DB_HOST') ?: 'localhost';
-$db   = getenv('DB_NAME') ?: '';
-$user = getenv('DB_USER') ?: '';
-$pass = getenv('DB_PASS') ?: '';
-=======
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json');
-
-// Credenciales de producción para Hostinger
-$host = 'localhost'; // Este es el host interno de MySQL en Hostinger
-$db   = 'u123456789_adara'; // Tu base de datos en Hostinger
-$user = 'u123456789_admin'; // Tu usuario en Hostinger
-$pass = 'TuContraseña123!'; // Tu contraseña en Hostinger
->>>>>>> 5ebded82630c63792283071ccfb60ba370800e6d
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-
 try {
-<<<<<<< HEAD
-    // Verificar que todas las variables necesarias estén configuradas
-    if (empty($db) || empty($user)) {
-        throw new Exception('Database configuration is incomplete');
-    }
-    
-    $pdo = new PDO($dsn, $user, $pass, $options);
-    
-    // Configuración adicional de seguridad en producción
-    if (getenv('APP_ENV') === 'production') {
-        error_reporting(E_ALL);
-        ini_set('display_errors', 'Off');
-        ini_set('log_errors', 'On');
-        ini_set('error_log', __DIR__ . '/logs/error.log');
-        
-        // Forzar HTTPS en producción
-        if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
-            $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-            header('HTTP/1.1 301 Moved Permanently');
-            header('Location: ' . $redirect);
-            exit();
-        }
-        
-        // Headers de seguridad adicionales en producción
-        header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
-        header("X-Content-Type-Options: nosniff");
-        header("X-Frame-Options: DENY");
-        header("X-XSS-Protection: 1; mode=block");
-        header("Referrer-Policy: strict-origin-when-cross-origin");
-        header("Permissions-Policy: geolocation=(), microphone=(), camera=()");
-        
-        // Content Security Policy
-        $cspHeader = "Content-Security-Policy: ".
-            "default-src 'self'; " .
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " .
-            "style-src 'self' 'unsafe-inline'; " .
-            "img-src 'self' data: https:; " .
-            "font-src 'self'; " .
-            "connect-src 'self' " . getenv('API_URL') . " " . getenv('FRONTEND_URL');
-        header($cspHeader);
-    }
-} catch (Exception $e) {
-    // Log del error (en producción)
-    if (getenv('APP_ENV') === 'production') {
-        error_log($e->getMessage());
-        http_response_code(500);
-        echo json_encode(['error' => 'Internal Server Error']);
-    } else {
-        // En desarrollo, mostrar más detalles
-        http_response_code(500);
-        echo json_encode(['error' => $e->getMessage()]);
-    }
-=======
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    // En producción, no mostrar el mensaje de error detallado
+    $conn = new PDO(
+        "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'],
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS']
+    );
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Error de conexión a la base de datos']);
->>>>>>> 5ebded82630c63792283071ccfb60ba370800e6d
+    echo json_encode(['error' => 'Error de conexión a la base de datos: ' . $e->getMessage()]);
     exit;
+}
+
+// Configuración adicional de seguridad en producción
+if (getenv('APP_ENV') === 'production') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 'Off');
+    ini_set('log_errors', 'On');
+    ini_set('error_log', __DIR__ . '/logs/error.log');
+    
+    // Forzar HTTPS en producción
+    if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
+        $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        header('HTTP/1.1 301 Moved Permanently');
+        header('Location: ' . $redirect);
+        exit();
+    }
 }

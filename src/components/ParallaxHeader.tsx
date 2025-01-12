@@ -1,16 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import type SwiperCore from 'swiper';
-import { Autoplay, Navigation } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import { Navigation, Autoplay, EffectFade } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import OptimizedImage from './OptimizedImage';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/effect-fade';
 
 const sections = [
   {
     id: 1,
-    image: encodeURI('/images/banners/Transformacion total.png'),
+    image: '/images/banners/Transformacion total.png',
     title: 'Cambio Radical',
     subtitle: 'Cambio Radical',
     description: 'Renueva completamente tu imagen y se la mujer que siempre quisiste ser',
@@ -19,7 +21,7 @@ const sections = [
   },
   {
     id: 2,
-    image: encodeURI('/images/banners/Duracion sorpentende.jpg'),
+    image: '/images/banners/Duracion sorpentende.jpg',
     title: 'Duración Sorprendente',
     subtitle: 'Tecnología Avanzada',
     description: 'Disfruta de un alisado que permanece perfecto durante 6 a 8 meses',
@@ -28,7 +30,7 @@ const sections = [
   },
   {
     id: 3,
-    image: encodeURI('/images/banners/Despidete del Frizz.jpg'),
+    image: '/images/banners/Despidete del Frizz.jpg',
     title: 'Sin Frizz',
     subtitle: 'Tratamiento Exclusivo',
     description: 'Cabello liso, suave y sin encrespamiento desde la primera sesión.',
@@ -37,7 +39,7 @@ const sections = [
   },
   {
     id: 4,
-    image: encodeURI('/images/banners/cabello sano.png'),
+    image: '/images/banners/cabello sano.png',
     title: 'Cabello Saludable',
     subtitle: 'Cambio Radical',
     description: 'Un alisado seguro y libre de químicos dañinos para cuidar tu salud y tu cabello.',
@@ -47,22 +49,11 @@ const sections = [
 ];
 
 export const ParallaxHeader: React.FC = () => {
+  const swiperRef = useRef<SwiperType>();
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isChanging, setIsChanging] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const swiperRef = useRef<SwiperCore>();
-
-  const handlePrevSlide = () => {
-    if (swiperRef.current) {
-      swiperRef.current.slidePrev();
-    }
-  };
-
-  const handleNextSlide = () => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext();
-    }
-  };
 
   useEffect(() => {
     const loadImages = async () => {
@@ -87,6 +78,18 @@ export const ParallaxHeader: React.FC = () => {
     loadImages();
   }, []);
 
+  const handlePrevSlide = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slidePrev();
+    }
+  };
+
+  const handleNextSlide = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
+  };
+
   if (!imagesLoaded) {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-gray-100">
@@ -99,6 +102,7 @@ export const ParallaxHeader: React.FC = () => {
     <div className="relative w-full h-screen">
       {/* Flechas de navegación */}
       <button 
+        ref={prevRef}
         onClick={handlePrevSlide}
         className="hidden md:flex absolute left-4 z-20 top-1/2 -translate-y-1/2
                    w-12 h-12 items-center justify-center
@@ -113,6 +117,7 @@ export const ParallaxHeader: React.FC = () => {
       </button>
       
       <button 
+        ref={nextRef}
         onClick={handleNextSlide}
         className="hidden md:flex absolute right-4 z-20 top-1/2 -translate-y-1/2
                    w-12 h-12 items-center justify-center
@@ -127,174 +132,139 @@ export const ParallaxHeader: React.FC = () => {
       </button>
 
       <Swiper
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        modules={[Autoplay, Navigation]}
-        className="h-full"
+        modules={[Navigation, Autoplay, EffectFade]}
+        effect="fade"
+        speed={1500}
+        slidesPerView={1}
+        loop={true}
         autoplay={{
-          delay: 5000,
+          delay: 6000,
           disableOnInteraction: false,
         }}
-        loop={true}
-        speed={1200}
-        onSlideChange={() => {
-          setIsChanging(true);
-          setTimeout(() => setIsChanging(false), 500);
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
         }}
-        onActiveIndexChange={(swiper) => {
+        onSwiper={(swiper) => {
+          setTimeout(() => {
+            if (
+              swiper.params.navigation &&
+              typeof swiper.params.navigation !== 'boolean'
+            ) {
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
+          });
+        }}
+        onSlideChange={(swiper) => {
           setCurrentSlide(swiper.realIndex);
         }}
+        className="w-full h-screen relative"
       >
         {sections.map((section, index) => (
-          <SwiperSlide key={index}>
-            <div className="relative h-full">
-              <div className="absolute inset-0">
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="w-full h-full object-cover"
-                  onLoad={() => console.log('Imagen cargada')}
-                />
-                <div className="absolute inset-0 bg-black/40" />
-              </div>
-              <div className="relative h-full flex items-center">
-                <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-                  <AnimatePresence mode="wait" initial={false}>
-                    {currentSlide === index && (
-                      <motion.div
-                        key={section.id}
-                        initial={{ opacity: 0, y: 40 }}
+          <SwiperSlide key={section.id} className="relative w-full h-screen">
+            {/* Contenedor de imagen con altura fija */}
+            <div className="absolute inset-0 w-full h-full">
+              <OptimizedImage
+                src={section.image}
+                alt={section.title}
+                className="w-full h-full object-cover transform scale-[1.02] transition-transform duration-[2000ms]"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                sizes="100vw"
+              />
+            </div>
+            
+            {/* Overlay oscuro con gradiente */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70" />
+            
+            {/* Contenido */}
+            <div className="absolute inset-0 flex items-center">
+              <div className="container mx-auto px-4 lg:px-8">
+                <AnimatePresence mode="wait">
+                  {currentSlide === index && (
+                    <motion.div
+                      key={section.id}
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -40 }}
+                      transition={{
+                        duration: 0.8,
+                        ease: [0.22, 1, 0.36, 1]
+                      }}
+                      className="max-w-3xl"
+                    >
+                      {/* Highlight */}
+                      <motion.span
+                        className="inline-block text-pink-400 text-lg font-medium mb-3"
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -40 }}
-                        transition={{
-                          duration: 0.7,
-                          ease: [0.22, 1, 0.36, 1],
-                          exit: { duration: 0.5 }
-                        }}
-                        className="max-w-3xl space-y-6 px-2 sm:px-4"
+                        transition={{ delay: 0.2 }}
                       >
-                        <motion.h1
-                          initial={{ opacity: 0, scale: 0.9, filter: "blur(12px)" }}
-                          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                          exit={{ opacity: 0, scale: 1.1, filter: "blur(12px)" }}
-                          transition={{ 
-                            delay: 0.3,
-                            duration: 0.7,
-                            ease: [0.22, 1, 0.36, 1]
-                          }}
-                          className="text-5xl xs:text-6xl sm:text-7xl lg:text-8xl font-glitten text-white leading-[1.1] tracking-wide break-words"
-                          style={{
-                            textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                            wordBreak: 'break-word',
-                            overflowWrap: 'break-word',
-                            hyphens: 'auto'
-                          }}
-                        >
-                          {section.title}
-                        </motion.h1>
+                        {section.highlight}
+                      </motion.span>
 
-                        <motion.p
-                          initial={{ opacity: 0, x: -30, filter: "blur(6px)" }}
-                          animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                          exit={{ opacity: 0, x: 30, filter: "blur(6px)" }}
-                          transition={{ 
-                            delay: 0.4,
-                            duration: 0.6,
-                            ease: [0.22, 1, 0.36, 1]
-                          }}
-                          className="text-lg sm:text-xl text-gray-200"
-                        >
-                          {section.description}
-                        </motion.p>
+                      {/* Título */}
+                      <motion.h1
+                        className="text-5xl sm:text-6xl lg:text-7xl font-glitten text-white mb-6"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        {section.title}
+                      </motion.h1>
 
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 20 }}
-                          transition={{ 
-                            delay: 0.5,
-                            duration: 0.6,
-                            ease: [0.22, 1, 0.36, 1]
-                          }}
-                          className="flex flex-wrap gap-4 mt-8"
-                        >
-                          {section.features.map((feature, idx) => (
-                            <motion.div
-                              key={idx}
-                              initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
-                              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                              exit={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
-                              transition={{
-                                delay: 0.6 + idx * 0.1,
-                                duration: 0.5,
-                                ease: [0.22, 1, 0.36, 1]
-                              }}
-                              className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full
-                                       flex items-center space-x-2 text-white hover:bg-white/20 
-                                       transform hover:scale-105 transition-all duration-300"
-                            >
-                              <ChevronRight className="h-4 w-4 text-pink-400" />
-                              <span>{feature}</span>
-                            </motion.div>
-                          ))}
-                        </motion.div>
+                      {/* Descripción */}
+                      <motion.p
+                        className="text-xl text-gray-200 mb-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                      >
+                        {section.description}
+                      </motion.p>
 
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -20 }}
-                          transition={{ delay: 0.8, duration: 0.5 }}
-                          className="pt-8"
-                        >
-                          <a 
-                            href="https://wa.me/524492175606?text=¡Hola! Me interesa obtener más información sobre el servicio de alisado. ¿Podrían proporcionarme detalles sobre precios y disponibilidad? Gracias."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block bg-gradient-to-r from-pink-500 to-pink-600 
-                                     hover:from-pink-600 hover:to-pink-700
-                                     text-white px-8 py-3 rounded-full
-                                     transform transition hover:scale-105
-                                     shadow-lg hover:shadow-pink-500/30">
-                            Reserva tu cita
-                          </a>
-                        </motion.div>
+                      {/* Características */}
+                      <motion.div 
+                        className="flex flex-wrap gap-4 mb-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        {section.features.map((feature, idx) => (
+                          <span
+                            key={idx}
+                            className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm"
+                          >
+                            <span className="mr-2">•</span>
+                            {feature}
+                          </span>
+                        ))}
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+
+                      {/* Botón */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 }}
+                      >
+                        <a
+                          href="#contact"
+                          className="inline-flex items-center px-6 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-medium transition-colors duration-200"
+                        >
+                          Agenda tu cita
+                          <ChevronRight className="ml-2 h-5 w-5" />
+                        </a>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-
-      <style>{`
-        :root {
-          --sat: env(safe-area-inset-top);
-          --sab: env(safe-area-inset-bottom);
-          --sal: env(safe-area-inset-left);
-          --sar: env(safe-area-inset-right);
-        }
-
-        body {
-          padding: 0;
-          margin: 0;
-          overscroll-behavior: none;
-        }
-
-        @supports (-webkit-touch-callout: none) {
-          .h-screen {
-            height: -webkit-fill-available;
-          }
-        }
-
-        @media (max-height: 700px) {
-          .h-screen {
-            min-height: 700px;
-          }
-        }
-      `}</style>
     </div>
   );
 };

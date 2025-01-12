@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginForm } from '../components/admin/LoginForm';
 import { AdminLayout } from '../components/admin/AdminLayout';
-import { PromocionesEditor } from '../components/admin/PromocionesEditor';
+import PromocionesEditor from '../components/admin/PromocionesEditor';
 import { ProtectedRoute } from '../components/admin/ProtectedRoute';
 
 export const Panel = () => {

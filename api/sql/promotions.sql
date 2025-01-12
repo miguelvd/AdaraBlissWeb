@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS promotions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    originalPrice DECIMAL(10,2) DEFAULT 0,
+    discountPrice DECIMAL(10,2) DEFAULT 0,
+    discount VARCHAR(50) DEFAULT '',  -- Cambiado de INT a VARCHAR
+    image VARCHAR(255),
+    startDate DATE,
+    endDate DATE,
+    showPrices BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -1,95 +1,111 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PromoCard from '../components/PromoCard';
-import { getPromotions } from '../services/api';
-import type { Promotion } from '../data/promotions';
-import { WaveDivider } from '../components/WaveDivider';
-import { SparkleGroup } from '../components/SparkleGroup';
-import { Helmet } from 'react-helmet';
+import SEO from '../components/SEO';
+import { usePromociones } from '../hooks/usePromociones';
 
-export const Promociones: React.FC = () => {
-  const [promotions, setPromotions] = useState<Promotion[]>([]);
-  const [loading, setLoading] = useState(true);
+const DEFAULT_IMAGE = '/public/images/default-promo.jpg';
 
-  useEffect(() => {
-    loadPromotions();
-  }, []);
+const Promociones: React.FC = () => {
+  const { promociones, loading, error } = usePromociones();
 
-  const loadPromotions = async () => {
-    try {
-      setLoading(true);
-      const data = await getPromotions();
-      // Filtrar promociones activas según la fecha actual
-      const now = new Date('2025-01-09T13:05:25-06:00');
-      const activePromos = data.filter(promo => {
-        const start = new Date(promo.startDate);
-        const end = new Date(promo.endDate);
-        
-        // Ajustar las fechas al inicio y fin del día
-        start.setUTCHours(0, 0, 0, 0);
-        end.setUTCHours(23, 59, 59, 999);
-
-        return start <= now && now <= end && promo.isActive;
-      });
-
-      setPromotions(activePromos);
-    } catch (error) {
-      console.error('Error loading promotions:', error);
-    } finally {
-      setLoading(false);
-    }
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = DEFAULT_IMAGE;
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#F25AA3]"></div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#F25AA3]"></div>
       </div>
     );
   }
 
-  if (promotions.length === 0) {
+  if (error) {
     return (
-      <div className="text-center text-gray-600">
-        No hay promociones activas en este momento.
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-red-500">Error al cargar las promociones: {error}</div>
       </div>
     );
   }
 
   return (
     <>
-      <Helmet>
-        <title>Promociones - Adara Bliss</title>
-        <meta name="description" content="Descubre nuestras promociones especiales en tratamientos capilares y servicios de belleza." />
-      </Helmet>
-
-      <div className="pt-16 min-h-screen bg-gradient-to-b from-white to-pink-50">
-        <section className="relative py-20 px-4">
-          <SparkleGroup />
-          <div className="container mx-auto">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-[#F25AA3] mb-4">
-                Promociones
-              </h1>
-              <p className="text-gray-600 text-lg">
-                ¡Descubre nuestras increíbles ofertas y tratamientos especiales!
-              </p>
+      <SEO
+        title="Promociones Especiales"
+        description="Descubre nuestras promociones exclusivas en tratamientos faciales, masajes y servicios de belleza. Ofertas por tiempo limitado en Adara Bliss Salon & Spa."
+        keywords={[
+          'promociones spa',
+          'descuentos belleza',
+          'ofertas tratamientos faciales',
+          'promociones masajes',
+          'ofertas especiales spa',
+          'descuentos salon belleza puebla'
+        ]}
+        type="article"
+      />
+      
+      <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen pt-24 pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-glitten text-gray-900 mb-4">
+              Promociones Especiales
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Descubre nuestras ofertas exclusivas y date el gusto que te mereces
+            </p>
+          </div>
+          
+          {promociones.length === 0 ? (
+            <div className="text-center py-16">
+              <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden md:max-w-2xl p-8">
+                <div className="md:flex flex-col items-center">
+                  <div className="mb-6">
+                    <svg
+                      className="mx-auto h-24 w-24 text-pink-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-2xl font-medium text-gray-900 mb-2">
+                      No hay promociones disponibles
+                    </h3>
+                    <p className="text-gray-600 mb-6">
+                      En este momento no tenemos promociones activas, pero estamos trabajando en nuevas ofertas especiales para ti.
+                    </p>
+                    <p className="text-gray-500 text-sm">
+                      ¡Vuelve pronto para descubrir nuestras próximas promociones!
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-
+          ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {promotions.map(promo => (
-                <div 
-                  key={promo.id}
-                  className="opacity-0 translate-y-8 animate-fade-in"
-                  style={{ animationDelay: `${promotions.indexOf(promo) * 150}ms`, animationFillMode: 'forwards' }}
-                >
-                  <PromoCard {...promo} />
+              {promociones.map((promo) => (
+                <div key={promo.id}>
+                  <PromoCard
+                    {...promo}
+                    image={promo.image || DEFAULT_IMAGE}
+                    onImageError={handleImageError}
+                  />
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-        <WaveDivider position="bottom" />
+          )}
+        </div>
       </div>
     </>
   );
 };
+
+export default Promociones;
