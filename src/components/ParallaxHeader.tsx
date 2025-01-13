@@ -48,6 +48,8 @@ const sections = [
   }
 ];
 
+const WHATSAPP_NUMBER = '524492175606';
+
 export const ParallaxHeader: React.FC = () => {
   const swiperRef = useRef<SwiperType>();
   const prevRef = useRef<HTMLButtonElement>(null);
@@ -88,6 +90,11 @@ export const ParallaxHeader: React.FC = () => {
     if (swiperRef.current) {
       swiperRef.current.slideNext();
     }
+  };
+
+  const getWhatsAppLink = (section: typeof sections[0]) => {
+    const message = `Vi en la página web este beneficio del alisado "${section.title}", ¿Podrías darme más información?`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
   if (!imagesLoaded) {
@@ -250,7 +257,7 @@ export const ParallaxHeader: React.FC = () => {
                         transition={{ delay: 0.6 }}
                       >
                         <a
-                          href="#contact"
+                          href={getWhatsAppLink(section)}
                           className="inline-flex items-center px-6 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-medium transition-colors duration-200"
                         >
                           Agenda tu cita

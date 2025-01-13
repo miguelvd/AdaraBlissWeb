@@ -235,7 +235,7 @@ export const AlisadoOrganico = () => {
             Agenda tu cita hoy y descubre la experiencia de un cabello naturalmente hermoso
           </p>
           <a
-            href="https://wa.me/+524492175606"
+            href="https://wa.me/524492175606?text=Hola%2C%20vi%20en%20su%20página%20web%20el%20servicio%20de%20Alisado%20Orgánico%20y%20me%20gustaría%20obtener%20más%20información."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-white text-green-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"

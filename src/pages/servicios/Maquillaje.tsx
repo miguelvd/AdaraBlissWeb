@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Sparkles, Star, Heart, Brush } from 'lucide-react';
+import { Sparkles, Star, Heart, Palette, ChevronDown } from 'lucide-react';
+import { getWhatsAppLink } from '../../constants/whatsapp';
 
 const beneficios = [
   {
@@ -13,7 +14,7 @@ const beneficios = [
     descripcion: "Adaptamos el maquillaje a tu estilo y ocasión"
   },
   {
-    icon: <Brush className="w-6 h-6" />,
+    icon: <Palette className="w-6 h-6" />,
     titulo: "Técnicas Profesionales",
     descripcion: "Aplicamos las últimas tendencias en maquillaje"
   },
@@ -28,7 +29,7 @@ export const Maquillaje = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
       {/* Header con diseño moderno */}
-      <div className="relative min-h-[100vh]">
+      <div className="relative h-[100svh] xs:h-screen">
         {/* Imagen de fondo con overlay */}
         <div className="absolute inset-0">
           <img
@@ -36,65 +37,57 @@ export const Maquillaje = () => {
             alt="Maquillaje Profesional"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-pink-950/70 via-pink-900/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-pink-950/70 via-pink-900/30 to-transparent" />
         </div>
 
-        {/* Contenido del Header con diseño elegante */}
-        <div className="relative min-h-screen flex flex-col justify-between pt-20 pb-10 px-4">
-          {/* Título y descripción con animación */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-center mt-auto"
-          >
-            <h1 className="text-7xl md:text-8xl font-glitten text-white mb-6 drop-shadow-lg tracking-wider">
-              Maquillaje
-            </h1>
-            <p className="text-xl text-white/90 max-w-xl mx-auto leading-relaxed mb-8 font-light tracking-wide">
-              Arte que realza tu belleza natural
-            </p>
-            
-            {/* Botón CTA */}
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              onClick={() => {
-                document.getElementById('beneficios')?.scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }}
-              className="px-8 py-3 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-full
-                hover:bg-white/20 transition-all duration-300 font-light"
+        {/* Contenido del Header */}
+        <div className="relative h-full flex flex-col justify-end items-center px-4 pb-20">
+          {/* Texto Principal */}
+          <div className="text-center max-w-xl">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-[2.5rem] xs:text-5xl sm:text-6xl font-glitten text-white mb-4 px-4"
             >
-              Descubre Más
-            </motion.button>
-          </motion.div>
-
-          {/* Scroll indicator con animación */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
+              Maquillaje Profesional
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-lg text-gray-200 leading-relaxed mb-8 px-4"
+            >
+              Resalta tu belleza natural con nuestro maquillaje profesional
+            </motion.p>
             <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              className="text-white/80"
+              className="flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
             >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+              <motion.button
+                onClick={() => {
+                  const beneficiosSection = document.getElementById('beneficios-maquillaje');
+                  if (beneficiosSection) {
+                    beneficiosSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="px-8 py-3 bg-white/20 backdrop-blur-sm text-white rounded-full
+                  hover:bg-white/30 transition-all duration-300 flex items-center space-x-2"
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
+              >
+                <span>Descubre Más</span>
+                <ChevronDown className="w-5 h-5" />
+              </motion.button>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Sección de Beneficios con diseño moderno */}
-      <div id="beneficios" className="relative py-20 px-4">
+      <div id="beneficios-maquillaje" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Grid de beneficios con animación */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -161,14 +154,12 @@ export const Maquillaje = () => {
               Déjanos crear un look único que refleje tu verdadera esencia
             </p>
             <motion.a
-              href="https://wa.me/tu-numero?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20para%20maquillaje"
+              href="https://wa.me/524492175606?text=Hola%2C%20vi%20en%20su%20página%20web%20el%20servicio%20de%20Maquillaje%20Profesional%20y%20me%20gustaría%20obtener%20más%20información."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-white text-pink-600 px-8 py-4 rounded-full font-medium
-                hover:bg-pink-50 transition-all transform hover:scale-105 duration-300 shadow-lg"
-              whileHover={{ y: -2 }}
+              className="inline-block bg-white text-pink-500 px-8 py-4 rounded-full font-semibold hover:bg-pink-50 transition-colors"
             >
-              Agenda tu Sesión
+              Agenda tu Maquillaje
             </motion.a>
           </motion.div>
         </div>

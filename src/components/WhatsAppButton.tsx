@@ -10,7 +10,7 @@ interface WhatsAppButtonProps {
 
 export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ 
   phoneNumber,
-  message = "¡Hola! Me gustaría agendar una cita para un alisado.",
+  message = "¡Hola! Visité tu página web y me gustaría obtener más información sobre sus servicios. ¿Podrías ayudarme?",
   hideInServices = false,
 }) => {
   const location = useLocation();

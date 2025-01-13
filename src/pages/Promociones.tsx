@@ -50,7 +50,7 @@ const Promociones: React.FC = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-glitten text-gray-900 mb-4">
               Promociones Especiales
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto hidden md:block">
               Descubre nuestras ofertas exclusivas y date el gusto que te mereces
             </p>
           </div>

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import OptimizedImage from '../components/OptimizedImage'; // Import OptimizedImage
 
 const services = [
   { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png', path: '/servicios/alisado' },
@@ -13,6 +14,29 @@ const services = [
 const ServiceHero = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  useEffect(() => {
+    const imageUrls = ['/images/services/hero/main-hero.png', ...services.map(s => s.image)];
+    let loadedCount = 0;
+
+    const preloadImages = imageUrls.map(url => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => {
+          loadedCount++;
+          if (loadedCount === imageUrls.length) {
+            setImagesLoaded(true);
+          }
+          resolve(true);
+        };
+        img.onerror = () => resolve(false);
+      });
+    });
+
+    Promise.all(preloadImages);
+  }, []);
 
   const handleServiceClick = (serviceId: string) => {
     setSelectedService((prev: string | null) => prev === serviceId ? null : serviceId);
@@ -24,6 +48,14 @@ const ServiceHero = () => {
       navigate(service.path);
     }
   };
+
+  if (!imagesLoaded) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-gray-100">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#F25AA3]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full min-h-screen bg-white overflow-hidden -mt-screen mb-0 md:mb-0 mac:mb-0 lg:mb-0">
@@ -212,10 +244,12 @@ const ServiceHero = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <img
+            <OptimizedImage
               src="/images/services/hero/main-hero.png"
               alt="Main hero"
               className="w-full h-[85vh] sm:h-[70vh] md:h-[80vh] object-contain transform -translate-y-12 xs:translate-y-0"
+              loading="eager"
+              sizes="(max-width: 768px) 95vw, (max-width: 1024px) 90vw, 70vw"
             />
           </motion.div>
 
@@ -235,10 +269,12 @@ const ServiceHero = () => {
               }}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <img
+              <OptimizedImage
                 src={service.image}
                 alt={`${service.name} hero`}
                 className="w-full h-[85vh] sm:h-[70vh] md:h-[80vh] object-contain transform -translate-y-12 xs:translate-y-0"
+                loading="eager"
+                sizes="(max-width: 768px) 95vw, (max-width: 1024px) 90vw, 70vw"
               />
             </motion.div>
           ))}

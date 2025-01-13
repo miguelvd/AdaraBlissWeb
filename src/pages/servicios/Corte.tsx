@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Scissors, Star, Sparkles, Heart } from 'lucide-react';
+import { Scissors, Star, Sparkles, Heart, ChevronDown } from 'lucide-react';
 
 const beneficios = [
   {
@@ -26,9 +26,9 @@ const beneficios = [
 
 const Corte = () => {
   return (
-    <div className="min-h-screen bg-white pt-20">
+    <div className="min-h-screen bg-white">
       {/* Header con diseño moderno */}
-      <div className="relative min-h-screen">
+      <div className="relative h-[100svh] xs:h-screen">
         {/* Imagen de fondo con overlay */}
         <div className="absolute inset-0">
           <img
@@ -36,57 +36,57 @@ const Corte = () => {
             alt="Corte de Cabello"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-pink-950/70 via-pink-900/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-pink-950/70 via-pink-900/30 to-transparent" />
         </div>
 
         {/* Contenido del Header */}
-        <div className="relative h-screen flex flex-col">
-          {/* Texto Principal - Posicionado en la parte inferior */}
-          <div className="mt-auto px-4 pb-20">
-            <motion.div
+        <div className="relative h-full flex flex-col justify-end items-center px-4 pb-20">
+          {/* Texto Principal */}
+          <div className="text-center max-w-xl">
+            <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="max-w-xl mx-auto"
+              transition={{ delay: 0.2 }}
+              className="text-[2.5rem] xs:text-5xl sm:text-6xl font-glitten text-white mb-4 px-4"
             >
-              <motion.h1 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="text-7xl md:text-8xl font-glitten text-white mb-4"
-              >
-                Corte
-              </motion.h1>
-              
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-xl text-pink-100 mb-8"
-              >
-                Transforma tu imagen con un corte que refleje tu verdadera esencia
-              </motion.p>
-
+              Corte de Cabello
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-lg text-gray-200 leading-relaxed mb-8 px-4"
+            >
+              Transforma tu estilo con un corte personalizado
+            </motion.p>
+            <motion.div
+              className="flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
               <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
                 onClick={() => {
-                  document.getElementById('info')?.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                  });
+                  const beneficiosSection = document.getElementById('beneficios-corte');
+                  if (beneficiosSection) {
+                    beneficiosSection.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
-                className="group flex items-center space-x-2 text-pink-200 hover:text-pink-100 transition-colors"
+                className="px-8 py-3 bg-white/20 backdrop-blur-sm text-white rounded-full
+                  hover:bg-white/30 transition-all duration-300 flex items-center space-x-2"
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
               >
                 <span>Descubre Más</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
+                <ChevronDown className="w-5 h-5" />
               </motion.button>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Sección de Información */}
-      <div id="info" className="relative py-16 pt-32 overflow-hidden">
+      {/* Sección de Beneficios */}
+      <div id="beneficios-corte" className="py-20 px-4">
         {/* Elementos decorativos de fondo */}
         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-pink-100/30 to-transparent" />
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-pink-100/30 to-transparent" />
@@ -167,7 +167,7 @@ const Corte = () => {
               Déjanos crear el estilo perfecto para ti
             </p>
             <a
-              href="https://wa.me/tu-numero?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20para%20un%20corte"
+              href="https://wa.me/524492175606?text=Hola%2C%20vi%20en%20su%20página%20web%20el%20servicio%20de%20Corte%20de%20Cabello%20y%20me%20gustaría%20obtener%20más%20información."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-white text-pink-500 px-8 py-4 rounded-full font-semibold hover:bg-pink-50 transition-colors"

@@ -20,29 +20,6 @@ const beneficios = [
   }
 ];
 
-const pasos = [
-  {
-    numero: "01",
-    titulo: "Diagnóstico",
-    descripcion: "Evaluación personalizada de tu tipo de cabello"
-  },
-  {
-    numero: "02",
-    titulo: "Limpieza",
-    descripcion: "Preparación profunda del cabello"
-  },
-  {
-    numero: "03",
-    titulo: "Aplicación",
-    descripcion: "Tratamiento con botox capilar premium"
-  },
-  {
-    numero: "04",
-    titulo: "Sellado",
-    descripcion: "Sellado térmico para máxima duración"
-  }
-];
-
 export const Botox = () => {
   return (
     <div className="min-h-screen bg-white">
@@ -102,69 +79,49 @@ export const Botox = () => {
             >
               Rejuvenece y revitaliza tu cabello con nuestro tratamiento premium
             </motion.p>
-
+            
             {/* Botón con scroll suave */}
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              onClick={() => {
-                document.getElementById('descripcion')?.scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-pink-950 transition-all duration-300"
-            >
-              <div className="absolute inset-0 w-full h-full bg-pink-200 rounded-full group-hover:bg-pink-300 transition-all duration-300"></div>
-              <span className="relative">Descubre Más</span>
-              <motion.span
-                className="relative ml-2"
-                initial={{ x: 0 }}
-                whileHover={{ x: 5 }}
-              >
-                →
-              </motion.span>
-            </motion.button>
-          </motion.div>
-
-          {/* Indicador de scroll responsivo */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
             <motion.div
-              animate={{ y: [0, 5, 0] }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 2,
-                ease: "easeInOut" 
-              }}
-              className="text-pink-200"
+              className="flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
             >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-8 w-8" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
+              <motion.button
+                onClick={() => {
+                  const beneficiosSection = document.getElementById('beneficios-botox');
+                  if (beneficiosSection) {
+                    beneficiosSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="px-8 py-3 bg-white/20 backdrop-blur-sm text-white rounded-full
+                  hover:bg-white/30 transition-all duration-300 flex items-center space-x-2"
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M19 9l-7 7-7-7" 
-                />
-              </svg>
+                <span>Descubre Más</span>
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-5 w-5" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M19 9l-7 7-7-7" 
+                  />
+                </svg>
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>
       </div>
 
       {/* Descripción Principal con diseño mejorado */}
-      <div id="descripcion" className="relative bg-white py-20">
+      <div id="beneficios-botox" className="relative bg-white py-20">
         {/* Elementos decorativos de fondo */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-pink-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30" />
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-pink-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30" />
@@ -252,45 +209,6 @@ export const Botox = () => {
         </div>
       </div>
 
-      {/* Proceso */}
-      <div className="py-12 md:py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl text-center font-glitten text-pink-800 mb-12"
-          >
-            Proceso del Tratamiento
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pasos.map((paso, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="relative bg-white p-6 rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow"
-              >
-                {/* Número de paso con efecto de hover */}
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-gradient-to-br from-pink-100 to-pink-200 rounded-full flex items-center justify-center transform -rotate-12 group-hover:rotate-0 transition-transform">
-                  <span className="text-3xl font-bold text-pink-600">
-                    {paso.numero}
-                  </span>
-                </div>
-                <h3 className="text-xl font-semibold text-pink-900 mb-2 relative z-10">
-                  {paso.titulo}
-                </h3>
-                <p className="text-gray-600 relative z-10">
-                  {paso.descripcion}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* CTA Final */}
       <div className="bg-gradient-to-r from-pink-500 to-pink-400 py-12 md:py-20 px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
@@ -306,7 +224,7 @@ export const Botox = () => {
             Agenda tu cita hoy y descubre la transformación que el botox capilar puede hacer en tu cabello
           </p>
           <a
-            href="https://wa.me/524492175606"
+            href="https://wa.me/524492175606?text=Vi%20en%20la%20página%20web%20este%20beneficio%20del%20alisado%20%22Botox%22%2C%20%C2%BFPodrías%20darme%20más%20información%3F"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition-colors"

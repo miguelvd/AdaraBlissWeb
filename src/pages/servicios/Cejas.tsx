@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Brush, Star, Sparkles, Heart, Palette } from 'lucide-react';
+import { Brush, Star, Sparkles, Heart, Palette, Scissors, ChevronDown } from 'lucide-react';
+import { getWhatsAppLink } from '../../constants/whatsapp';
 
 const beneficios = [
   {
@@ -28,7 +29,7 @@ export const Cejas = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50/50 to-white">
       {/* Header con diseño moderno */}
-      <div className="relative min-h-screen">
+      <div className="relative h-[100svh] xs:h-screen">
         {/* Imagen de fondo con overlay */}
         <div className="absolute inset-0">
           <img
@@ -36,41 +37,57 @@ export const Cejas = () => {
             alt="Diseño de Cejas"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-pink-900/80 via-pink-800/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-pink-950/70 via-pink-900/30 to-transparent" />
         </div>
 
         {/* Contenido del Header */}
-        <div className="relative h-screen flex flex-col">
-          {/* Texto Principal - Posicionado en la parte inferior */}
-          <div className="mt-auto px-4 pb-20">
-            <motion.div
+        <div className="relative h-full flex flex-col justify-end items-center px-4 pb-20">
+          {/* Texto Principal */}
+          <div className="text-center max-w-xl">
+            <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="max-w-xl mx-auto text-center"
+              transition={{ delay: 0.2 }}
+              className="text-[2.5rem] xs:text-5xl sm:text-6xl font-glitten text-white mb-4 px-4"
             >
-              <motion.h1 
-                className="text-6xl md:text-7xl font-glitten text-white mb-4 drop-shadow-lg"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+              Diseño de Cejas
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-lg text-gray-200 leading-relaxed mb-8 px-4"
+            >
+              Arte y precisión para enmarcar tu mirada
+            </motion.p>
+            <motion.div
+              className="flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <motion.button
+                onClick={() => {
+                  const beneficiosSection = document.getElementById('beneficios-cejas');
+                  if (beneficiosSection) {
+                    beneficiosSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="px-8 py-3 bg-white/20 backdrop-blur-sm text-white rounded-full
+                  hover:bg-white/30 transition-all duration-300 flex items-center space-x-2"
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
               >
-                Diseño de Cejas
-              </motion.h1>
-              <motion.p
-                className="text-xl text-white/90 mb-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                Arte y precisión para enmarcar tu mirada
-              </motion.p>
+                <span>Descubre Más</span>
+                <ChevronDown className="w-5 h-5" />
+              </motion.button>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Sección de Servicios */}
-      <div className="py-20 px-4">
+      {/* Sección de Beneficios */}
+      <div id="beneficios-cejas" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -79,14 +96,14 @@ export const Cejas = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-glitten text-pink-900 mb-6">
-              Nuestros Servicios
+              Nuestros Beneficios
             </h2>
             <p className="text-lg text-pink-700/80 max-w-2xl mx-auto">
               Combinamos técnicas modernas con productos naturales para resultados excepcionales
             </p>
           </motion.div>
 
-          {/* Grid de Servicios */}
+          {/* Grid de Beneficios */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {beneficios.map((beneficio, index) => (
               <motion.div
@@ -142,14 +159,12 @@ export const Cejas = () => {
               Descubre el poder de unas cejas perfectamente diseñadas
             </p>
             <motion.a
-              href="https://wa.me/tu-numero?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20para%20diseño%20de%20cejas"
+              href="https://wa.me/524492175606?text=Hola%2C%20vi%20en%20su%20página%20web%20el%20servicio%20de%20Diseño%20de%20Cejas%20y%20me%20gustaría%20obtener%20más%20información."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-pink-600 text-white px-8 py-4 rounded-full font-medium
-                hover:bg-pink-700 transition-all transform hover:scale-105 duration-300 shadow-lg"
-              whileHover={{ y: -2 }}
+              className="inline-block bg-white text-pink-500 px-8 py-4 rounded-full font-semibold hover:bg-pink-50 transition-colors"
             >
-              Agenda tu Cita
+              Agenda tu Diseño de Cejas
             </motion.a>
           </motion.div>
         </div>
