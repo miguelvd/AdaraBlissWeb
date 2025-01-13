@@ -16,21 +16,21 @@ const testimonials: Testimonial[] = [
     role: "Cliente frecuente",
     content: "El mejor servicio de alaciado que he probado. Mi cabello quedó increíble y el efecto duró mucho más de lo esperado.",
     rating: 5,
-    image: "/images/testimonials/testimonial1.png.png"
+    image: "/images/testimonials/testimonial-1.jpg"
   },
   {
     name: "Ana Rodríguez",
     role: "Cliente nueva",
     content: "Excelente atención y resultados profesionales. El personal es muy amable y conocedor.",
     rating: 5,
-    image: "/images/testimonials/testimonial2.png.png"
+    image: "/images/testimonials/testimonial-2.jpg"
   },
   {
     name: "Laura Martínez",
     role: "Cliente frecuente",
     content: "Increíble experiencia. Mi cabello nunca había lucido tan hermoso y saludable.",
     rating: 5,
-    image: "/images/testimonials/testimonial1.png.png"
+    image: "/images/testimonials/testimonial-3.jpg"
   }
 ];
 
