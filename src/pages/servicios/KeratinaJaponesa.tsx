@@ -1,6 +1,8 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Star, Sparkles, ArrowDownWideNarrow, Wand2, Clock } from 'lucide-react';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
+import { trackScheduleAppointment } from '../../utils/facebookPixel';
 
 const KeratinaJaponesa = () => {
   const handleScrollTo = (elementId: string) => {
@@ -235,12 +237,13 @@ const KeratinaJaponesa = () => {
             Agenda tu cita hoy y descubre la experiencia de la keratina japonesa
           </p>
           <a
-            href="https://wa.me/524492175606?text=Hola%2C%20vi%20en%20su%20página%20web%20el%20servicio%20de%20Keratina%20Japonesa%20y%20me%20gustaría%20obtener%20más%20información."
+            href="https://wa.me/524492175606?text=Hola,%20me%20interesa%20el%20servicio%20de%20keratina%20japonesa,%20¿podrías%20darme%20más%20información?"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-white text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-block bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition-colors"
+            onClick={() => trackScheduleAppointment('Keratina Japonesa')}
           >
-            Agenda tu Cita
+            Agendar Cita
           </a>
         </div>
       </section>

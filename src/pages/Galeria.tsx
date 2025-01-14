@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { galleries } from '../data/galleries';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { trackGalleryInteraction } from '../utils/facebookPixel';
 
 export const Galeria = () => {
   const [selectedCategory, setSelectedCategory] = useState<keyof typeof galleries>('keratinaJaponesa');
@@ -51,9 +52,16 @@ export const Galeria = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (selectedCategory) {
+      trackGalleryInteraction('view', selectedCategory);
+    }
+  }, [selectedCategory]);
+
   const handleImageClick = (imageUrl: string, index: number) => {
     setSelectedImage(imageUrl);
     setCurrentImageIndex(index);
+    trackGalleryInteraction('zoom', selectedCategory);
   };
 
   const handleCategoryChange = (category: keyof typeof galleries) => {

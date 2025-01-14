@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Zap, Leaf } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { trackScheduleAppointment } from '../../utils/facebookPixel';
 
 const serviciosAlaciado = [
   {

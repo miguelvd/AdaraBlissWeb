@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
+import { trackContactFormSubmission } from '../utils/facebookPixel';
 
 // Inicializar EmailJS
 emailjs.init("CR8cbh63NyhAqGGkM");
@@ -43,6 +44,11 @@ export const ContactForm = () => {
         'template_1fgmkp6',
         templateParams
       );
+
+      trackContactFormSubmission({
+        service: data.message.includes('servicio') ? 'Consulta de Servicio' : 'General',
+        source: 'Contact Form'
+      });
 
       setSubmitStatus('success');
       reset();

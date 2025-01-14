@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import OptimizedImage from '../components/OptimizedImage'; // Import OptimizedImage
+import { trackServiceNavigation } from '../utils/facebookPixel'; // Import trackServiceNavigation
 
 const services = [
   { id: 'alisado', name: 'Alisado', image: '/images/services/hero/alisado-hero.png', path: '/servicios/alisado' },
@@ -15,6 +16,7 @@ const ServiceHero = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const prevServiceRef = useRef(selectedService);
 
   useEffect(() => {
     const imageUrls = ['/images/services/hero/main-hero.png', ...services.map(s => s.image)];
@@ -37,6 +39,13 @@ const ServiceHero = () => {
 
     Promise.all(preloadImages);
   }, []);
+
+  useEffect(() => {
+    if (prevServiceRef.current !== selectedService && selectedService !== null && prevServiceRef.current !== null) {
+      trackServiceNavigation(prevServiceRef.current, selectedService);
+      prevServiceRef.current = selectedService;
+    }
+  }, [selectedService]);
 
   const handleServiceClick = (serviceId: string) => {
     setSelectedService((prev: string | null) => prev === serviceId ? null : serviceId);

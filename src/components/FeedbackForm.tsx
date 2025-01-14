@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import emailjs from '@emailjs/browser';
 import { jsPDF } from 'jspdf';
+import { trackFeedbackSubmission } from '../utils/facebookPixel';
 
 interface FeedbackFormData {
   name: string;
@@ -63,6 +64,7 @@ export const FeedbackForm = () => {
       
       // Enviar email con EmailJS
       const templateParams = {
+        to_name: 'Adara Bliss',
         from_name: data.name,
         from_email: data.email,
         service: data.service,
@@ -78,6 +80,11 @@ export const FeedbackForm = () => {
         templateParams,
         'YOUR_PUBLIC_KEY'   // Reemplazar con tu Public Key de EmailJS
       );
+
+      trackFeedbackSubmission({
+        service: data.service,
+        rating: data.rating
+      });
 
       setSubmitStatus('success');
       reset();

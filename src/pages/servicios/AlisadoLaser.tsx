@@ -1,7 +1,9 @@
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Star, Sparkles, ArrowDownWideNarrow, Wand2, Clock } from 'lucide-react';
 import { useRef } from 'react';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
+import { trackScheduleAppointment, trackServiceView } from '../../utils/facebookPixel';
 
 export const AlisadoLaser = () => {
   const beneficiosRef = useRef<HTMLDivElement>(null);
@@ -12,6 +14,10 @@ export const AlisadoLaser = () => {
       block: 'start'
     });
   };
+
+  useEffect(() => {
+    trackServiceView('Alisado Láser');
+  }, []);
 
   return (
     <div className="relative">
@@ -235,12 +241,13 @@ export const AlisadoLaser = () => {
             Agenda tu cita hoy y descubre la experiencia de un cabello perfectamente liso
           </p>
           <a
-            href="https://wa.me/524492175606?text=Hola%2C%20vi%20en%20su%20página%20web%20el%20servicio%20de%20Alisado%20Láser%20y%20me%20gustaría%20obtener%20más%20información."
+            href="https://wa.me/524492175606?text=Hola,%20me%20interesa%20el%20servicio%20de%20alisado%20láser,%20¿podrías%20darme%20más%20información?"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-block bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition-colors"
+            onClick={() => trackScheduleAppointment('Alisado Láser')}
           >
-            Agenda tu Cita
+            Agendar Cita
           </a>
         </div>
       </section>

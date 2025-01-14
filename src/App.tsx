@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { WhatsAppButton } from './components/WhatsAppButton';
@@ -25,10 +25,30 @@ import FAQ from './pages/legal/FAQ';
 import ScrollToTop from './components/ScrollToTop';
 import { Panel } from './pages/Panel';
 import './styles/swiper.css';
+import { fbq } from './utils/facebookPixel';
+import { trackDeepScroll } from './utils/facebookPixel';
 
 const App: FC = () => {
+  useEffect(() => {
+    // Inicializar el píxel de Facebook y rastrear la vista de página
+    fbq('track', 'PageView');
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const percentage = (scrolled / total) * 100;
+      
+      trackDeepScroll(percentage, window.location.pathname);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   console.log('Renderizando App component');
-  
+
   return (
     <Router>
       <ScrollToTop />

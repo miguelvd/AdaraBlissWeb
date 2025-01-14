@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Star, Shield, Sparkles } from 'lucide-react';
+import { trackScheduleAppointment } from '../../utils/facebookPixel';
 
 const beneficios = [
   {
@@ -228,6 +229,7 @@ export const Botox = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition-colors"
+            onClick={() => trackScheduleAppointment('Botox')}
           >
             Agendar Cita
           </a>
