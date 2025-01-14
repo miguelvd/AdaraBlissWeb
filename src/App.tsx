@@ -31,6 +31,11 @@ import { trackDeepScroll } from './utils/facebookPixel';
 const App: FC = () => {
   useEffect(() => {
     // Inicializar el píxel de Facebook y rastrear la vista de página
+    // Solo inicializar si fbq no está ya inicializado
+    if (window.fbq && typeof window.fbq.getState === 'function') {
+      console.log('Facebook Pixel ya inicializado');
+      return;
+    }
     fbq('track', 'PageView');
   }, []);
 
