@@ -1,5 +1,7 @@
 export const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    // Crear la fecha en UTC
+    const date = new Date(dateString + 'T12:00:00Z');
+    
     // Ajustar la fecha a la zona horaria de México
     const options: Intl.DateTimeFormatOptions = {
         timeZone: 'America/Mexico_City',
@@ -7,5 +9,6 @@ export const formatDate = (dateString: string) => {
         month: '2-digit',
         year: 'numeric'
     };
-    return date.toLocaleDateString('es-MX', options);
+    
+    return new Intl.DateTimeFormat('es-MX', options).format(date);
 };

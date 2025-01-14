@@ -1,5 +1,6 @@
 import React from 'react';
 import { Promotion } from '../../types/promotion';
+import { formatDate } from '../../utils/dateUtils';
 
 interface PromoPreviewProps {
   promotion: Promotion;
@@ -7,16 +8,6 @@ interface PromoPreviewProps {
 
 export const PromoPreview: React.FC<PromoPreviewProps> = ({ promotion }) => {
   if (!promotion) return null;
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('es-MX', { 
-      timeZone: 'America/Mexico_City',
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    });
-  };
 
   const previewPromotion = {
     ...promotion,
@@ -33,10 +24,10 @@ export const PromoPreview: React.FC<PromoPreviewProps> = ({ promotion }) => {
           <p className="text-gray-600 mb-4">{promotion.description}</p>
           <div className="flex flex-col gap-2">
             <p className="text-sm text-gray-500">
-              <span className="font-medium">Inicio:</span> {formatDate(promotion.startDate)}
+              <span className="font-medium">Inicio:</span> {previewPromotion.startDate}
             </p>
             <p className="text-sm text-gray-500">
-              <span className="font-medium">Fin:</span> {formatDate(promotion.endDate)}
+              <span className="font-medium">Fin:</span> {previewPromotion.endDate}
             </p>
           </div>
         </div>
