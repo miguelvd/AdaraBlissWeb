@@ -78,8 +78,11 @@ const PromoCard: React.FC<PromoCardProps> = ({
         {/* Encabezado */}
         <div className="space-y-4">
           {/* Etiqueta de descuento */}
-          <div className="absolute top-4 right-4 bg-pink-500 text-white px-3 py-1 rounded-full shadow-lg">
-            {discountLabel || `${discount}% OFF`}
+          <div className="inline-flex items-center gap-2 bg-white/90 text-pink-600 px-4 py-2 rounded-full shadow-lg transform group-hover:scale-105 transition-all duration-300">
+            <IconComponent className="w-5 h-5" />
+            <span className="font-bold text-sm">
+              {discount || 'Ver promoción'}
+            </span>
           </div>
         </div>
 
